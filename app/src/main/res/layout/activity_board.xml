@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bkg_paper">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:padding="24dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/header"/>
+
+    <GridLayout
+        android:id="@+id/board_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:padding="16dp">
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/board_solution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:padding="16dp">
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/board_tiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:padding="16dp">
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/board_background"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginLeft="@dimen/medium_margin"
+        android:layout_marginRight="@dimen/medium_margin"
+        android:background="@drawable/marquee"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/marquee"
+            android:layout_margin="@dimen/small_margin"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="#FFFFFFFF"
+            android:textAllCaps="false"
+            android:onClick="solve5x5Board"
+            android:text="Level 000"
+            android:textSize="@dimen/medium_text"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/prev_button"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:onClick="prevLevel"
+                android:src="@drawable/ic_prev"/>
+
+            <ImageView
+                android:id="@+id/reset_button"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="@dimen/medium_margin"
+                android:layout_marginRight="@dimen/medium_margin"
+                android:onClick="resetLevel"
+                android:src="@drawable/ic_reset"/>
+
+            <ImageView
+                android:id="@+id/next_button"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:onClick="nextLevel"
+                android:src="@drawable/ic_next"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

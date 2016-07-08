@@ -1,0 +1,136 @@
+<resources>
+    <string name="app_name">All Lights Off</string>
+    <string name="play_button">Play Game</string>
+    <string name="level_button">Select Level</string>
+    <string name="settings_button">Settings</string>
+    <string name="help_button">How to play</string>
+    <string name="about_button">About</string>
+    <string name="end_game_message">Well done! ;^P</string>
+    <string name="toast_reset_board">Press the button again to reset the level</string>
+    <string name="toast_next_level">Press the button again to go to the next level</string>
+    <string name="toast_prev_level">Press the button again to go to the previous level</string>
+    <string name="toast_close_app">Press back again to close this app</string>
+    <string name="toast_leave_game">Press back again to leave the current game</string>
+    <string name="tile_code_on">O</string>
+    <string name="tile_code_off">·</string>
+    <string name="level">"Level "</string>
+    <string-array name="level_codes">
+        <!-- Set 001 -->
+        <item>··········O·O·O·········· # Three Little Pegs</item> <!-- Level 001 -->
+        <item>O·O·OO·O·O·····O·O·OO·O·O # Six Fingers (BUSCAR MEJOR)</item>
+        <item>·OOO·OOOOO·····OOOOO·OOO· # The Hamburguer</item>
+        <item>·····OO·OO·····O···OOO·OO # Throwing Boomerangs</item>
+        <item>OOOO·OOO·OOOO·O···OOOO·OO # ???</item>
+        <item>··········O·O·OO·O·O·OOO· # Prince\'s Coronet</item>
+        <item>OOOO·O···OO···OO···OOOOO· # The Dude</item>
+        <item>·······O···O·O·O·O·O·O·O· # Fallen Star</item>
+        <item>·O·O·OOOOO·OOO··O·OOOOO·· # Mutated Hashtag</item>
+        <item>·OOO··OOO··OOO··········· # Square Lamp</item> <!-- Level 010 -->
+        <item>O·O·OO·O·OO·O·OO·O·O·OOO· # King\'s Crown</item>
+        <item>OOOOO·O·O·OO·OO·OOO··O·O· # Hammerhead Monster</item>
+        <item>···O···O·O·O·O·O·O···O··· # Double Divide</item>
+        <item>···········O····O····O··· # The Pillar</item>
+        <item>······O·········O········ # Two Acquaintances</item>
+        <item>O····O····O····O····OOOOO # The L-World</item>
+        <item>············O···OOO·OOOOO # Isosceles</item>
+        <item>··O···O·O·O·O·O·O·O···O·· # Starring</item>
+        <item>O·O·O·····O·O·O·····O·O·O # The Classroom</item>
+        <item>··········O···O·········· # Snake Eyes</item> <!-- Level 020 -->
+        <item>·OOOO·O····OOO··O····O··· # The F-World</item>
+        <item>·OOO·O···OO···OO···O·OOO· # The Meeting</item>
+        <item>············OOO··OO···O·· # Stealth Plane</item>
+        <item>··········O···OOOOOO·O··O # Sausage Dog</item>
+        <item>O····OO···OOO··OOOO··OOOO # Stairway To Heaven</item> <!-- Level 025 -->
+        <!-- Set 002 -->
+        <item>O···OO···OOOOOOO···OO···O # Lifting Weights</item> <!-- Level 001 -->
+        <item>··O···OOO···O····O····O·· # Hug Me Please</item>
+        <item>············OOO··OOO··OOO # The Container</item>
+        <item>······O·················· # A Pale Blue Dot</item>
+        <item>··O····O··O·O·OOOOOO··O·· # Elektra\'s Tools</item>
+        <item>O···OOO··OO·O·OO··OOO···O # The N-World</item>
+        <item>OOOOO···O···O···O···OOOOO # The Zorro</item>
+        <item>···O····O·O·O·OO···OO··OO # ???</item>
+        <item>··O·OO···OO···O·OO·O·OOOO # ???</item>
+        <item>···OO·O·O·O···OO·O·O····· # ???</item> <!-- Level 010 -->
+        <item>··O···O·O·O···OOOOOOO···O # A Helmet</item>
+        <item>······OOO··OOO··OOO······ # Rubik\'s Cube</item>
+        <item>·OOO·O·O·OOO·OOOO·OOO···O # Sir Lancelot</item>
+        <item>·O·O·O····OO·····OO··O·O· # Centaur Tennis</item>
+        <item>···········O·O··········· # Little Snake Eyes</item>
+        <item>O···O·O·O···O····O····O·· # Fluzo Condenser</item>
+        <item>OOO··O··O·OOO··O··O·OOO·· # The B-World</item>
+        <item>O···OOO·O·OOO···O····OOO· # Gorgon Signaling</item>
+        <item>·····OO·OOOOOOO··O···OOO· # The Lobster</item>
+        <item>·OOO·O·O····OOOOOOO·O·O·O # Blind Centaur Knight</item> <!-- Level 020 -->
+        <item>··O···OOO·OOOOO·OOO···O·· # Greedy\'s Best Friend</item>
+        <item>··O··OOOOOO·O···O··O····O # ???</item>
+        <item>·····O···O··O··O···O····· # The Ambush II</item>
+        <item>O···O·O·O···O···O·O·O···O # Marks The Spot</item>
+        <item>OOOOOOOOOOOOOOOOOOOOOOOOO # Hard Work</item> <!-- Level 025 -->
+        <!-- Set 003 -->
+        <item>OO·OO·····OO·OO·····OO·OO # Six Fingers II (BUSCAR MEJOR)</item> <!-- Level 001 -->
+        <item>OOOOO··O·········O··OOOOO # The Battle</item>
+        <item>OOOOO·O·O···O···O·O·OOOOO # No Time</item>
+        <item>·O·O·O···O·····OO·OOO···O # Boomerangs Return</item>
+        <item>··O···OO··OO·OO··OO···O·· # The Fan</item>
+        <item>·O·O·OOOOOO·O·OOOOOO·O·O· # Venetian Party</item>
+        <item>O·O·OO···OOO·OOO···OO·O·O # Not The Way Out</item>
+        <item>···········OOO··O········ # Lonely Tetris</item>
+        <item>····O···O···O···OO··O·O·· # Eolic Energy</item>
+        <item>·····O·O·OO···OO·O·OO···O # The Way Out</item> <!-- Level 010 -->
+        <item>OOOOO·OOO··OOO··OOO·OOOOO # The Goblet</item>
+        <item>O···O·O·O·······O·O·O···O # Convergence</item>
+        <item>·OOO··O·O··OOO····O··OOO· # The Rotten Eight</item>
+        <item>OOOO·O··O·OOOO·OOO··O··O· # The Right To The Left</item>
+        <item>·O·O··O·O·O·O·OO·O·OO·O·O # Ronald Fries</item>
+        <item>·OOO··O····OOO····O··OOO· # Kryptonite</item>
+        <item>OOOOOO···OO·O·OO···OOOOOO # Literally Surrounded</item>
+        <item>O·O·OOOOOO·OOO··OOO·OOOOO # Chess Corner</item>
+        <item>·O·O·O·O·O·OOO·O·O·O·O·O· # The Popular Student</item>
+        <item>O·O·O···············O·O·O # ???</item> <!-- Level 020 -->
+        <item>OOOOOO·OOOOO·OOOOO·OOOOOO # Wolverine\'s Wound</item>
+        <item>O···OO···OOOOOO··O··OOOOO # Red Or White?</item>
+        <item>OO·OO·O·O·OO·OO·O·O·OO·OO # Overlook Hotel</item>
+        <item>··O···O·O·OOOOOO···OOOOOO # ???</item>
+        <item>O···OOO·OOO·O·OO···OO···O # The M-World</item> <!-- Level 025 -->
+        <!-- Set 004 -->
+        <item>OOOOOO·O·OOOOOOO·O·OOOOOO # The Cage</item> <!-- Level 001 -->
+        <item>·OOO···O····O····O···OOO· # Up Close And Personal</item>
+        <item>·OOO··O·O·OOOOO·OOO·OO·OO # Despicable Minion</item>
+        <item>············O············ # Belly Button</item>
+        <item>O···O·······O·······O···O # The Ambush I</item>
+        <item>OO·OOOO·OO·····OO·OOOO·OO # Parcheesi</item>
+        <item>·O·O······O···O·OOO···O·· # V For Vendetta</item>
+        <item>O·O·O·OOO·OO·OO·OOO·O·O·O # Ka-Boom</item>
+        <item>··O····O··OOOOO··O····O·· # Nice Addition</item>
+        <item>O·O·OO·O·OOO·OOO·O·OO·O·O # ???</item> <!-- Level 010 -->
+        <item>O·O·OO·O·O·OOO···O····O·· # Poseidon</item>
+        <item>O·O·OO·O·OO·O·OO·O·OOOOOO # Wolverine\'s Handshake</item>
+        <item>·O·O··O·O··O·O··OOO···O·· # Perfect Pitch</item>
+        <item>O···OOO·OO··O············ # Dark Knight</item>
+        <item>O·O·O·O·O·O·O·O·O·O·O·O·O # Speed Chess</item>
+        <item>O···O·OOO··O·O··OOO·O···O # ???</item>
+        <item>··O···O·O·O···O·O·O···O·· # Hollow Diamond</item>
+        <item>O·O·O······O·O······O·O·O # Ballroom Dancers</item>
+        <item>·O·O·OOOOO·O·O·OOOOO·O·O· # Trending Topic</item>
+        <item>OOOOOO·O·OOOOOOO·OOOOOOOO # ???</item> <!-- Level 020 -->
+        <item>OO··OOO·O···O···O·OOO··OO # One Hundred</item>
+        <item>OOOOO··O··OOOOO··O··OOOOO # ???</item>
+        <item>OOOOO·OOO···O···OOO·OOOOO # Too Much Time</item>
+        <item>··O··O·O·OOOOOOO·O·O··O·· # Powered WiFi</item>
+        <item>·OOO·O·O·OOOOOOOOOOOO·O·O # Not Pac-Man</item> <!-- Level 025 -->
+        <!-- Hard Levels -->
+        <item>······O·O·O·O·O·O·O······ # Möbius Trip</item>
+        <item>O························ # Impossible solution</item>
+    </string-array>
+    <string-array name="quiet_patterns">
+        <item>O·O·OO·O·O·····O·O·OO·O·O</item>
+        <item>OO·OO·····OO·OO·····OO·OO</item>
+        <item>·OOO·O·O·OOO·OOO·O·O·OOO·</item>
+    </string-array>
+
+    <!-- Todo: remove after string array is fixed -->
+    <string name="quiet_pattern_A">O·O·OO·O·O·····O·O·OO·O·O</string>
+    <string name="quiet_pattern_B">OO·OO·····OO·OO·····OO·OO</string>
+    <string name="quiet_pattern_C">·OOO·O·O·OOO·OOO·O·O·OOO·</string>
+</resources>
