@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/level_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg_paper"
-    android:columnWidth="96dp"
-    android:numColumns="auto_fit"
-    android:gravity="center"
-    android:horizontalSpacing="10dp"
-    android:paddingLeft="@dimen/medium_margin"
-    android:paddingRight="@dimen/medium_margin"
-    android:stretchMode="spacingWidth"
-    android:verticalSpacing="10dp"
     tools:context="com.artactivo.alllightsoff.LevelsActivity">
 
-</GridView>
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FF006699"
+        android:text="Select Level"
+        android:textSize="@dimen/huge_text"/>
+
+    <GridView
+        android:id="@+id/level_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:background="@drawable/bkg_paper"
+        android:columnWidth="96dp"
+        android:fadingEdgeLength="16dp"
+        android:requiresFadingEdge="vertical"
+        android:gravity="center"
+        android:horizontalSpacing="16dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="auto_fit"
+        android:padding="@dimen/medium_margin"
+        android:stretchMode="spacingWidth"
+        android:verticalSpacing="32dp">
+
+    </GridView>
+
+</RelativeLayout>

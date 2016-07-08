@@ -5,22 +5,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.provider.ContactsContract;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LevelsActivity extends AppCompatActivity {
     private final String LOGCAT = "AllLightsOff";
@@ -118,7 +112,7 @@ public class LevelsActivity extends AppCompatActivity {
                     patternCanvas.drawBitmap(thumbTileOff, posX * thumbTileWidth, posY * thumbTileWidth, null);
                 }
             }
-            ImageView imageView2 = (ImageView) gridItem.findViewById(R.id.level_pattern2);
+            ImageView imageView2 = (ImageView) gridItem.findViewById(R.id.level_pattern);
             imageView2.setImageBitmap(thumbPattern);
 
             return gridItem;

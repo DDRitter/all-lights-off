@@ -25,6 +25,8 @@ import java.util.Arrays;
 
 import static android.media.AudioManager.*;
 import static android.support.v7.app.ActionBar.*;
+import static com.artactivo.alllightsoff.FileOperations.readFromFile;
+import static com.artactivo.alllightsoff.FileOperations.writeToFile;
 
 public class BoardActivity extends AppCompatActivity implements View.OnTouchListener {
     private final String LOGCAT = "AllLightsOff";
@@ -196,13 +198,40 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
     /**
      * This method checks if the board is solved
-     * and ends the game
+     * and ends the game, saving the new data
      */
     private void checkBoard() {
         if (mSolvedTiles == numberOfTiles) {
             String endMessage = getResources().getString(R.string.end_game_message) + "      Moves: " + mNumberOfMoves;
             TextView textView = (TextView) findViewById(R.id.panel);
             textView.setText(endMessage);
+            // Todo: read the data from the file and add the new values from the current level
+            // Reads the game data from the file
+            String gameData = readFromFile(this);
+            // Changes the data on the corresponding level if it's different
+            String newGameData = "";
+            String currentLevelStatus = String.format("%04d", mCurrentLevel);
+            currentLevelStatus += "B"; // Todo: assign the appropriate value here based on the moves table (A, B or C)
+            newGameData = gameData.substring(0, 5 * mCurrentLevel) + currentLevelStatus + gameData.substring(5 * (mCurrentLevel + 1));
+            writeToFile(newGameData, this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // Clears the board and sets some endgame values
             GridLayout board = (GridLayout) findViewById(R.id.board_tiles);
             board.removeAllViews();
             gameHasEnded = true;
@@ -390,9 +419,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
-     * This method sets the approppriate mode for the navigation and reset buttons,
+     * This method sets the appropriate mode for the navigation and reset buttons,
      * depending on the level number
-     * Todo: Not working as intended, add delay between lights
      */
     public void setPanelButtons() {
         View view = findViewById(R.id.reset_button);

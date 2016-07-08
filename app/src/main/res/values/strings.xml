@@ -15,7 +15,6 @@
     <string name="tile_code_off">·</string>
     <string name="level">"Level "</string>
     <string-array name="level_codes">
-        <!-- Set 001 -->
         <item>··········O·O·O·········· # Three Little Pegs</item> <!-- Level 001 -->
         <item>O·O·OO·O·O·····O·O·OO·O·O # Six Fingers (BUSCAR MEJOR)</item>
         <item>·OOO·OOOOO·····OOOOO·OOO· # The Hamburguer</item>
@@ -41,7 +40,6 @@
         <item>············OOO··OO···O·· # Stealth Plane</item>
         <item>··········O···OOOOOO·O··O # Sausage Dog</item>
         <item>O····OO···OOO··OOOO··OOOO # Stairway To Heaven</item> <!-- Level 025 -->
-        <!-- Set 002 -->
         <item>O···OO···OOOOOOO···OO···O # Lifting Weights</item> <!-- Level 001 -->
         <item>··O···OOO···O····O····O·· # Hug Me Please</item>
         <item>············OOO··OOO··OOO # The Container</item>
@@ -67,7 +65,6 @@
         <item>·····O···O··O··O···O····· # The Ambush II</item>
         <item>O···O·O·O···O···O·O·O···O # Marks The Spot</item>
         <item>OOOOOOOOOOOOOOOOOOOOOOOOO # Hard Work</item> <!-- Level 025 -->
-        <!-- Set 003 -->
         <item>OO·OO·····OO·OO·····OO·OO # Six Fingers II (BUSCAR MEJOR)</item> <!-- Level 001 -->
         <item>OOOOO··O·········O··OOOOO # The Battle</item>
         <item>OOOOO·O·O···O···O·O·OOOOO # No Time</item>
@@ -93,7 +90,6 @@
         <item>OO·OO·O·O·OO·OO·O·O·OO·OO # Overlook Hotel</item>
         <item>··O···O·O·OOOOOO···OOOOOO # ???</item>
         <item>O···OOO·OOO·O·OO···OO···O # The M-World</item> <!-- Level 025 -->
-        <!-- Set 004 -->
         <item>OOOOOO·O·OOOOOOO·O·OOOOOO # The Cage</item> <!-- Level 001 -->
         <item>·OOO···O····O····O···OOO· # Up Close And Personal</item>
         <item>·OOO··O·O·OOOOO·OOO·OO·OO # Despicable Minion</item>

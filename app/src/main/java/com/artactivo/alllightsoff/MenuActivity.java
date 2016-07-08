@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import static android.view.Gravity.CENTER_VERTICAL;
+import static com.artactivo.alllightsoff.FileOperations.*;
 
 public class MenuActivity extends AppCompatActivity {
     private Toast toast;
@@ -42,6 +43,38 @@ public class MenuActivity extends AppCompatActivity {
 
     public void openAbout(View view) {
 
+    }
+
+
+
+
+    // File test methods
+
+    public void resetData(View view) {
+        String data = "0000A";                             // The first level is available
+        int numberOfLevels = getResources().getStringArray(R.array.level_codes).length;
+        for (int id = 1; id < numberOfLevels; id++) {
+            data += String.format("%04dL", id);           // The rest of the levels are locked
+        }
+        writeToFile(data, this);
+        Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
+    }
+
+    public void loadData(View view) {
+        String loadText = readFromFile(this);
+        Toast.makeText(this, "String loaded: " + loadText, Toast.LENGTH_LONG).show();
+    }
+
+    public void saveDataA(View view) {
+        writeToFile("AAA", this);
+    }
+
+    public void saveDataB(View view) {
+        writeToFile("BBB", this);
+    }
+
+    public void appendDataC(View view) {
+        appendToFile("CCC", this);
     }
 
 
