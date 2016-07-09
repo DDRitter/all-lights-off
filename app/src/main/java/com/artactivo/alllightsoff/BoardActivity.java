@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 import static android.media.AudioManager.*;
 import static android.support.v7.app.ActionBar.*;
@@ -125,8 +126,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 reset.setEnabled(true);
                 reset.setAlpha(1.0f);
             }
-            mNumberOfMoves++;
             playClickSound();
+            mNumberOfMoves++;
+            showNumberOfMoves(mNumberOfMoves);
             hideSolutionTile(view.getId());
             changeTiles(view.getId());
             checkBoard();
@@ -175,7 +177,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         if (mSolutionPattern[id] == 1) {
             GridLayout layout = (GridLayout) findViewById(R.id.board_solution);
             ImageView image = (ImageView) layout.findViewById(id);
-            image.setImageResource(android.R.color.transparent);
+            if (image != null) {  // It can be null if the solution is not displayed
+                image.setImageResource(android.R.color.transparent);
+            }
         }
     }
 
@@ -191,7 +195,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             animateFade(image, 0);
             mSolvedTiles++;
             mTilePattern[id] = 0;
-        } else {                                          // if it's the off tile
+        } else {                                             // if it's the off tile
             animateFade(image, 1);
             mSolvedTiles--;
             mTilePattern[id] = 1;
@@ -209,15 +213,16 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             String gameData = readFromFile(this);
             // Changes the data on the corresponding level if it's different
             String newGameData = "";
-            String currentLevelStatus = String.format("%04d", mCurrentLevel);
+            String currentLevelStatus = String.format(Locale.getDefault(), "%04d", mCurrentLevel);
             currentLevelStatus += "B"; // Todo: assign the appropriate value here based on the moves table (A, B or C)
             newGameData = gameData.substring(0, 5 * mCurrentLevel) + currentLevelStatus + gameData.substring(5 * (mCurrentLevel + 1));
             writeToFile(newGameData, this);
             mSavegameData = newGameData;
 
             // Shows the end message
+            TextView textView;
             String endMessage = getResources().getString(R.string.end_game_message) + "      Moves: " + mNumberOfMoves + "    Level Data: " + getLevelData(mSavegameData, mCurrentLevel);
-            TextView textView = (TextView) findViewById(R.id.panel);
+            textView = (TextView) findViewById(R.id.level_name);
             textView.setText(endMessage);
 
             // Clears the board and sets some endgame values
@@ -407,8 +412,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             }
         }
 
-        TextView textView = (TextView) findViewById(R.id.panel);
-        textView.setText(getString(R.string.level) + String.format("%03d", mCurrentLevel + 1) + "   " + mLevelName[mCurrentLevel]);
+        // Draws the tiles on screen
         LayoutParams lp = new LayoutParams(tileSize, tileSize);
         board = (GridLayout) findViewById(R.id.board_tiles);
         board.removeAllViews();
@@ -427,14 +431,20 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             }
             board.addView(image);
         }
-        setPanelButtons();
+
+        // Precalculates the solution of the board
+        calculateSolution();
+
+        // Sets the content of the panel
+        setPanelContent();
     }
 
     /**
-     * This method sets the appropriate mode for the navigation, reset buttons and stars,
-     * depending on the level number and status
+     * This method sets the appropriate mode for the navigation, reset buttons, stars,
+     * level number, level name and number of moves
      */
-    public void setPanelButtons() {
+    public void setPanelContent() {
+        TextView textView;
         View view = findViewById(R.id.reset_button);
         view.setEnabled(false);
         view.setAlpha(0.25f);
@@ -459,8 +469,27 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         // Set the stars visualization based on the status of the level
         setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.buttons));
+
+        // Displays the level number
+        textView = (TextView) findViewById(R.id.level_number);
+        textView.setText(String.format(Locale.getDefault(), "%03d", mCurrentLevel + 1));
+
+        // Displays the level name
+        textView = (TextView) findViewById(R.id.level_name);
+        textView.setText(mLevelName[mCurrentLevel]);
+
+        // Displays the number of moves (0)
+        showNumberOfMoves(mNumberOfMoves);
     }
 
+    /**
+     * This method displays graphically the number of moves made
+     */
+    public void showNumberOfMoves(int numberOfMoves) {
+        TextView textView;
+        textView = (TextView) findViewById(R.id.number_of_moves);
+        textView.setText(String.valueOf(mNumberOfMoves));
+    }
 
 
     /**
@@ -506,11 +535,22 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
-     * This method solves the board and shows the solution with green tiles
+     * This method shows the solution on the board with green tiles
      * Note: This only works with 5 tiles
      */
-    // Todo: unify the two sweeps into one method
-    public void solve5x5Board(View view) {
+
+    public void showSolution(View view) {
+        calculateSolution();
+        displaySolution(numberOfColumns, sizeOfTiles, mSolutionPattern);
+        Log.i(LOGCAT, "Solution Moves:" + countTiles(mSolutionPattern));
+    }
+
+    /**
+     * This method calculates the solution of the board
+     * Note: This only works with 5 tiles
+     */
+    public void calculateSolution() {
+        // Todo: unify the two sweeps into one method
         int[] mTemporaryPattern = new int[numberOfTiles];
         boolean ruleA = false;
         boolean ruleB = false;
@@ -533,7 +573,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
 
         if (countTiles(mTemporaryPattern) != 0) { // if the board is not solved on the first sweep
-                                                  // apply the rules and sweep again
+            // apply the rules and sweep again
             if (mTemporaryPattern[20] == 1) { // If A5(20) is ON, click on D1(3) and E1(4)
                 ruleA = true;
             }
@@ -586,18 +626,16 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         }
         mSolutionPattern = optimizeSolution(mSolutionPattern);
-
-        showSolution(numberOfColumns, sizeOfTiles, mSolutionPattern);
     }
 
 
     /**
      * This method verifies the current tile position and checks neighbour tiles to swap its values
      *
-     * @param id The tile view id inside the board
+     * @param id      The tile view id inside the board
      * @param pattern the array of the board
      */
-    private void changePattern(int id,  int[] pattern) {
+    private void changePattern(int id, int[] pattern) {
         int posX = id % numberOfColumns;
         int posY = id / numberOfColumns;
         swapId(id, pattern);
@@ -700,9 +738,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
     /**
      * This method draws the pattern with the solution
-     *
      */
-    public void showSolution(int numColumns, int tileSize, int[] pattern) {
+    public void displaySolution(int numColumns, int tileSize, int[] pattern) {
         ImageView image;
         LayoutParams lp = new LayoutParams(tileSize, tileSize);
         GridLayout board = (GridLayout) findViewById(R.id.board_solution);

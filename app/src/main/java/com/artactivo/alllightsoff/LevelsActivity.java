@@ -43,6 +43,7 @@ public class LevelsActivity extends AppCompatActivity {
         levelsGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // We start the board activity with the selected level taken from the position on the grid
+                // Todo: check if the level is locked and ignore the click if that's the case
                 Intent intent = new Intent(getBaseContext(), BoardActivity.class);
                 intent.putExtra("level_number", position);
                 startActivity(intent);
@@ -84,15 +85,23 @@ public class LevelsActivity extends AppCompatActivity {
                 gridItem = (View) convertView;
             }
 
-            // Sets the star rating based on the level status
-            setStars(getLevelData(mSavegameData, position), gridItem);
-
             // Sets the level number
             TextView textView = (TextView) gridItem.findViewById(R.id.level_number);
             String levelNumber = String.format(Locale.getDefault(), "%03d", position + 1);
             textView.setText(levelNumber);
 
-            // Todo: If the level is not completed, hide the remaining levels with a lock icon
+            // Sets the star rating based on the level status
+            String status = getLevelData(mSavegameData, position);
+            setStars(status, gridItem);
+
+            // If the level is not completed, hide the remaining levels with a lock icon
+            // Todo
+
+            if (status.equals("L")) {
+                ImageView imageView = (ImageView) gridItem.findViewById(R.id.level_pattern);
+                imageView.setImageResource(R.drawable.level_lock);
+                return gridItem;
+            }
 
             // Sets the grid pattern content on a Bitmap with a Canvas
 
@@ -119,8 +128,8 @@ public class LevelsActivity extends AppCompatActivity {
                     patternCanvas.drawBitmap(thumbTileOff, posX * thumbTileWidth, posY * thumbTileWidth, null);
                 }
             }
-            ImageView imageView2 = (ImageView) gridItem.findViewById(R.id.level_pattern);
-            imageView2.setImageBitmap(thumbPattern);
+            ImageView imageView = (ImageView) gridItem.findViewById(R.id.level_pattern);
+            imageView.setImageBitmap(thumbPattern);
 
             return gridItem;
         }

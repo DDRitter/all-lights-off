@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bkg_paper"
     tools:context="com.artactivo.alllightsoff.LevelsActivity">
 
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#FF006699"
+        android:layout_height="48dp"
+        android:gravity="center"
         android:text="Select Level"
         android:textSize="@dimen/huge_text"/>
 
@@ -20,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
-        android:background="@drawable/bkg_paper"
         android:columnWidth="96dp"
         android:fadingEdgeLength="16dp"
         android:requiresFadingEdge="vertical"

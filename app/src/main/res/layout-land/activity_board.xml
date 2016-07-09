@@ -30,7 +30,7 @@
     </GridLayout>
 
     <TextView
-        android:id="@+id/panel"
+        android:id="@+id/level_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
