@@ -25,8 +25,7 @@ import java.util.Arrays;
 
 import static android.media.AudioManager.*;
 import static android.support.v7.app.ActionBar.*;
-import static com.artactivo.alllightsoff.FileOperations.readFromFile;
-import static com.artactivo.alllightsoff.FileOperations.writeToFile;
+import static com.artactivo.alllightsoff.Utilities.*;
 
 public class BoardActivity extends AppCompatActivity implements View.OnTouchListener {
     private final String LOGCAT = "AllLightsOff";
@@ -35,6 +34,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private long lastResetPressTime = 0;
     private long lastNextPressTime = 0;
     private long lastPrevPressTime = 0;
+    private long lastLevelPressTime = 0;
 
     private SoundPool soundEffects;
     private int clickSoundId;
@@ -43,6 +43,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private int sizeOfTiles;
     private String[] mLevelCode;
     private String[] mLevelName;
+    private String mSavegameData;
     private int mCurrentLevel;
     private int[] mTilePattern = new int[numberOfTiles];
     private int[] mSolutionPattern = new int[numberOfTiles];
@@ -58,6 +59,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         mLevelName = new String[mLevelCode.length];
         mNumberOfMoves = 0;
+        mSavegameData = readFromFile(this);
 
         Intent intent = getIntent();
         if (intent.hasExtra("level_number")) {
@@ -96,15 +98,15 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         }
         sizeOfTiles = (int) boardDimensionPx / numberOfColumns;
 
-        // Adjust the header height or width to half of the remaining screen space
-        // to keep the board centered on the screen
+        // Adjust the header height or width to one third of the remaining screen space.
+        // The controls and info area will take the other two thirds
         RelativeLayout.LayoutParams rlp;
         ImageView header = (ImageView) findViewById(R.id.header);
         if (isPortrait) {
-            rlp = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, remainingPxSpace / 2);
+            rlp = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, remainingPxSpace / 3);
             header.setLayoutParams(rlp);
         } else {
-            rlp = new RelativeLayout.LayoutParams(remainingPxSpace / 2, LayoutParams.MATCH_PARENT);
+            rlp = new RelativeLayout.LayoutParams(remainingPxSpace / 3, LayoutParams.MATCH_PARENT);
             header.setLayoutParams(rlp);
         }
     }
@@ -202,9 +204,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     private void checkBoard() {
         if (mSolvedTiles == numberOfTiles) {
-            String endMessage = getResources().getString(R.string.end_game_message) + "      Moves: " + mNumberOfMoves;
-            TextView textView = (TextView) findViewById(R.id.panel);
-            textView.setText(endMessage);
             // Todo: read the data from the file and add the new values from the current level
             // Reads the game data from the file
             String gameData = readFromFile(this);
@@ -214,22 +213,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             currentLevelStatus += "B"; // Todo: assign the appropriate value here based on the moves table (A, B or C)
             newGameData = gameData.substring(0, 5 * mCurrentLevel) + currentLevelStatus + gameData.substring(5 * (mCurrentLevel + 1));
             writeToFile(newGameData, this);
+            mSavegameData = newGameData;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // Shows the end message
+            String endMessage = getResources().getString(R.string.end_game_message) + "      Moves: " + mNumberOfMoves + "    Level Data: " + getLevelData(mSavegameData, mCurrentLevel);
+            TextView textView = (TextView) findViewById(R.id.panel);
+            textView.setText(endMessage);
 
             // Clears the board and sets some endgame values
             GridLayout board = (GridLayout) findViewById(R.id.board_tiles);
@@ -280,6 +269,30 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         clickSoundId = soundEffects.load(this, R.raw.click, 1);
     }
+
+
+    /**
+     * This method opens the level select activity
+     */
+    public void selectLevel(View view) {
+        if (mNumberOfMoves > 0) {
+            if (this.lastLevelPressTime < System.currentTimeMillis() - 2500) {
+                toast = Toast.makeText(this, R.string.toast_select_level, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+                this.lastLevelPressTime = System.currentTimeMillis();
+                return;
+            } else {
+                if (toast != null) {
+                    toast.cancel();
+                }
+            }
+        }
+        Intent intent = new Intent(this, LevelsActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     /**
      * This method resets the current level
@@ -375,7 +388,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         int currentPos = 0;
 
         // Clears the solution board
-        // TOdo: the game crashes if I click on a tile after changing level if this is active
         for (int id = 0; id < numberOfTiles; id++) {
             hideSolutionTile(id);
         }
@@ -419,19 +431,20 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
-     * This method sets the appropriate mode for the navigation and reset buttons,
-     * depending on the level number
+     * This method sets the appropriate mode for the navigation, reset buttons and stars,
+     * depending on the level number and status
      */
     public void setPanelButtons() {
         View view = findViewById(R.id.reset_button);
         view.setEnabled(false);
         view.setAlpha(0.25f);
 
-        if (mCurrentLevel == mLevelCode.length - 1) {                // We are at the last level
+        if (mCurrentLevel == mLevelCode.length - 1 ||                 // We are at the last level or
+            getLevelData(mSavegameData, mCurrentLevel + 1).equals("L")) { // the next level is locked
             view = findViewById(R.id.next_button);
             view.setEnabled(false);
             view.setAlpha(0.25f);
-        } else if (mCurrentLevel == 0) {                             // We are at the first level
+        } else if (mCurrentLevel == 0) {                              // We are at the first level
             view = findViewById(R.id.prev_button);
             view.setEnabled(false);
             view.setAlpha(0.25f);
@@ -443,6 +456,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             view.setEnabled(true);
             view.setAlpha(1.0f);
         }
+
+        // Set the stars visualization based on the status of the level
+        setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.buttons));
     }
 
 
@@ -488,13 +504,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         }
         super.onBackPressed();
     }
-
-
-
-
-
-
-
 
     /**
      * This method solves the board and shows the solution with green tiles

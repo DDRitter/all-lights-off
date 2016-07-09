@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,17 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Locale;
+
+import static com.artactivo.alllightsoff.Utilities.*;
 
 public class LevelsActivity extends AppCompatActivity {
     private final String LOGCAT = "AllLightsOff";
     // Todo: store this array in the splash and pass it to the new activities instead of creating a new one each time
     private String[] mLevelCode;
+    private String mSavegameData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,7 @@ public class LevelsActivity extends AppCompatActivity {
 
         // Todo: store this array in the splash and pass it to the new activities instead of creating a new one each time
         mLevelCode = getResources().getStringArray(R.array.level_codes);
+        mSavegameData = readFromFile(this);
 
         GridView levelsGrid = (GridView) findViewById(R.id.level_list);
         levelsGrid.setAdapter(new CustomAdapter(this));
@@ -38,6 +46,7 @@ public class LevelsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), BoardActivity.class);
                 intent.putExtra("level_number", position);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -75,14 +84,12 @@ public class LevelsActivity extends AppCompatActivity {
                 gridItem = (View) convertView;
             }
 
-            // Sets the star rating
-            // Todo: Use actual data stored for this
-            ImageView imageView = (ImageView) gridItem.findViewById(R.id.star1);
-            imageView.setImageResource(R.drawable.star_lit);
+            // Sets the star rating based on the level status
+            setStars(getLevelData(mSavegameData, position), gridItem);
 
             // Sets the level number
             TextView textView = (TextView) gridItem.findViewById(R.id.level_number);
-            String levelNumber = String.format("%03d", position + 1);
+            String levelNumber = String.format(Locale.getDefault(), "%03d", position + 1);
             textView.setText(levelNumber);
 
             // Todo: If the level is not completed, hide the remaining levels with a lock icon

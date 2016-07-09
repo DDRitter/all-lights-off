@@ -7,8 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
-import static android.view.Gravity.CENTER_VERTICAL;
-import static com.artactivo.alllightsoff.FileOperations.*;
+import static com.artactivo.alllightsoff.Utilities.*;
 
 public class MenuActivity extends AppCompatActivity {
     private Toast toast;
@@ -64,20 +63,6 @@ public class MenuActivity extends AppCompatActivity {
         String loadText = readFromFile(this);
         Toast.makeText(this, "String loaded: " + loadText, Toast.LENGTH_LONG).show();
     }
-
-    public void saveDataA(View view) {
-        writeToFile("AAA", this);
-    }
-
-    public void saveDataB(View view) {
-        writeToFile("BBB", this);
-    }
-
-    public void appendDataC(View view) {
-        appendToFile("CCC", this);
-    }
-
-
 
     /*
      * This method allows you to close the app by pressing twice the back button
