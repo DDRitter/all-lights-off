@@ -6,11 +6,14 @@
     <string name="help_button">How to play</string>
     <string name="about_button">About</string>
     <string name="end_game_message">Well done! ;^P</string>
+
+    <string name="toast_select_level">Press the button again to select another level</string>
     <string name="toast_reset_board">Press the button again to reset the level</string>
-    <string name="toast_next_level">Press the button again to go to the next level</string>
+    <string name="toast_next_level">Press the button again to advance to the next level</string>
     <string name="toast_prev_level">Press the button again to go to the previous level</string>
     <string name="toast_close_app">Press back again to close this app</string>
     <string name="toast_leave_game">Press back again to leave the current game</string>
+
     <string name="tile_code_on">O</string>
     <string name="tile_code_off">·</string>
     <string name="level">"Level "</string>
@@ -118,6 +121,7 @@
         <!-- Hard Levels -->
         <item>······O·O·O·O·O·O·O······ # Möbius Trip</item>
         <item>O························ # Impossible solution</item>
+        <item>OOOOOOOOOOOOOOO·········· # Last Item</item>
     </string-array>
     <string-array name="quiet_patterns">
         <item>O·O·OO·O·O·····O·O·OO·O·O</item>
