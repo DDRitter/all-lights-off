@@ -4,6 +4,9 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import java.io.BufferedReader;
@@ -89,50 +92,68 @@ public class Utilities {
         switch (status) {
             case "A":
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_unlit);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_unlit);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_unlit);
                 break;
             case "B":
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_lit);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_unlit);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_unlit);
                 break;
             case "C":
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_lit);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_lit);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_unlit);
                 break;
             case "D":
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_lit);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_lit);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_lit);
                 break;
             case "E":
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_disabled);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_disabled);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_disabled);
                 break;
             case "F":
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_question);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_disabled);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_disabled);
                 break;
             case "G":
@@ -145,21 +166,49 @@ public class Utilities {
                 break;
             case "H":
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_question);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_question);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.star_question);
                 break;
 
             default:
                 // Todo: remove this when finished
                 imageView = (ImageView) view.findViewById(R.id.star1);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.splash_icon);
                 imageView = (ImageView) view.findViewById(R.id.star2);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.splash_icon);
                 imageView = (ImageView) view.findViewById(R.id.star3);
+                animateFade(imageView, 1, 1500);
                 imageView.setImageResource(R.drawable.splash_icon);
         }
+    }
+
+    /**
+     * This method animates the fade in-out of an ImageView
+     *
+     * @param imageView the ImageView object
+     * @param toggle indicates if the animation is a fade-in or a fade-out
+     * @param duration the duration of the animation in milliseconds
+     *
+     */
+    protected static void animateFade(ImageView imageView, int toggle, int duration) {
+        Animation fade = null;
+        if (toggle == 1) {
+            fade = new AlphaAnimation(0, 1);
+        } else {
+            fade = new AlphaAnimation(1, 0);
+        }
+        fade.setInterpolator(new DecelerateInterpolator());
+        fade.setDuration(duration);
+        fade.setFillAfter(true);
+        imageView.setAlpha(1.0f);
+        imageView.startAnimation(fade);
     }
 }

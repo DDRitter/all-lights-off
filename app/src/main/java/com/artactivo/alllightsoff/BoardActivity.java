@@ -197,11 +197,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         GridLayout layout = (GridLayout) findViewById(R.id.board_tiles);
         ImageView image = (ImageView) layout.findViewById(id);
         if (mTilePattern[id] == 1) {                         //if it's the blue tile
-            animateFade(image, 0);
+            animateFade(image, 0, 300);
             mSolvedTiles++;
             mTilePattern[id] = 0;
         } else {                                             // if it's the off tile
-            animateFade(image, 1);
+            animateFade(image, 1, 300);
             mSolvedTiles--;
             mTilePattern[id] = 1;
         }
@@ -265,26 +265,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
-     * This method animates the fade in-out of an ImageView
-     *
-     * @param imageView the ImageView object
-     * @param id        the identifier location on the board
-     */
-    private void animateFade(ImageView imageView, int id) {
-        Animation fade = null;
-        if (id == 1) {
-            fade = new AlphaAnimation(0, 1);
-        } else {
-            fade = new AlphaAnimation(1, 0);
-        }
-        fade.setInterpolator(new DecelerateInterpolator());
-        fade.setDuration(300);
-        fade.setFillAfter(true);
-        imageView.setAlpha(1.0f);
-        imageView.startAnimation(fade);
-    }
-
-    /**
      * This method creates the SoundPool that stores all the sound effects from the game
      */
     private void prepareSounds() {
@@ -292,7 +272,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         clickSoundId = soundEffects.load(this, R.raw.click, 1);
     }
-
 
     /**
      * This method opens the level select activity
@@ -315,7 +294,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         startActivity(intent);
         finish();
     }
-
 
     /**
      * This method resets the current level
@@ -529,7 +507,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             image.setLayoutParams(lp);
             image.setImageResource(R.drawable.tile_on);
             board.addView(image);
-            animateFade(image, 1);
+            animateFade(image, 1, 300);
         }
     }
 
@@ -787,44 +765,76 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     // Todo: all
     private void displayMovementsLeft(int numberOfMoves, int solutionMoves) {
         if (!gameHasEnded) {
-            Bitmap oneMove;
-            ImageView imageView = (ImageView) findViewById(R.id.number_of_moves_image);
-            // TOdo: move this next line inside the first if
-            numberOfMoves = solutionMoves - mNumberOfMoves;
-            if (numberOfMoves > 0) {
-                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_gold);
-            } else if (numberOfMoves > -solutionMoves) {
-                numberOfMoves = solutionMoves + numberOfMoves;
-                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_silver);
-                setStars("G", findViewById(R.id.button_row));
-            } else if (numberOfMoves > -solutionMoves * 2) {
-                numberOfMoves = (solutionMoves * 2) + numberOfMoves;
-                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_bronze);
-                setStars("F", findViewById(R.id.button_row));
-            } else {
-                imageView.setImageResource(R.drawable.star_disabled);
-                setStars("E", findViewById(R.id.button_row));
-                return;
-            }
+            numberOfMoves = solutionMoves * 3 - numberOfMoves;
+            Bitmap singleTick;
             Bitmap movesPattern = null;
-            int oneMoveWidth = oneMove.getWidth();
-            int numberOfColumns;
-            int numberOfRows = ((solutionMoves - 1) / 5) + 1;
-            if (solutionMoves > 4) {
-                numberOfColumns = 5;
-            } else {
-                numberOfColumns = solutionMoves;
-            }
-
-            movesPattern = Bitmap.createBitmap(oneMoveWidth * numberOfColumns, oneMoveWidth * numberOfRows, Bitmap.Config.ARGB_8888);
+            ImageView imageView = (ImageView) findViewById(R.id.number_of_moves_image);
+            singleTick = BitmapFactory.decodeResource(getResources(), R.drawable.star_bronze);
+            int numberOfColumns = numberOfMoves < 1 ? 1 : numberOfMoves;
+            int singleTickWidth = singleTick.getWidth();
+            movesPattern = Bitmap.createBitmap(singleTickWidth * numberOfColumns, singleTickWidth, Bitmap.Config.ARGB_8888);
             Canvas patternCanvas = new Canvas(movesPattern);
 
+            if (numberOfMoves == 0) {
+                setStars("E", findViewById(R.id.button_row));
+            } else if (numberOfMoves == solutionMoves) {
+                setStars("F", findViewById(R.id.button_row));
+            } else if (numberOfMoves == solutionMoves * 2) {
+                setStars("G", findViewById(R.id.button_row));
+            }
+
+
             for (int id = 0; id < numberOfMoves; id++) {
+                if (id == solutionMoves) {
+                    singleTick = BitmapFactory.decodeResource(getResources(), R.drawable.star_silver);
+                } else if (id == solutionMoves * 2) {
+                    singleTick = BitmapFactory.decodeResource(getResources(), R.drawable.star_gold);
+                }
                 int posX = id % numberOfColumns;
                 int posY = id / numberOfColumns;
-                patternCanvas.drawBitmap(oneMove, posX * oneMoveWidth, posY * oneMoveWidth, null);
+                patternCanvas.drawBitmap(singleTick, posX * singleTickWidth, posY * singleTickWidth, null);
             }
             imageView.setImageBitmap(movesPattern);
+
+
+//            Bitmap oneMove;
+//            ImageView imageView = (ImageView) findViewById(R.id.number_of_moves_image);
+//            // TOdo: move this next line inside the first if
+//            numberOfMoves = solutionMoves - mNumberOfMoves;
+//            if (numberOfMoves > 0) {
+//                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_gold);
+//            } else if (numberOfMoves > -solutionMoves) {
+//                numberOfMoves = solutionMoves + numberOfMoves;
+//                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_silver);
+//                setStars("G", findViewById(R.id.button_row));
+//            } else if (numberOfMoves > -solutionMoves * 2) {
+//                numberOfMoves = (solutionMoves * 2) + numberOfMoves;
+//                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_bronze);
+//                setStars("F", findViewById(R.id.button_row));
+//            } else {
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                setStars("E", findViewById(R.id.button_row));
+//                return;
+//            }
+//            Bitmap movesPattern = null;
+//            int oneMoveWidth = oneMove.getWidth();
+//            int numberOfColumns;
+//            int numberOfRows = ((solutionMoves - 1) / 5) + 1;
+//            if (solutionMoves > 4) {
+//                numberOfColumns = 5;
+//            } else {
+//                numberOfColumns = solutionMoves;
+//            }
+//
+//            movesPattern = Bitmap.createBitmap(oneMoveWidth * numberOfColumns, oneMoveWidth * numberOfRows, Bitmap.Config.ARGB_8888);
+//            Canvas patternCanvas = new Canvas(movesPattern);
+//
+//            for (int id = 0; id < numberOfMoves; id++) {
+//                int posX = id % numberOfColumns;
+//                int posY = id / numberOfColumns;
+//                patternCanvas.drawBitmap(oneMove, posX * oneMoveWidth, posY * oneMoveWidth, null);
+//            }
+//            imageView.setImageBitmap(movesPattern);
         }
     }
 }
