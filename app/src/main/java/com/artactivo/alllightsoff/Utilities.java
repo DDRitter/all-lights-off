@@ -70,10 +70,23 @@ public class Utilities {
     /**
      * This method assigns the appropriate stars to the
      *
+     * @param status is:
+     * A -> No Stars (Not solved at all)
+     * B -> One Star (Solved with more than 3 times the movements needed)
+     * C -> Two Stars (Solved with more than 2 times the movements needed)
+     * D -> Three Stars (Solved with the minimum movements needed)
+     *
+     * L -> Locked
+     *
+     * E -> No question mark at all (Game in progress, more than 3 times the moves needed)
+     * F -> One star as question mark (Game in progress, more than 2 times the moves needed)
+     * G -> Two stars with question mark (Game in progress, more than the moves needed)
+     * H -> All stars as question mark (Game has started, still able to win all)
+
      */
-    protected static void setStars(String levelStatus, View view) {
+    protected static void setStars(String status, View view) {
         ImageView imageView;
-        switch (levelStatus) {
+        switch (status) {
             case "A":
                 imageView = (ImageView) view.findViewById(R.id.star1);
                 imageView.setImageResource(R.drawable.star_unlit);
@@ -106,6 +119,39 @@ public class Utilities {
                 imageView = (ImageView) view.findViewById(R.id.star3);
                 imageView.setImageResource(R.drawable.star_lit);
                 break;
+            case "E":
+                imageView = (ImageView) view.findViewById(R.id.star1);
+                imageView.setImageResource(R.drawable.star_disabled);
+                imageView = (ImageView) view.findViewById(R.id.star2);
+                imageView.setImageResource(R.drawable.star_disabled);
+                imageView = (ImageView) view.findViewById(R.id.star3);
+                imageView.setImageResource(R.drawable.star_disabled);
+                break;
+            case "F":
+                imageView = (ImageView) view.findViewById(R.id.star1);
+                imageView.setImageResource(R.drawable.star_question);
+                imageView = (ImageView) view.findViewById(R.id.star2);
+                imageView.setImageResource(R.drawable.star_disabled);
+                imageView = (ImageView) view.findViewById(R.id.star3);
+                imageView.setImageResource(R.drawable.star_disabled);
+                break;
+            case "G":
+                imageView = (ImageView) view.findViewById(R.id.star1);
+                imageView.setImageResource(R.drawable.star_question);
+                imageView = (ImageView) view.findViewById(R.id.star2);
+                imageView.setImageResource(R.drawable.star_question);
+                imageView = (ImageView) view.findViewById(R.id.star3);
+                imageView.setImageResource(R.drawable.star_disabled);
+                break;
+            case "H":
+                imageView = (ImageView) view.findViewById(R.id.star1);
+                imageView.setImageResource(R.drawable.star_question);
+                imageView = (ImageView) view.findViewById(R.id.star2);
+                imageView.setImageResource(R.drawable.star_question);
+                imageView = (ImageView) view.findViewById(R.id.star3);
+                imageView.setImageResource(R.drawable.star_question);
+                break;
+
             default:
                 // Todo: remove this when finished
                 imageView = (ImageView) view.findViewById(R.id.star1);

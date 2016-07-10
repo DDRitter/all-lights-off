@@ -3,6 +3,9 @@ package com.artactivo.alllightsoff;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -51,6 +54,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private int mSolvedTiles;
     private int mNumberOfMoves;
     private boolean gameHasEnded;
+    private int mSolutionMoves;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +136,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             hideSolutionTile(view.getId());
             changeTiles(view.getId());
             checkBoard();
+            displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
             return true;
         } else {
             return false;
@@ -221,9 +226,21 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
             // Shows the end message
             TextView textView;
-            String endMessage = getResources().getString(R.string.end_game_message) + "      Moves: " + mNumberOfMoves + "    Level Data: " + getLevelData(mSavegameData, mCurrentLevel);
+            String endMessage = getResources().getString(R.string.end_game_message);
             textView = (TextView) findViewById(R.id.level_name);
             textView.setText(endMessage);
+
+            // Shows the approppriate stars
+            if (mNumberOfMoves <= mSolutionMoves) {
+                setStars("D", findViewById(R.id.button_row));
+            } else if (mNumberOfMoves <= mSolutionMoves * 2) {
+                setStars("C", findViewById(R.id.button_row));
+
+            } else if (mNumberOfMoves <= mSolutionMoves * 3) {
+                setStars("B", findViewById(R.id.button_row));
+            } else {
+                setStars("A", findViewById(R.id.button_row));
+            }
 
             // Clears the board and sets some endgame values
             GridLayout board = (GridLayout) findViewById(R.id.board_tiles);
@@ -231,6 +248,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             gameHasEnded = true;
             mNumberOfMoves = 0;
         }
+
     }
 
     /**
@@ -467,8 +485,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             view.setAlpha(1.0f);
         }
 
-        // Set the stars visualization based on the status of the level
-        setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.buttons));
+        // Set the stars visualization as default (all question marks)
+        setStars("H", findViewById(R.id.button_row));
 
         // Displays the level number
         textView = (TextView) findViewById(R.id.level_number);
@@ -480,6 +498,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         // Displays the number of moves (0)
         showNumberOfMoves(mNumberOfMoves);
+
+        // Displays the number of moves left
+        displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
     }
 
     /**
@@ -542,7 +563,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     public void showSolution(View view) {
         calculateSolution();
         displaySolution(numberOfColumns, sizeOfTiles, mSolutionPattern);
-        Log.i(LOGCAT, "Solution Moves:" + countTiles(mSolutionPattern));
+        Log.i(LOGCAT, "Solution Moves:" + mSolutionMoves);
     }
 
     /**
@@ -626,6 +647,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         }
         mSolutionPattern = optimizeSolution(mSolutionPattern);
+        mSolutionMoves = countTiles(mSolutionPattern);
     }
 
 
@@ -756,6 +778,53 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 image.setImageResource(android.R.color.transparent);
                 board.addView(image);
             }
+        }
+    }
+
+    /**
+     * This displays the movements left on the panel in a graphical way
+     */
+    // Todo: all
+    private void displayMovementsLeft(int numberOfMoves, int solutionMoves) {
+        if (!gameHasEnded) {
+            Bitmap oneMove;
+            ImageView imageView = (ImageView) findViewById(R.id.number_of_moves_image);
+            // TOdo: move this next line inside the first if
+            numberOfMoves = solutionMoves - mNumberOfMoves;
+            if (numberOfMoves > 0) {
+                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_gold);
+            } else if (numberOfMoves > -solutionMoves) {
+                numberOfMoves = solutionMoves + numberOfMoves;
+                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_silver);
+                setStars("G", findViewById(R.id.button_row));
+            } else if (numberOfMoves > -solutionMoves * 2) {
+                numberOfMoves = (solutionMoves * 2) + numberOfMoves;
+                oneMove = BitmapFactory.decodeResource(getResources(), R.drawable.star_bronze);
+                setStars("F", findViewById(R.id.button_row));
+            } else {
+                imageView.setImageResource(R.drawable.star_disabled);
+                setStars("E", findViewById(R.id.button_row));
+                return;
+            }
+            Bitmap movesPattern = null;
+            int oneMoveWidth = oneMove.getWidth();
+            int numberOfColumns;
+            int numberOfRows = ((solutionMoves - 1) / 5) + 1;
+            if (solutionMoves > 4) {
+                numberOfColumns = 5;
+            } else {
+                numberOfColumns = solutionMoves;
+            }
+
+            movesPattern = Bitmap.createBitmap(oneMoveWidth * numberOfColumns, oneMoveWidth * numberOfRows, Bitmap.Config.ARGB_8888);
+            Canvas patternCanvas = new Canvas(movesPattern);
+
+            for (int id = 0; id < numberOfMoves; id++) {
+                int posX = id % numberOfColumns;
+                int posY = id / numberOfColumns;
+                patternCanvas.drawBitmap(oneMove, posX * oneMoveWidth, posY * oneMoveWidth, null);
+            }
+            imageView.setImageBitmap(movesPattern);
         }
     }
 }
