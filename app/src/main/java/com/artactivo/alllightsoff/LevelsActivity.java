@@ -92,10 +92,9 @@ public class LevelsActivity extends AppCompatActivity {
 
             // Sets the star rating based on the level status
             String status = getLevelData(mSavegameData, position);
-            setStars(status, gridItem);
+            setStars(status, gridItem, 0);
 
             // If the level is not completed, hide the remaining levels with a lock icon
-            // Todo
 
             if (status.equals("L")) {
                 ImageView imageView = (ImageView) gridItem.findViewById(R.id.level_pattern);

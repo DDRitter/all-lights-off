@@ -1,6 +1,7 @@
 package com.artactivo.alllightsoff;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -87,108 +88,185 @@ public class Utilities {
      * H -> All stars as question mark (Game has started, still able to win all)
 
      */
-    protected static void setStars(String status, View view) {
-        ImageView imageView;
+    protected static void setStars(String status, View view, final int duration) {
+        final ImageView starImageView1 = (ImageView) view.findViewById(R.id.star1);
+        final ImageView starImageView2 = (ImageView) view.findViewById(R.id.star2);
+        final ImageView starImageView3 = (ImageView) view.findViewById(R.id.star3);
         switch (status) {
             case "A":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_unlit);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_unlit);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_unlit);
+                starImageView1.setImageResource(R.drawable.star_unlit);
+                starImageView2.setImageResource(R.drawable.star_unlit);
+                starImageView3.setImageResource(R.drawable.star_unlit);
                 break;
             case "B":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_lit);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_unlit);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_unlit);
+                starImageView1.setImageResource(R.drawable.star_lit);
+                starImageView2.setImageResource(R.drawable.star_unlit);
+                starImageView3.setImageResource(R.drawable.star_unlit);
                 break;
             case "C":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_lit);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_lit);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_unlit);
+                starImageView1.setImageResource(R.drawable.star_lit);
+                starImageView2.setImageResource(R.drawable.star_lit);
+                starImageView3.setImageResource(R.drawable.star_unlit);
                 break;
             case "D":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_lit);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_lit);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_lit);
+                starImageView1.setImageResource(R.drawable.star_lit);
+                starImageView2.setImageResource(R.drawable.star_lit);
+                starImageView3.setImageResource(R.drawable.star_lit);
                 break;
             case "E":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_disabled);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_disabled);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_disabled);
+                starImageView1.setImageResource(R.drawable.star_disabled);
+                starImageView2.setImageResource(R.drawable.star_disabled);
+                starImageView3.setImageResource(R.drawable.star_disabled);
                 break;
             case "F":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_question);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_disabled);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_disabled);
+                starImageView1.setImageResource(R.drawable.star_question);
+                starImageView2.setImageResource(R.drawable.star_disabled);
+                starImageView3.setImageResource(R.drawable.star_disabled);
                 break;
             case "G":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                imageView.setImageResource(R.drawable.star_question);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                imageView.setImageResource(R.drawable.star_question);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                imageView.setImageResource(R.drawable.star_disabled);
+                starImageView1.setImageResource(R.drawable.star_question);
+                starImageView2.setImageResource(R.drawable.star_question);
+                starImageView3.setImageResource(R.drawable.star_disabled);
                 break;
             case "H":
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_question);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_question);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.star_question);
+                starImageView1.setImageResource(R.drawable.star_question);
+                starImageView2.setImageResource(R.drawable.star_question);
+                starImageView3.setImageResource(R.drawable.star_question);
                 break;
 
             default:
-                // Todo: remove this when finished
-                imageView = (ImageView) view.findViewById(R.id.star1);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.splash_icon);
-                imageView = (ImageView) view.findViewById(R.id.star2);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.splash_icon);
-                imageView = (ImageView) view.findViewById(R.id.star3);
-                animateFade(imageView, 1, 1500);
-                imageView.setImageResource(R.drawable.splash_icon);
+                starImageView1.setImageResource(R.drawable.star_disabled);
+                starImageView2.setImageResource(R.drawable.star_disabled);
+                starImageView3.setImageResource(R.drawable.star_disabled);
+        }
+        if (duration > 0) {
+            animateFade(starImageView1, 1, duration);
+            animateFade(starImageView2, 1, duration);
+            animateFade(starImageView3, 1, duration);
         }
     }
+
+//    /**
+//     * This method assigns the appropriate stars to the
+//     *
+//     * @param status is:
+//     * A -> No Stars (Not solved at all)
+//     * B -> One Star (Solved with more than 3 times the movements needed)
+//     * C -> Two Stars (Solved with more than 2 times the movements needed)
+//     * D -> Three Stars (Solved with the minimum movements needed)
+//     *
+//     * L -> Locked
+//     *
+//     * E -> No question mark at all (Game in progress, more than 3 times the moves needed)
+//     * F -> One star as question mark (Game in progress, more than 2 times the moves needed)
+//     * G -> Two stars with question mark (Game in progress, more than the moves needed)
+//     * H -> All stars as question mark (Game has started, still able to win all)
+//
+//     */
+//    protected static void setStars(String status, View view, int duration) {
+//        ImageView imageView;
+//        switch (status) {
+//            case "A":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_unlit);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_unlit);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_unlit);
+//                break;
+//            case "B":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_lit);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_unlit);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_unlit);
+//                break;
+//            case "C":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_lit);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_lit);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_unlit);
+//                break;
+//            case "D":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_lit);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_lit);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_lit);
+//                break;
+//            case "E":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                break;
+//            case "F":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_question);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                break;
+//            case "G":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_question);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_question);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                break;
+//            case "H":
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_question);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_question);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_question);
+//                break;
+//
+//            default:
+//                imageView = (ImageView) view.findViewById(R.id.star1);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                imageView = (ImageView) view.findViewById(R.id.star2);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//                imageView = (ImageView) view.findViewById(R.id.star3);
+//                if (duration > 0) { animateFade(imageView, 1, duration); }
+//                imageView.setImageResource(R.drawable.star_disabled);
+//        }
+//    }
 
     /**
      * This method animates the fade in-out of an ImageView
