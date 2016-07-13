@@ -40,6 +40,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private long lastNextPressTime = 0;
     private long lastPrevPressTime = 0;
     private long lastLevelPressTime = 0;
+    private long lastMenuPressTime = 0;
 
     private SoundPool soundEffects;
     private int clickSoundId;
@@ -127,9 +128,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         }
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             if (mNumberOfMoves == 0) {
-                View reset = (View) findViewById(R.id.reset_button);
-                reset.setEnabled(true);
-                reset.setAlpha(1.0f);
+                setButtonState(findViewById(R.id.reset_button), 1);
+                setStars("H", findViewById(R.id.button_row), 300);
             }
             playClickSound();
             mNumberOfMoves++;
@@ -220,7 +220,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             textView = (TextView) findViewById(R.id.level_name);
             textView.setText(endMessage);
 
-            // Assigns the actual level status and shows the appropriate stars
+            // Assigns the actual level status
             String currentLevelStatus = "";
             if (mNumberOfMoves <= mSolutionMoves) {
                 currentLevelStatus = "D";
@@ -234,26 +234,28 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             setStars(currentLevelStatus, findViewById(R.id.button_row), 1500);
 
             // Changes the data of the current level only if it's better
-            String savedLevelStatus = mSavegameData.substring((5 * mCurrentLevel) + 4, (5 * mCurrentLevel) + 5);
+            String savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel);
             Log.i(LOGCAT, "Saved Level Status: " + savedLevelStatus);
             String newGameData = "";
             if (savedLevelStatus.compareTo(currentLevelStatus) >= 0) {
                 Log.i(LOGCAT, "This level is better on disk, is the same or is locked.");
             } else {
                 Log.i(LOGCAT, "Level has improved. Save the new data.");
-                newGameData = mSavegameData.substring(0, (5 * mCurrentLevel) + 4) + currentLevelStatus + mSavegameData.substring(5 * (mCurrentLevel + 1));
+                newGameData = mSavegameData.substring(0, mCurrentLevel) + currentLevelStatus + mSavegameData.substring(mCurrentLevel + 1);
                 writeToFile(newGameData, this);
                 mSavegameData = newGameData;
             }
 
             // Unlocks the next level if it's not unlocked already
             if (mCurrentLevel != mLevelCode.length - 1) { // We are not at the last level
-                savedLevelStatus = mSavegameData.substring((5 * mCurrentLevel) + 9, (5 * mCurrentLevel) + 10);
+                savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel + 1);
+                ;
                 Log.i(LOGCAT, "Next Level Status is: " + savedLevelStatus);
                 if (savedLevelStatus.equals("L")) {
-                    newGameData = mSavegameData.substring(0, (5 * mCurrentLevel) + 9) + "A" + mSavegameData.substring(5 * (mCurrentLevel + 2));
+                    newGameData = mSavegameData.substring(0, mCurrentLevel + 1) + "A" + mSavegameData.substring(mCurrentLevel + 2);
                     writeToFile(newGameData, this);
                     Log.i(LOGCAT, "Level " + (mCurrentLevel + 2) + " Opened");
+                    mSavegameData = newGameData;
                 }
             }
 
@@ -268,6 +270,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             }, 300);
             gameHasEnded = true;
             mNumberOfMoves = 0;
+            setPanelContent();
         }
     }
 
@@ -291,6 +294,28 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         soundEffects = new SoundPool(10, STREAM_MUSIC, 0);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         clickSoundId = soundEffects.load(this, R.raw.click, 1);
+    }
+
+    /**
+     * This method opens the menu activity
+     */
+    public void mainMenu(View view) {
+        if (mNumberOfMoves > 0) {
+            if (this.lastMenuPressTime < System.currentTimeMillis() - 2500) {
+                toast = Toast.makeText(this, R.string.toast_open_menu, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+                this.lastMenuPressTime = System.currentTimeMillis();
+                return;
+            } else {
+                if (toast != null) {
+                    toast.cancel();
+                }
+            }
+        }
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**
@@ -448,7 +473,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             }
             board.addView(image);
         }
-
         // Precalculates the solution of the board
         calculateSolution();
 
@@ -461,37 +485,31 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * level number, level name and number of moves
      */
     public void setPanelContent() {
-        // Set the reset button
-        View view = findViewById(R.id.reset_button);
-        view.setEnabled(false);
-        view.setAlpha(0.25f);
+        // Set the reset button state
+        if (gameHasEnded) {
+            setButtonState(findViewById(R.id.reset_button), 1);
+        } else {
+            setButtonState(findViewById(R.id.reset_button), 0);
+        }
 
-        // Set the next level button
-        view = findViewById(R.id.next_button);
+        // Set the next level button state
         if (mCurrentLevel == mLevelCode.length - 1 ||                       // We are at the last level or
             getLevelData(mSavegameData, mCurrentLevel + 1).equals("L")) {   // the next level is locked
-            view.setEnabled(false);
-            view.setAlpha(0.25f);
+            setButtonState(findViewById(R.id.next_button), 0);
         } else {
-            view.setEnabled(true);
-            view.setAlpha(1.0f);
+            setButtonState(findViewById(R.id.next_button), 1);
         }
 
-        // Set the previous level button
-        view = findViewById(R.id.prev_button);
+        // Set the previous level button state
         if (mCurrentLevel == 0 ||                                           // We are at the first level or
             getLevelData(mSavegameData, mCurrentLevel - 1).equals("L")) {   // the previous level is locked
-            view.setEnabled(false);
-            view.setAlpha(0.25f);
+            setButtonState(findViewById(R.id.prev_button), 0);
         } else {
-            view = findViewById(R.id.prev_button);
-            view.setEnabled(true);
-            view.setAlpha(1.0f);
+            setButtonState(findViewById(R.id.prev_button), 1);
         }
 
-        // Set the stars visualization as default (all question marks)
-        // Todo: change this to adapt to the endgame. Add call to setPanelContent at endgame method
-        setStars("H", findViewById(R.id.button_row), 1500);
+        // Set the stars as the saved status
+        setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.button_row), 1500);
 
         // Display the current level number
         TextView textView;
@@ -503,7 +521,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         textView.setText(mLevelName[mCurrentLevel]);
 
         // Displays the number of moves (0)
-        showNumberOfMoves(mNumberOfMoves);
+        ///TODO: Swap or delete this after level strings finished
+        //showNumberOfMoves(0);
+        showNumberOfMoves(countTiles(mSolutionPattern));
 
         // Displays the number of moves left as a graphic row of items
         displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
@@ -515,7 +535,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     public void showNumberOfMoves(int numberOfMoves) {
         TextView textView;
         textView = (TextView) findViewById(R.id.number_of_moves);
-        textView.setText(String.valueOf(mNumberOfMoves));
+        textView.setText(String.valueOf(numberOfMoves));
     }
 
     /**
@@ -564,7 +584,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method shows the solution on the board with green tiles
      * Note: This only works with 5 tiles
      */
-
     public void showSolution(View view) {
         calculateSolution();
         displaySolution(numberOfColumns, sizeOfTiles, mSolutionPattern);
@@ -596,7 +615,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         }
 
         Log.i(LOGCAT, "Number of tiles left: " + countTiles(mTemporaryPattern));
-
 
         if (countTiles(mTemporaryPattern) != 0) { // if the board is not solved on the first sweep
             // apply the rules and sweep again
@@ -819,6 +837,22 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             }
             imageView.setImageBitmap(movesPattern);
 
+        }
+    }
+
+    /**
+     * Activates or deactivates a view button
+     *
+     * @param view  the button view
+     * @param state 1 -> on, 0 -> off
+     */
+    private void setButtonState(View view, int state) {
+        if (state == 1) {
+            view.setEnabled(true);
+            view.setAlpha(1.0f);
+        } else {
+            view.setEnabled(false);
+            view.setAlpha(0.25f);
         }
     }
 }

@@ -105,7 +105,7 @@
                 android:text="00"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextPanel"
-                android:textSize="@dimen/small_text"/>
+                android:textSize="@dimen/medium_text"/>
 
         </LinearLayout>
 
@@ -127,16 +127,16 @@
             android:layout_weight="10"
             android:gravity="center"
             android:orientation="horizontal"
-            android:weightSum="8">
+            android:weightSum="9">
 
             <ImageView
-                android:id="@+id/level_button"
+                android:id="@+id/menu_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/small_margin"
                 android:layout_weight="1"
-                android:onClick="selectLevel"
-                android:src="@drawable/ic_levels"/>
+                android:onClick="mainMenu"
+                android:src="@drawable/ic_menu"/>
 
             <ImageView
                 android:id="@+id/prev_button"
@@ -163,6 +163,15 @@
                 android:layout_weight="1"
                 android:onClick="nextLevel"
                 android:src="@drawable/ic_next"/>
+
+            <ImageView
+                android:id="@+id/level_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_weight="1"
+                android:onClick="selectLevel"
+                android:src="@drawable/ic_levels"/>
 
             <View
                 android:layout_width="0dp"

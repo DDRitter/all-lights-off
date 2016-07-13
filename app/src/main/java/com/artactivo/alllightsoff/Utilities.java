@@ -68,7 +68,7 @@ public class Utilities {
      *
      */
     protected static String getLevelData(String gameData, int currentLevel) {
-        return gameData.substring(5 * currentLevel + 4, 5 * currentLevel + 5);
+        return gameData.substring(currentLevel, currentLevel + 1);
     }
 
     /**

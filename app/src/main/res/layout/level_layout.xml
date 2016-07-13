@@ -22,7 +22,7 @@
         android:gravity="center"
         android:text="000"
         android:textColor="#FF00AAFF"
-        android:textSize="@dimen/medium_text"/>
+        android:textSize="@dimen/small_text"/>
 
     <LinearLayout
         android:layout_width="96dp"

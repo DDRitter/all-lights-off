@@ -50,10 +50,10 @@ public class MenuActivity extends AppCompatActivity {
     // File test methods
 
     public void resetData(View view) {
-        String data = "0000A0001A0002A0003A0004A0005A0006A0007A0008A0009A";  // The first 10 levels are available
+        String data = "AAAAAAAAAA";  // The first 10 levels are available
         int numberOfLevels = getResources().getStringArray(R.array.level_codes).length;
         for (int id = 10; id < numberOfLevels; id++) {
-            data += String.format("%04dL", id);           // The rest of the levels are locked
+            data += "A";           // The rest of the levels are locked
         }
         writeToFile(data, this);
         Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
