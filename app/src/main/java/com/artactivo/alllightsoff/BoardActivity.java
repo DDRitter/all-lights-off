@@ -16,9 +16,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -51,6 +48,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private String[] mLevelName;
     private String mSavegameData;
     private int mCurrentLevel;
+    private int lastTileId;
     private int[] mTilePattern = new int[numberOfTiles];
     private int[] mSolutionPattern = new int[numberOfTiles];
     private int mSolvedTiles;
@@ -81,41 +79,30 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
-     * This method calculates the sizes for the board, header and button panel
+     * This method calculates the sizes for the board and the pop-up panel
      */
     private void calculateBoardLayout() {
         // Figures out the smallest screen side available to get the board tile size
         int boardDimensionPx;
-        int remainingPxSpace;
         int statusBarHeight = 0;
-        boolean isPortrait;
         int resId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resId > 0) {
             statusBarHeight = getResources().getDimensionPixelSize(resId);
         }
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         if (displayMetrics.widthPixels > displayMetrics.heightPixels) {
-            isPortrait = false;
-            remainingPxSpace = displayMetrics.widthPixels - displayMetrics.heightPixels + statusBarHeight;
             boardDimensionPx = displayMetrics.heightPixels - statusBarHeight - (int) (convertDpToPx(16, this) * 2);
         } else {
-            isPortrait = true;
-            remainingPxSpace = displayMetrics.heightPixels - displayMetrics.widthPixels - statusBarHeight;
             boardDimensionPx = displayMetrics.widthPixels - (int) (convertDpToPx(16, this) * 2);
         }
         sizeOfTiles = (int) boardDimensionPx / numberOfColumns;
 
-        // Adjust the header height or width to one third of the remaining screen space.
-        // The controls and info area will take the other two thirds
+        // Rescales the pop-up window to cover a 4 x 4 tile windows
+        View popup = (View) findViewById(R.id.pop_up);
         RelativeLayout.LayoutParams rlp;
-        ImageView header = (ImageView) findViewById(R.id.header);
-        if (isPortrait) {
-            rlp = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, remainingPxSpace / 3);
-            header.setLayoutParams(rlp);
-        } else {
-            rlp = new RelativeLayout.LayoutParams(remainingPxSpace / 3, LayoutParams.MATCH_PARENT);
-            header.setLayoutParams(rlp);
-        }
+        rlp = new RelativeLayout.LayoutParams(sizeOfTiles * 4, sizeOfTiles * 4);
+        rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        popup.setLayoutParams(rlp);
     }
 
 
@@ -129,13 +116,13 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             if (mNumberOfMoves == 0) {
                 setButtonState(findViewById(R.id.reset_button), 1);
-                setStars("H", findViewById(R.id.button_row), 300);
             }
+            setButtonState(findViewById(R.id.undo_button), 1);
             playClickSound();
             mNumberOfMoves++;
-            showNumberOfMoves(mNumberOfMoves);
-            hideSolutionTile(view.getId());
-            changeTiles(view.getId());
+            lastTileId = view.getId();
+            hideSolutionTile(lastTileId);
+            changeTiles(lastTileId);
             checkBoard();
             displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
             return true;
@@ -214,10 +201,17 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     private void checkBoard() {
         if (mSolvedTiles == numberOfTiles) {
+            // Pops up the end window
+            //Todo: IF we are at the last level, disable the next level button
+            View popup = (View) findViewById(R.id.pop_up);
+            popup.setVisibility(View.VISIBLE);
+
+
             // Shows the end message
             TextView textView;
             String endMessage = getResources().getString(R.string.end_game_message);
-            textView = (TextView) findViewById(R.id.level_name);
+            endMessage += " " + getResources().getQuantityString(R.plurals.moves, mNumberOfMoves, mNumberOfMoves);
+            textView = (TextView) findViewById(R.id.pop_up_message);
             textView.setText(endMessage);
 
             // Assigns the actual level status
@@ -231,7 +225,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             } else {
                 currentLevelStatus = "A";
             }
-            setStars(currentLevelStatus, findViewById(R.id.button_row), 1500);
+            setStars(currentLevelStatus, findViewById(R.id.level_star_row), 1500);
 
             // Changes the data of the current level only if it's better
             String savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel);
@@ -249,7 +243,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             // Unlocks the next level if it's not unlocked already
             if (mCurrentLevel != mLevelCode.length - 1) { // We are not at the last level
                 savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel + 1);
-                ;
                 Log.i(LOGCAT, "Next Level Status is: " + savedLevelStatus);
                 if (savedLevelStatus.equals("L")) {
                     newGameData = mSavegameData.substring(0, mCurrentLevel + 1) + "A" + mSavegameData.substring(mCurrentLevel + 2);
@@ -403,6 +396,20 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
+     * This method undoes the last move
+     */
+    public void undoMove(View view) {
+        if (mNumberOfMoves > 0) {
+            mNumberOfMoves--;
+            changeTiles(lastTileId);
+            setButtonState(view, 0);
+            //Todo: Add solution tile if it's appropriate
+            //hideSolutionTile(lastTileId);
+            displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
+        }
+    }
+
+    /**
      * This method creates the background board grid with unlit tiles
      */
     public void createBackgroundBoard(int numColumns, int tileSize) {
@@ -478,6 +485,10 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         // Sets the content of the panel
         setPanelContent();
+
+        // Hides the pop-up window
+        View popup = (View) findViewById(R.id.pop_up);
+        popup.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -485,12 +496,29 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * level number, level name and number of moves
      */
     public void setPanelContent() {
-        // Set the reset button state
+        // Displays the number of moves left as a graphic row of items
+        displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
+
         if (gameHasEnded) {
+            // Enable the reset button
             setButtonState(findViewById(R.id.reset_button), 1);
         } else {
+            // Display the current level number
+            TextView textView;
+            textView = (TextView) findViewById(R.id.level_number);
+            textView.setText(String.format(Locale.getDefault(), "%03d", mCurrentLevel + 1));
+
+            // Displays the level name
+            textView = (TextView) findViewById(R.id.level_name);
+            textView.setText(mLevelName[mCurrentLevel]);
+
+            // Disables the reset button and sets the stars as the saved status
             setButtonState(findViewById(R.id.reset_button), 0);
+            setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.level_star_row), 1500);
         }
+
+        // Disables the undo button
+        setButtonState(findViewById(R.id.undo_button), 0);
 
         // Set the next level button state
         if (mCurrentLevel == mLevelCode.length - 1 ||                       // We are at the last level or
@@ -507,35 +535,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         } else {
             setButtonState(findViewById(R.id.prev_button), 1);
         }
-
-        // Set the stars as the saved status
-        setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.button_row), 1500);
-
-        // Display the current level number
-        TextView textView;
-        textView = (TextView) findViewById(R.id.level_number);
-        textView.setText(String.format(Locale.getDefault(), "%03d", mCurrentLevel + 1));
-
-        // Displays the level name
-        textView = (TextView) findViewById(R.id.level_name);
-        textView.setText(mLevelName[mCurrentLevel]);
-
-        // Displays the number of moves (0)
-        ///TODO: Swap or delete this after level strings finished
-        //showNumberOfMoves(0);
-        showNumberOfMoves(countTiles(mSolutionPattern));
-
-        // Displays the number of moves left as a graphic row of items
-        displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
-    }
-
-    /**
-     * This method displays the number of moves made in game
-     */
-    public void showNumberOfMoves(int numberOfMoves) {
-        TextView textView;
-        textView = (TextView) findViewById(R.id.number_of_moves);
-        textView.setText(String.valueOf(numberOfMoves));
     }
 
     /**
@@ -807,25 +806,25 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     /**
      * This displays the movements left on the panel in a graphical way
      */
-    // Todo: all
     private void displayMovementsLeft(int numberOfMoves, int solutionMoves) {
         if (!gameHasEnded) {
             numberOfMoves = solutionMoves * 3 - numberOfMoves;
-            ImageView imageView = (ImageView) findViewById(R.id.number_of_moves_image);
+            ImageView imageView = (ImageView) findViewById(R.id.moves_left);
             Bitmap singleTick = BitmapFactory.decodeResource(getResources(), R.drawable.move_bronze);
             int singleTickWidth = singleTick.getWidth();
             int numberOfColumns = 45; // The maximum number of moves for a 5x5 board is 15
             Bitmap movesPattern = Bitmap.createBitmap(singleTickWidth * numberOfColumns, singleTickWidth, Bitmap.Config.ARGB_8888);
             Canvas patternCanvas = new Canvas(movesPattern);
 
-            if (numberOfMoves == 0) {
-                setStars("E", findViewById(R.id.button_row), 0);
-            } else if (numberOfMoves == solutionMoves) {
-                setStars("F", findViewById(R.id.button_row), 0);
-            } else if (numberOfMoves == solutionMoves * 2) {
-                setStars("G", findViewById(R.id.button_row), 0);
+            if (numberOfMoves <= 0) {
+                setStars("E", findViewById(R.id.level_star_row), 0);
+            } else if (numberOfMoves <= solutionMoves) {
+                setStars("F", findViewById(R.id.level_star_row), 0);
+            } else if (numberOfMoves <= solutionMoves * 2) {
+                setStars("G", findViewById(R.id.level_star_row), 0);
+            } else if (numberOfMoves <= solutionMoves * 3) {
+                setStars("H", findViewById(R.id.level_star_row), 0);
             }
-
 
             for (int id = 0; id < numberOfMoves; id++) {
                 if (id == solutionMoves) {
@@ -836,7 +835,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 patternCanvas.drawBitmap(singleTick, (numberOfColumns - numberOfMoves + id) * singleTickWidth, 0, null);
             }
             imageView.setImageBitmap(movesPattern);
-
         }
     }
 

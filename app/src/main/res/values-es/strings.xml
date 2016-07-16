@@ -1,0 +1,206 @@
+<resources>
+    <string name="app_name">Luces Fuera</string>
+    <string name="play_button">Jugar</string>
+    <string name="level_button">Elegir nivel</string>
+    <string name="settings_button">Opciones</string>
+    <string name="help_button">Ayuda</string>
+    <string name="about_button">Créditos</string>
+    <string name="end_game_message">¡Bien Hecho! Nivel completado con</string>
+
+    <string name="toast_open_menu">Pulsa de nuevo para ir al menú principal</string>
+    <string name="toast_select_level">Pulsa de nuevo para elegir otro nivel</string>
+    <string name="toast_reset_board">Pulsa de nuevo para reiniciar el nivel</string>
+    <string name="toast_next_level">Pulsa de nuevo para ir al nivel siguiente</string>
+    <string name="toast_prev_level">Pulsa de nuevo para ir al nivel anterior</string>
+    <string name="toast_close_app">Pulsa de nuevo para cerrar la aplicación</string>
+    <string name="toast_leave_game">Pulsa de nuevo para abandonar el juego</string>
+
+    <plurals name="moves">
+        <item quantity="zero">0 movimientos</item>
+        <item quantity="one">1 movimiento</item>
+        <item quantity="other">%d movimientos</item>
+    </plurals>
+
+    <string-array name="level_codes">
+        <!-- Tutorials -->
+        <item>·······O···OOO···O······· # Tutorial 1</item>
+        <item>·OOO···O················· # Tutorial 2</item>
+        <item>···············O····OO··· # Tutorial 3</item>
+        <item>···O···OOO·O·O·OOO···O··· # Tutorial 4</item>
+        <item>O····OO··OO··OO····O····· # Tutorial 5</item>
+        <item>···OO····O·········O···OO # Tutorial 6</item>
+        <item>·O···OOO···O·······O···OO # Tutorial 7</item>
+        <item>OO·OOO···O·····O···OOO·OO # Tutorial 8</item>
+        <item>···O···OOOO··O·OO··OO··OO # Tutorial 9</item>
+        <item>OO·OOO·O·O·OOO·O·O·OOO·OO # Tutorial 10</item>
+
+        <!-- 2 moves -->
+        <item>···········O····OO··O···· # El receptor</item>
+        <item>·O·O··O·O···O············ # Pio pio</item>
+        <item>············O···OO·····OO # Perro cabezón</item>
+        <item>·················OO··O··O # ¡Choca esos cinco!</item>
+        <item>·O····O···O·············· # Contracción</item>
+        <item>······O·O·OO·OO·O·O······ # El duelo</item>
+
+        <!-- 3 moves -->
+        <item>·······O····O··OOOOO·O·O· # Zapato chino</item>
+        <item>··O···O·O··OOO··O·O···O·· # Vacío</item>
+        <item>O····O····OOO··O····O···· # En la cornisa</item>
+        <item>············O··OOOOOOOOOO # Banda de frenado</item>
+        <item>···OO··O··OO····O········ # ¡Es la garra!</item>
+        <item>·······OO··OO·O·O·····O·· # El lazo</item>
+        <item>·····O·O··OOOO··O····O··· # Mini uzi</item>
+        <item>····O··OO····O·O····OO··· # Soltando el pájaro</item>
+        <item>····O···O····O····OO··OOO # Visión micro</item>
+        <item>·O···OO····O···O········· # Escalando</item>
+
+        <!-- 4 moves -->
+        <item>O···O·······O············ # ¿Me miras a mi?</item>
+        <item>O···OOO·OO··O············ # Caballero claro</item>
+        <item>··O···OOO··OOO·OOOOO··O·· # ¿Por quién doblan?</item>
+        <item>·O·O··OOO··O·O·······OOO· # Hidrógeno flotante</item>
+        <item>·OOO··OOO·OO·OOOO·O·OO··· # El final de la sirena</item>
+        <item>··O···O·O··OOO··OOO··O·O· # El equipo</item>
+        <item>·······O····O··OO·OO··O·· # Mira letal</item>
+        <item>OO·OO·O·O·······O·O·OO·OO # Cuatro pies</item>
+        <item>OOO·O·O·OOO···OOO·O·O·OOO # Tetris mal jugado</item>
+        <item>···OO········OOO·O·OO·OO· # 101 doblado</item>
+
+        <!-- 5 moves -->
+        <item>·O·O·OOOOO·OOO·OOOOO·O·O· # Almohadilla llena</item>
+        <item>·O·O··OOO··OOO··OOO··O·O· # Truco de niño</item>
+        <item>O···O·······O····O···OOO· # Sr. Napia</item>
+        <item>··O·O····O··O··O····O·O·· # Lluvia de puntos</item>
+        <item>O···OOOOOO·OOO·OOOOOO···O # Frogger</item>
+        <item>OOOO·O···O·O··OOOO·O·O·OO # Coge la bola</item>
+        <item>····O····O···O···O·OOO·OO # Antenas de hormiga</item>
+        <item>····O··O·O·OO·······OO··· # Esquina desplazada</item>
+        <item>··OO···O·OOOOOOO·O···OO·· # Cinta de Möbius</item>
+        <item>·O·O·OO·OO·O····OO·OOO··O # Usted está aquí</item>
+
+        <!-- 6 moves -->
+        <item>··········O·O·O·········· # Los tres cerditos</item>
+        <item>O·O·OO·O·O·····O·O·OO·O·O # Vestuario I</item>
+        <item>·OOO·OOOOO·····OOOOO·OOO· # Hamburguesa vegana</item>
+        <item>·····OO·OO·····O···OOO·OO # Lanzando bumeranes</item>
+        <item>OOOO·OOO·OOOO·O···OOOO·OO # Muy Primer plano</item>
+        <item>OOOOO··O·········O··OOOOO # Listos para la batalla</item>
+        <item>OO·OO·····OO·OO·····OO·OO # Vestuario II</item>
+        <item>OOOOO·O·O···O···O·O·OOOOO # Sin tiempo</item>
+        <item>·O·O·O···O·····OO·OOO···O # Regresan los bumeranes</item>
+        <item>··O···OO··OO·OO··OO···O·· # El ventilador</item>
+
+        <!-- 7 moves -->
+        <item>·O·O·OOOOOO·O·OOOOOO·O·O· # Fiesta veneciana</item>
+        <item>O·O·OO···OOO·OOO···OO·O·O # ¡No es la salida!</item>
+        <item>···········OOO··O········ # Tetris solitario</item>
+        <item>····O···O···O···OO··O·O·· # Energía eólica</item>
+        <item>·····O·O·OO···OO·O·OO···O # ¡Esa es la salida</item>
+        <item>··········O·O·OO·O·O·OOO· # Corona de príncipe</item>
+        <item>OOOO·O···OO···OO···OOOOO· # El día D</item>
+        <item>·······O···O·O·O·O·O·O·O· # Poliedro roto</item>
+        <item>·O·O·OOOOO·OOO··O·OOOOO·· # Almohadilla mutante</item>
+        <item>·OOO··OOO··OOO··········· # Lámpara cuadrada</item>
+
+        <!-- 8 moves -->
+        <item>O·O·OO·O·OO·O·OO·O·O·OOO· # Corona de rey</item>
+        <item>OOOOO·O·O·OO·OO·OOO··O·O· # Monstruo cabezamartillo</item>
+        <item>···O···O·O·O·O·O·O···O··· # Double divide</item>
+        <item>···········O····O····O··· # El pilar</item>
+        <item>······O·········O········ # Conocidos</item>
+        <item>O···O·······O···O·O······ # Miau miau prrr</item>
+        <item>OOOOO·OOO··OOO··OOO·OOOOO # El cáliz</item>
+        <item>O···O·O·O·······O·O·O···O # Convergencia</item>
+        <item>·OOO··O·O··OOO····O··OOO· # Los podridos ocho</item>
+        <item>OOOO·O··O·OOOO·OOO··O··O· # La R a la izquierda</item>
+
+        <!-- 9 moves -->
+        <item>O····O····O····O····OOOOO # Letra de dos lados</item>
+        <item>············O···OOO·OOOOO # Isosceles</item>
+        <item>··O···O·O·O·O·O·O·O···O·· # Estrella invitada</item>
+        <item>O·O·O·····O·O·O·····O·O·O # El aula</item>
+        <item>··········O···O·········· # Ojos de serpiente</item>
+        <item>·OOO··O····OOO····O··OOO· # Kriptonita</item>
+        <item>OOOOOO···OO·O·OO···OOOOOO # Literalmente rodeado</item>
+        <item>O·O·OOOOOO·OOO··OOO·OOOOO # Esquina de ajedrez</item>
+        <item>·O·O·O·O·O·OOO·O·O·O·O·O· # Estudiante popular</item>
+        <item>O·O·O···············O·O·O # 3 contra 3</item>
+
+        <!-- 10 moves -->
+        <item>·OOOO·O····OOO··O····O··· # Letra F</item>
+        <item>·OOO·O···OO···OO···O·OOO· # La reunión</item>
+        <item>············OOO··OO···O·· # Vuelo sigiloso</item>
+        <item>··········O···OOOOOO·O··O # Perro salchicha</item>
+        <item>O····OO···OOO··OOOO··OOOO # Escalera al cielo</item>
+        <item>··O····O··O·O·OOOOOO··O·· # Armas de Elektra</item>
+        <item>·OOO·O·O·OOO·OOOO·OOO···O # Sir Lanzarote</item>
+        <item>·O·O··O·O·O·O·OO·O·OO·O·O # Patatas Ronald</item>
+        <item>O···OOO·OOO·O·OO···OO···O # Letra M</item>
+        <item>OOOOOO·OOOOO·OOOOO·OOOOOO # Herida de Lobezno</item>
+        <item>O···OO···OOOOOO··O··OOOOO # ¿Tinto o blanco?</item>
+        <item>OO·OO·O·O·OO·OO·O·O·OO·OO # Hotel Overlook</item>
+        <item>··O···O·O·OOOOOO···OOOOOO # A-terrizada</item>
+
+        <!-- 11 moves -->
+        <item>O···OO···OOOOOOO···OO···O # Levantando pesas</item>
+        <item>··O···OOO···O····O····O·· # Un abrazo, por favor</item>
+        <item>············OOO··OOO··OOO # Sólo una caja</item>
+        <item>······O·················· # Un pálito punto azul</item>
+        <item>OOOOOO·O·OOOOOOO·O·OOOOOO # Rejilla gruesa</item>
+        <item>·OOO···O····O····O···OOO· # Yo y yo mismo</item>
+        <item>·OOO··O·O·OOOOO·OOO·OO·OO # Mi minion favorito</item>
+        <item>············O············ # Ombligo</item>
+        <item>O···O·······O·······O···O # La emboscada I</item>
+        <item>··O····O··OOOOO··O····O·· # No resta</item>
+        <item>·OOO·O·O·OOOOOOOOOOOO·O·O # No es Pac-Man</item>
+        <item>OOOOOOOOOOOOOOO·········· # ¡El cielo cae!</item>
+
+        <!-- 12 moves -->
+        <item>OOOOO···O···O···O···OOOOO # El Zorro</item>
+        <item>···O····O·O·O·OO···OO··OO # Abstracto I</item>
+        <item>OO·OOOO·OO·····OO·OOOO·OO # Parchís</item>
+        <item>O···OOO··OO·O·OO··OOO···O # Letra N</item>
+        <item>···OO·O·O·O···OO·O·O····· # Unicejo llorica</item>
+        <item>·O·O······O···O·OOO···O·· # V de vendetta</item>
+        <item>O·O·O·OOO·OO·OO·OOO·O·O·O # ¡Boom!</item>
+        <item>··O·OO···OO···O·OO·O·OOOO # Abstracto II</item>
+        <item>O·O·OO·O·OOO·OOO·O·OO·O·O # Agujero en celda</item>
+
+        <!-- 13 moves -->
+        <item>··O···O·O·O···OOOOOOO···O # Casco en A</item>
+        <item>······OOO··OOO··OOO······ # Cubo de Rubik</item>
+        <item>·O·O·O····OO·····OO··O·O· # Centauro tenista</item>
+        <item>···········O·O··········· # Ojos de culebra</item>
+        <item>O·O·OO·O·O·OOO···O····O·· # Poseidón</item>
+        <item>O·O·OO·O·OO·O·OO·O·OOOOOO # Apretón de Lobezno</item>
+        <item>O·O·O······O·O········O·· # Strike o split</item>
+        <item>O·O·O·O·O·O·O·O·O·O·O·O·O # Ajedrez rápido</item>
+        <item>OO··OOO·O···O···O·OOO··OO # Cien</item>
+        <item>·OOO···O···OOO··OOO···O·· # Ataque aéreo</item>
+
+        <!-- 14 moves -->
+        <item>O···O·O·O···O····O····O·· # Condensador de fluzo</item>
+        <item>OOO··O··O·OOO··O··O·OOO·· # Letra B</item>
+        <item>O···OOO·O·OOO···O····OOO· # Gorgón señalizando</item>
+        <item>·····OO·OOOOOOO··O···OOO· # La langosta</item>
+        <item>·OOO·O·O····OOOOOOO·O·O·O # Caballero centauro ciego</item>
+        <item>·O·O··O·O··O·O··OOO···O·· # Tono perfecto</item>
+        <item>O···O·OOO··O·O··OOO·O···O # El fondo de la caja</item>
+        <item>··O···O·O·O···O·O·O···O·· # Diamante hueco</item>
+        <item>O·O·O······O·O······O·O·O # Baile de salón</item>
+        <item>·O·O·OOOOO·O·O·OOOOO·O·O· # Trending topic</item>
+        <item>OOOOOO·O·OOOOOOO·OOOOOOOO # Punto en rejilla</item>
+        <item>······O·O·O·O·O·O·O······ # Infinitivo</item>
+
+        <!-- 15 moves -->
+        <item>··O···OOO·OOOOO·OOO···O·· # Muy Mejor amigo</item>
+        <item>··O··OOOOOO·O···O··O····O # Pistola de agua</item>
+        <item>·····O···O··O··O···O····· # La emboscada II</item>
+        <item>O···O·O·O···O···O·O·O···O # Marca el lugar</item>
+        <item>OOOOO··O··OOOOO··O··OOOOO # Estantes vacíos</item>
+        <item>OOOOO·OOO···O···OOO·OOOOO # Demasiado tiempo</item>
+        <item>··O··O·O·OOOOOOO·O·O··O·· # WiFi potente</item>
+        <item>OOOOOOOOOOOOOOOOOOOOOOOOO # Trabajo duro</item>
+
+    </string-array>
+</resources>
