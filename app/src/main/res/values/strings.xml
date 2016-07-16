@@ -206,14 +206,10 @@
         <item>OOOOOOOOOOOOOOOOOOOOOOOOO # Hard work</item>
 
     </string-array>
+
     <string-array name="quiet_patterns">
         <item>O·O·OO·O·O·····O·O·OO·O·O</item>
         <item>OO·OO·····OO·OO·····OO·OO</item>
         <item>·OOO·O·O·OOO·OOO·O·O·OOO·</item>
     </string-array>
-
-    <!-- Todo: remove after string array is fixed -->
-    <string name="quiet_pattern_A">O·O·OO·O·O·····O·O·OO·O·O</string>
-    <string name="quiet_pattern_B">OO·OO·····OO·OO·····OO·OO</string>
-    <string name="quiet_pattern_C">·OOO·O·O·OOO·OOO·O·O·OOO·</string>
 </resources>

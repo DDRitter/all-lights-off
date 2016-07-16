@@ -168,19 +168,4 @@ public class Utilities {
         view.startAnimation(fade);
     }
 
-    /**
-     * This method animates the tint in-out of an ImageView
-     *
-     * @param imageView the ImageView object
-     * @param toggle indicates if the animation is a fade-in or a fade-out
-     * @param duration the duration of the animation in milliseconds
-     *
-     */
-    protected static void animateTint(ImageView imageView, int toggle, int duration) {
-        Animation tint = null;
-        if (toggle == 1) {
-        } else {
-        }
-        imageView.setColorFilter(0xff000000);
-    }
 }

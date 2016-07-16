@@ -21,9 +21,22 @@ public class MenuActivity extends AppCompatActivity {
 
 
     public void openGame(View view) {
+        // Calculates the first level least completed on file
+        String levelCodes = readFromFile(this);
+        int firstUnsolvedLevel = levelCodes.indexOf("A");
+        if (firstUnsolvedLevel == -1) {
+            firstUnsolvedLevel = levelCodes.indexOf("B");
+        }
+        if (firstUnsolvedLevel == -1) {
+            firstUnsolvedLevel = levelCodes.indexOf("C");
+        }
+        if (firstUnsolvedLevel == -1) {
+            firstUnsolvedLevel = 0;
+        }
+
+        // Starts the intent at the first level not completed
         Intent intent = new Intent(this, BoardActivity.class);
-        // Todo: get the current unsolved level from the saved data
-        //intent.putExtra("level_number", 0);
+        intent.putExtra("level_number", firstUnsolvedLevel);
         startActivity(intent);
     }
 
@@ -53,13 +66,14 @@ public class MenuActivity extends AppCompatActivity {
         String data = "AAAAAAAAAA";  // The first 10 levels are available
         int numberOfLevels = getResources().getStringArray(R.array.level_codes).length;
         for (int id = 10; id < numberOfLevels; id++) {
-            data += "A";           // The rest of the levels are locked
+            data += "L";           // The rest of the levels are locked
         }
         writeToFile(data, this);
         Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
     }
 
     public void loadData(View view) {
+        // Todo: Verify that the data saved is not corrupted and that it matches the array in strings
         String loadText = readFromFile(this);
         Toast.makeText(this, "String loaded: " + loadText, Toast.LENGTH_LONG).show();
     }

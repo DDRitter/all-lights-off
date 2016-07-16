@@ -584,7 +584,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * Note: This only works with 5 tiles
      */
     public void showSolution(View view) {
-        calculateSolution();
+        // Todo: Study if we should calculate solution every time to update the solution
+        //calculateSolution();
         displaySolution(numberOfColumns, sizeOfTiles, mSolutionPattern);
         Log.i(LOGCAT, "Solution Moves:" + mSolutionMoves);
     }
@@ -594,7 +595,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * Note: This only works with 5 tiles
      */
     public void calculateSolution() {
-        // Todo: unify the two sweeps into one method
         int[] mTemporaryPattern = new int[numberOfTiles];
         boolean ruleA = false;
         boolean ruleB = false;
@@ -605,13 +605,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         Arrays.fill(mSolutionPattern, 0);
 
         // Now we run the tiles clicking below the upper ones
-        // We start at the second row
-        for (int id = numberOfColumns; id < numberOfTiles; id++) {
-            if (mTemporaryPattern[id - numberOfColumns] == 1) { // If the tile above is lit we unlit it
-                changePattern(id, mTemporaryPattern);
-                mSolutionPattern[id] = 1; // we add the tile to the solution
-            }
-        }
+        sweepBoard(mTemporaryPattern);
 
         Log.i(LOGCAT, "Number of tiles left: " + countTiles(mTemporaryPattern));
 
@@ -656,14 +650,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 }
             }
 
-            // we start the second sweep
-
-            for (int id = numberOfColumns; id < numberOfTiles; id++) {
-                if (mTemporaryPattern[id - numberOfColumns] == 1) { // If the tile above is lit we unlit it
-                    changePattern(id, mTemporaryPattern);
-                    mSolutionPattern[id] = 1; // we add the tile to the solution
-                }
-            }
+            // We start the second sweep with the rules applied
+            sweepBoard(mTemporaryPattern);
 
             Log.i(LOGCAT, "Number of tiles left after second pass: " + countTiles(mTemporaryPattern));
 
@@ -672,6 +660,19 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         mSolutionMoves = countTiles(mSolutionPattern);
     }
 
+    /**
+     * This method sweeps the board from the second row down and clicks on every tile that has a lit tile above
+     *
+     * @param pattern the array of the board
+     */
+    public void sweepBoard(int[] pattern) {
+        for (int id = numberOfColumns; id < numberOfTiles; id++) {
+            if (pattern[id - numberOfColumns] == 1) { // If the tile above is lit we unlit it
+                changePattern(id, pattern);
+                mSolutionPattern[id] = 1; // we add the tile to the solution
+            }
+        }
+    }
 
     /**
      * This method verifies the current tile position and checks neighbour tiles to swap its values
@@ -701,60 +702,30 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method returns the optimized solution
      */
     private int[] optimizeSolution(int[] pattern) {
-        //TODO: simplify the three pattern check by creating a new method
-
         int[] tempPattern = new int[numberOfTiles];
         int[] optimizedPattern = new int[numberOfTiles];
         int length = pattern.length;
         String tileCodeOn = getString(R.string.tile_code_on);
-        String quietPatternA = getString(R.string.quiet_pattern_A);
-        String quietPatternB = getString(R.string.quiet_pattern_B);
-        String quietPatternC = getString(R.string.quiet_pattern_C);
+        String[] quietPatterns = getResources().getStringArray(R.array.quiet_patterns);
         String currentCode = "";
 
         System.arraycopy(pattern, 0, optimizedPattern, 0, length); // As a default the original is the best
 
-        // We check against the first pattern
-        System.arraycopy(pattern, 0, tempPattern, 0, length); // Set the temporary as the original
-        for (int id = 0; id < length; id++) {
-            currentCode = quietPatternA.substring(id, id + 1);
-            if (currentCode.equals(tileCodeOn)) {
-                swapId(id, tempPattern);
+        // We check against the quiet patterns and assign the one that has less moves
+        for (int p = 0; p < quietPatterns.length; p++) {
+            System.arraycopy(pattern, 0, tempPattern, 0, length); // Set the temporary as the original
+            for (int id = 0; id < length; id++) {
+                currentCode = quietPatterns[p].substring(id, id + 1);
+                if (currentCode.equals(tileCodeOn)) {
+                    swapId(id, tempPattern);
+                }
             }
-        }
-        if (countTiles(tempPattern) < countTiles(optimizedPattern)) {
-            System.arraycopy(tempPattern, 0, optimizedPattern, 0, length);
-        }
-        Log.i(LOGCAT, "Original tiles: " + countTiles(pattern));
-        Log.i(LOGCAT, "First pattern tiles: " + countTiles(tempPattern));
-
-
-        // We check against the second pattern
-        System.arraycopy(pattern, 0, tempPattern, 0, length); // Set the temporary as the original
-        for (int id = 0; id < length; id++) {
-            currentCode = quietPatternB.substring(id, id + 1);
-            if (currentCode.equals(tileCodeOn)) {
-                swapId(id, tempPattern);
+            if (countTiles(tempPattern) < countTiles(optimizedPattern)) {
+                System.arraycopy(tempPattern, 0, optimizedPattern, 0, length);
             }
+            Log.i(LOGCAT, "Original tiles: " + countTiles(pattern));
+            Log.i(LOGCAT, "Quiet pattern " + (p + 1) + " tiles: " + countTiles(tempPattern));
         }
-        if (countTiles(tempPattern) < countTiles(optimizedPattern)) {
-            System.arraycopy(tempPattern, 0, optimizedPattern, 0, length);
-        }
-        Log.i(LOGCAT, "Second pattern tiles: " + countTiles(tempPattern));
-
-        // We check against the third pattern
-        System.arraycopy(pattern, 0, tempPattern, 0, length); // Set the temporary as the original
-        for (int id = 0; id < length; id++) {
-            currentCode = quietPatternC.substring(id, id + 1);
-            if (currentCode.equals(tileCodeOn)) {
-                swapId(id, tempPattern);
-            }
-        }
-        if (countTiles(tempPattern) < countTiles(optimizedPattern)) {
-            System.arraycopy(tempPattern, 0, optimizedPattern, 0, length);
-        }
-        Log.i(LOGCAT, "Third pattern tiles: " + countTiles(tempPattern));
-
         return optimizedPattern;
     }
 
