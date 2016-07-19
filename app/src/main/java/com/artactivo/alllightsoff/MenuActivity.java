@@ -23,12 +23,12 @@ public class MenuActivity extends AppCompatActivity {
     public void openGame(View view) {
         // Calculates the first level least completed on file
         String levelCodes = readFromFile(this);
-        int firstUnsolvedLevel = levelCodes.indexOf("A");
+        int firstUnsolvedLevel = levelCodes.indexOf("0");
         if (firstUnsolvedLevel == -1) {
-            firstUnsolvedLevel = levelCodes.indexOf("B");
+            firstUnsolvedLevel = levelCodes.indexOf("1");
         }
         if (firstUnsolvedLevel == -1) {
-            firstUnsolvedLevel = levelCodes.indexOf("C");
+            firstUnsolvedLevel = levelCodes.indexOf("2");
         }
         if (firstUnsolvedLevel == -1) {
             firstUnsolvedLevel = 0;
@@ -57,13 +57,10 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-
-
-
     // File test methods
-
+    // Todo: Move reset to settings page
     public void resetData(View view) {
-        String data = "AAAAAAAAAA";  // The first 10 levels are available
+        String data = "0000000000";  // The first 10 levels are available
         int numberOfLevels = getResources().getStringArray(R.array.level_codes).length;
         for (int id = 10; id < numberOfLevels; id++) {
             data += "L";           // The rest of the levels are locked

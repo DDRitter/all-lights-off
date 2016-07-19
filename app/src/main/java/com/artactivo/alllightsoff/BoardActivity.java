@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -48,7 +49,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private String[] mLevelName;
     private String mSavegameData;
     private int mCurrentLevel;
-    private int lastTileId;
+    private int lastTileId = -1;
     private int[] mTilePattern = new int[numberOfTiles];
     private int[] mSolutionPattern = new int[numberOfTiles];
     private int mSolvedTiles;
@@ -201,31 +202,36 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     private void checkBoard() {
         if (mSolvedTiles == numberOfTiles) {
-            // Pops up the end window
-            //Todo: IF we are at the last level, disable the next level button
-            View popup = (View) findViewById(R.id.pop_up);
-            popup.setVisibility(View.VISIBLE);
-
-
-            // Shows the end message
+            // Calculates the actual level status and changes the corresponding pop-up message and cup image
+            ImageView cup = (ImageView) findViewById(R.id.cup);
             TextView textView;
-            String endMessage = getResources().getString(R.string.end_game_message);
-            endMessage += " " + getResources().getQuantityString(R.plurals.moves, mNumberOfMoves, mNumberOfMoves);
-            textView = (TextView) findViewById(R.id.pop_up_message);
-            textView.setText(endMessage);
-
-            // Assigns the actual level status
+            String greeting = "";
             String currentLevelStatus = "";
             if (mNumberOfMoves <= mSolutionMoves) {
-                currentLevelStatus = "D";
+                currentLevelStatus = "3";
+                cup.setImageResource(R.drawable.cup_gold);
+                greeting = getResources().getString(R.string.gold_message);
             } else if (mNumberOfMoves <= mSolutionMoves * 2) {
-                currentLevelStatus = "C";
+                currentLevelStatus = "2";
+                cup.setImageResource(R.drawable.cup_silver);
+                greeting = getResources().getString(R.string.silver_message);
             } else if (mNumberOfMoves <= mSolutionMoves * 3) {
-                currentLevelStatus = "B";
+                currentLevelStatus = "1";
+                cup.setImageResource(R.drawable.cup_bronze);
+                greeting = getResources().getString(R.string.bronze_message);
             } else {
-                currentLevelStatus = "A";
+                currentLevelStatus = "0";
+                cup.setImageResource(R.drawable.cup_pewter);
+                greeting = getResources().getString(R.string.bad_message);
             }
-            setStars(currentLevelStatus, findViewById(R.id.level_star_row), 1500);
+
+            // Updates the end message
+            textView = (TextView) findViewById(R.id.pop_up_message);
+            textView.setText(greeting);
+
+            String moves = getResources().getQuantityString(R.plurals.number_of_moves, mNumberOfMoves, mNumberOfMoves);
+            textView = (TextView) findViewById(R.id.pop_up_moves);
+            textView.setText(moves);
 
             // Changes the data of the current level only if it's better
             String savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel);
@@ -245,22 +251,31 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel + 1);
                 Log.i(LOGCAT, "Next Level Status is: " + savedLevelStatus);
                 if (savedLevelStatus.equals("L")) {
-                    newGameData = mSavegameData.substring(0, mCurrentLevel + 1) + "A" + mSavegameData.substring(mCurrentLevel + 2);
+                    newGameData = mSavegameData.substring(0, mCurrentLevel + 1) + "0" + mSavegameData.substring(mCurrentLevel + 2);
                     writeToFile(newGameData, this);
                     Log.i(LOGCAT, "Level " + (mCurrentLevel + 2) + " Opened");
                     mSavegameData = newGameData;
                 }
             }
 
+            // Updates the stars with the appropriate values
+            setStars(currentLevelStatus, findViewById(R.id.level_star_row), 1500);
+
             // Sets a delay before clearing the board views to allow for the last fadeout animation
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    //Your delayed code here
+                    // Removes the board views
                     GridLayout board = (GridLayout) findViewById(R.id.board_tiles);
                     board.removeAllViews();
                 }
             }, 300);
+
+            // Shows the pop-up window
+            View popup = findViewById(R.id.pop_up);
+            animateScale(popup, 0.0f, 1.0f, 500);
+            popup.setVisibility(View.VISIBLE);
+
             gameHasEnded = true;
             mNumberOfMoves = 0;
             setPanelContent();
@@ -396,6 +411,17 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
+     * This method process click on the end message pop-up
+     */
+    public void popUpClick(View view) {
+        // Verify that we are not on the last level to avoid error with pop-up window click
+        if (mCurrentLevel != mLevelCode.length - 1) {
+            View next = (View) findViewById(R.id.next_button);
+            next.performClick();
+        }
+    }
+
+    /**
      * This method undoes the last move
      */
     public void undoMove(View view) {
@@ -502,6 +528,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         if (gameHasEnded) {
             // Enable the reset button
             setButtonState(findViewById(R.id.reset_button), 1);
+            // Disable the help button
+            setButtonState(findViewById(R.id.help_button), 0);
         } else {
             // Display the current level number
             TextView textView;
@@ -514,7 +542,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
             // Disables the reset button and sets the stars as the saved status
             setButtonState(findViewById(R.id.reset_button), 0);
-            setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.level_star_row), 1500);
+            setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.level_star_row), 500);
         }
 
         // Disables the undo button
@@ -788,13 +816,13 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             Canvas patternCanvas = new Canvas(movesPattern);
 
             if (numberOfMoves <= 0) {
-                setStars("E", findViewById(R.id.level_star_row), 0);
+                setStars("---", findViewById(R.id.level_star_row), 0);
             } else if (numberOfMoves <= solutionMoves) {
-                setStars("F", findViewById(R.id.level_star_row), 0);
+                setStars("?--", findViewById(R.id.level_star_row), 0);
             } else if (numberOfMoves <= solutionMoves * 2) {
-                setStars("G", findViewById(R.id.level_star_row), 0);
+                setStars("??-", findViewById(R.id.level_star_row), 0);
             } else if (numberOfMoves <= solutionMoves * 3) {
-                setStars("H", findViewById(R.id.level_star_row), 0);
+                setStars("???", findViewById(R.id.level_star_row), 0);
             }
 
             for (int id = 0; id < numberOfMoves; id++) {

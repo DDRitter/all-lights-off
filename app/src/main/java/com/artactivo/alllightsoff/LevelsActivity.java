@@ -23,10 +23,11 @@ import java.util.Locale;
 import static com.artactivo.alllightsoff.Utilities.*;
 
 public class LevelsActivity extends AppCompatActivity {
-    private final String LOGCAT = "AllLightsOff";
-    // Todo: store this array in the splash and pass it to the new activities instead of creating a new one each time
+    private static final String LOGCAT = "AllLightsOff";
+    // Todo: store this arrays in the splash and pass it to the new activities instead of creating a new one each time
     private String[] mLevelCode;
     private String mSavegameData;
+    private int gridviewVerticalPositionWhenThumbnailTapped = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,19 @@ public class LevelsActivity extends AppCompatActivity {
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         mSavegameData = readFromFile(this);
 
-        GridView levelsGrid = (GridView) findViewById(R.id.level_list);
+        final GridView levelsGrid = (GridView) findViewById(R.id.level_list);
         levelsGrid.setAdapter(new CustomAdapter(this));
+
+        // Todo: load this from preferences or something like that
+        // Scroll grid view to last known scroll position
+        levelsGrid.setSelection(gridviewVerticalPositionWhenThumbnailTapped);
+
 
         levelsGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Todo: save this in  preferences or something like that
+                // Save vertical position of gridview screen when tapped
+                gridviewVerticalPositionWhenThumbnailTapped = levelsGrid.getFirstVisiblePosition();
                 // We start the board activity with the selected level taken from the position on the grid
                 // Todo: check if the level is locked and ignore the click if that's the case
                 Intent intent = new Intent(getBaseContext(), BoardActivity.class);

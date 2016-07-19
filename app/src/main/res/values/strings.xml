@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">All Lights Off</string>
+
     <string name="play_button">Play Game</string>
     <string name="level_button">Select Level</string>
     <string name="settings_button">Settings</string>
     <string name="help_button">How to play</string>
     <string name="about_button">About</string>
-    <string name="end_game_message">Well Done! Level completed in</string>
+
+    <string name="gold_message">Perfect!</string>
+    <string name="silver_message">Well done!</string>
+    <string name="bronze_message">Not bad!</string>
+    <string name="bad_message">At least you finished it</string>
 
     <string name="toast_open_menu">Press the button again to open the home menu</string>
     <string name="toast_select_level">Press the button again to select another level</string>
@@ -18,10 +23,10 @@
     <string name="tile_code_on">O</string>
     <string name="tile_code_off">·</string>
 
-    <plurals name="moves">
-        <item quantity="zero">0 moves</item>
-        <item quantity="one">1 move</item>
-        <item quantity="other">%d moves</item>
+    <plurals name="number_of_moves">
+        <item quantity="zero">Level cleared in 0 moves</item>
+        <item quantity="one">Level cleared in 1 move</item>
+        <item quantity="other">Level cleared in %d moves</item>
     </plurals>
 
     <string-array name="level_codes">

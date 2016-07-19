@@ -112,30 +112,45 @@
             android:paddingLeft="@dimen/medium_margin"
             android:paddingRight="@dimen/medium_margin"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/pop_up"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:background="@drawable/bkg_popup"
+            android:onClick="popUpClick"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/pop_up_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/end_game_message"
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/medium_margin"
+                android:gravity="center"
+                android:text="@string/gold_message"
+                android:textSize="@dimen/medium_text"/>
+
+            <TextView
+                android:id="@+id/pop_up_moves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/medium_margin"
+                android:gravity="center"
+                android:text=""
                 android:textSize="@dimen/medium_text"/>
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:onClick="nextLevel"
-                android:src="@drawable/ic_next_default"/>
+                android:layout_below="@id/pop_up_message"
+                android:layout_above="@id/pop_up_moves"
+                android:id="@+id/cup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/cup_gold"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 

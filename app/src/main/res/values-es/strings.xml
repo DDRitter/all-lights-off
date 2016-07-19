@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">Luces Fuera</string>
+
     <string name="play_button">Jugar</string>
     <string name="level_button">Elegir nivel</string>
     <string name="settings_button">Opciones</string>
     <string name="help_button">Ayuda</string>
     <string name="about_button">Créditos</string>
-    <string name="end_game_message">¡Bien Hecho! Nivel completado con</string>
+
+    <string name="gold_message">¡Perfecto!</string>
+    <string name="silver_message">¡Bien hecho!</string>
+    <string name="bronze_message">¡No está mal!</string>
+    <string name="bad_message">Por lo menos acabaste</string>
 
     <string name="toast_open_menu">Pulsa de nuevo para ir al menú principal</string>
     <string name="toast_select_level">Pulsa de nuevo para elegir otro nivel</string>
@@ -15,10 +20,10 @@
     <string name="toast_close_app">Pulsa de nuevo para cerrar la aplicación</string>
     <string name="toast_leave_game">Pulsa de nuevo para abandonar el juego</string>
 
-    <plurals name="moves">
-        <item quantity="zero">0 movimientos</item>
-        <item quantity="one">1 movimiento</item>
-        <item quantity="other">%d movimientos</item>
+    <plurals name="number_of_moves">
+        <item quantity="zero">Nivel superado con 0 movimientos</item>
+        <item quantity="one">Nivel superado con 1 movimiento</item>
+        <item quantity="other">Nivel superado con %d movimientos</item>
     </plurals>
 
     <string-array name="level_codes">
