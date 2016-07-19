@@ -2,11 +2,13 @@ package com.artactivo.alllightsoff;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +20,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Locale;
 
 import static com.artactivo.alllightsoff.Utilities.*;
 
 public class LevelsActivity extends AppCompatActivity {
     private static final String LOGCAT = "AllLightsOff";
+    private static final String PREFS_FILENAME = "appSettings";
+    private static final String LEVELS_STATUS = "levelStatusKey";
+    private static SharedPreferences sharedPreferences;
+
     // Todo: store this arrays in the splash and pass it to the new activities instead of creating a new one each time
     private String[] mLevelCode;
     private String mSavegameData;
@@ -34,9 +42,11 @@ public class LevelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels);
 
+        sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+
         // Todo: store this array in the splash and pass it to the new activities instead of creating a new one each time
         mLevelCode = getResources().getStringArray(R.array.level_codes);
-        mSavegameData = readFromFile(this);
+        mSavegameData = loadLevelStatus(this);
 
         final GridView levelsGrid = (GridView) findViewById(R.id.level_list);
         levelsGrid.setAdapter(new CustomAdapter(this));

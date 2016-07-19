@@ -1,6 +1,10 @@
 package com.artactivo.alllightsoff;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,47 +27,38 @@ import java.io.OutputStreamWriter;
  * Some methods useful for several activities
  * Created by DDRitter on 08/07/2016.
  */
-public class Utilities {
-    private static final String DATA_FILENAME = "save_game.dat";
+public class Utilities extends AppCompatActivity {
+    private static final String LOGCAT = "AllLightsOff";
+    private static final String PREFS_FILENAME = "appSettings";
+    private static final String LEVELS_STATUS = "levelStatusKey";
+    private static SharedPreferences sharedPreferences;
 
-    protected static void writeToFile(String data, Context context) {
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(DATA_FILENAME, context.MODE_PRIVATE));
-            osw.write(data);
-            osw.flush();
-            osw.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
-    protected static String readFromFile(Context context) {
-        String data = "";
-        try {
-            InputStream inputStream = context.openFileInput(DATA_FILENAME);
-
-            if (inputStream != null) {
-                InputStreamReader isr = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(isr);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                data = stringBuilder.toString();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return data;
+    /**
+     * This method loads the level status data
+     *
+     * @return the status
+     */
+    protected static String loadLevelStatus(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+        return sharedPreferences.getString(LEVELS_STATUS, null);
     }
 
+    /**
+     * This method updates the level status data
+     *
+     * @param data the status
+     */
+    protected static void saveLevelStatus(String data, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+        SharedPreferences.Editor settingsEditor = sharedPreferences.edit();
+        settingsEditor.putString(LEVELS_STATUS, data);
+        settingsEditor.apply();
+    }
 
     /**
      * This method returns the level status letter saved on the file

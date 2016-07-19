@@ -2,6 +2,7 @@ package com.artactivo.alllightsoff;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +33,10 @@ import static com.artactivo.alllightsoff.Utilities.*;
 
 public class BoardActivity extends AppCompatActivity implements View.OnTouchListener {
     private final String LOGCAT = "AllLightsOff";
+    private static final String PREFS_FILENAME = "appSettings";
+    private static final String LEVELS_STATUS = "levelStatusKey";
+    private static SharedPreferences sharedPreferences;
+
     private Toast toast;
     private long lastBackPressTime = 0;
     private long lastResetPressTime = 0;
@@ -62,10 +67,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
+        sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         mLevelName = new String[mLevelCode.length];
         mNumberOfMoves = 0;
-        mSavegameData = readFromFile(this);
+        mSavegameData = loadLevelStatus(this);
 
         Intent intent = getIntent();
         if (intent.hasExtra("level_number")) {
@@ -242,7 +249,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             } else {
                 Log.i(LOGCAT, "Level has improved. Save the new data.");
                 newGameData = mSavegameData.substring(0, mCurrentLevel) + currentLevelStatus + mSavegameData.substring(mCurrentLevel + 1);
-                writeToFile(newGameData, this);
+                saveLevelStatus(newGameData, this);
                 mSavegameData = newGameData;
             }
 
@@ -252,7 +259,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 Log.i(LOGCAT, "Next Level Status is: " + savedLevelStatus);
                 if (savedLevelStatus.equals("L")) {
                     newGameData = mSavegameData.substring(0, mCurrentLevel + 1) + "0" + mSavegameData.substring(mCurrentLevel + 2);
-                    writeToFile(newGameData, this);
+                    saveLevelStatus(newGameData, this);
                     Log.i(LOGCAT, "Level " + (mCurrentLevel + 2) + " Opened");
                     mSavegameData = newGameData;
                 }

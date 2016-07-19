@@ -1,8 +1,10 @@
 package com.artactivo.alllightsoff;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
@@ -10,19 +12,32 @@ import android.widget.Toast;
 import static com.artactivo.alllightsoff.Utilities.*;
 
 public class MenuActivity extends AppCompatActivity {
+    private static final String PREFS_FILENAME = "appSettings";
+    private static final String LEVELS_STATUS = "levelStatusKey";
+    private static SharedPreferences sharedPreferences;
     private Toast toast;
     private long lastBackPressTime = 0;
+    private String[] mLevelCode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-    }
 
+        sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+
+        // Verifies that the data status exists and is not corrupted
+        mLevelCode = getResources().getStringArray(R.array.level_codes);
+        String savedData = loadLevelStatus(this);
+        if (savedData == null || savedData.length() != mLevelCode.length) {
+            resetLevelsStatus();
+        }
+    }
 
     public void openGame(View view) {
         // Calculates the first level least completed on file
-        String levelCodes = readFromFile(this);
+        String levelCodes = loadLevelStatus(this);
         int firstUnsolvedLevel = levelCodes.indexOf("0");
         if (firstUnsolvedLevel == -1) {
             firstUnsolvedLevel = levelCodes.indexOf("1");
@@ -57,22 +72,33 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    // File test methods
-    // Todo: Move reset to settings page
+    // Todo: Those two are file test methods, remove this methods at the end
     public void resetData(View view) {
         String data = "0000000000";  // The first 10 levels are available
-        int numberOfLevels = getResources().getStringArray(R.array.level_codes).length;
-        for (int id = 10; id < numberOfLevels; id++) {
+        for (int id = 10; id < mLevelCode.length; id++) {
             data += "L";           // The rest of the levels are locked
         }
-        writeToFile(data, this);
+        saveLevelStatus(data, this);
         Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
     }
 
+    // Todo: Those two are file test methods, remove this methods at the end
     public void loadData(View view) {
-        // Todo: Verify that the data saved is not corrupted and that it matches the array in strings
-        String loadText = readFromFile(this);
+        String loadText = loadLevelStatus(this);
         Toast.makeText(this, "String loaded: " + loadText, Toast.LENGTH_LONG).show();
+    }
+
+    /*
+     * This method resets the level status to the default
+     */
+    // Todo: Move reset to settings page
+    public void resetLevelsStatus() {
+        String data = "0000000000";  // The first 10 levels are available
+        for (int id = 10; id < mLevelCode.length; id++) {
+            data += "L";           // The rest of the levels are locked
+        }
+        saveLevelStatus(data, this);
+        Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
     }
 
     /*
