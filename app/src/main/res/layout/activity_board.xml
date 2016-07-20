@@ -24,10 +24,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/back_text"
+            android:background="@drawable/bkg_text"
             android:gravity="center"
             android:maxLines="1"
-            android:text="000"
             android:textColor="@color/colorTextPanel"
             android:textSize="@dimen/medium_text"/>
 
@@ -36,10 +35,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:background="@drawable/back_text"
+            android:background="@drawable/bkg_text"
             android:gravity="center"
             android:maxLines="1"
-            android:text="01234567890123456789"
             android:textAllCaps="false"
             android:textColor="@color/colorTextPanel"
             android:textSize="@dimen/medium_text"/>
@@ -128,7 +126,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_margin="@dimen/medium_margin"
                 android:gravity="center"
-                android:text="@string/gold_message"
+                android:text="@string/message_gold"
                 android:textSize="@dimen/medium_text"/>
 
             <TextView

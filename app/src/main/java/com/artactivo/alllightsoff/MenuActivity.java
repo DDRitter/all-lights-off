@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
@@ -14,11 +13,12 @@ import static com.artactivo.alllightsoff.Utilities.*;
 public class MenuActivity extends AppCompatActivity {
     private static final String PREFS_FILENAME = "appSettings";
     private static final String LEVELS_STATUS = "levelStatusKey";
+    private static final String GRID_POSITION = "gridPositionKey";
+    private static final String CURRENT_LEVEL = "currentLevelKey";
     private static SharedPreferences sharedPreferences;
-    private Toast toast;
-    private long lastBackPressTime = 0;
-    private String[] mLevelCode;
-
+    private static Toast toast;
+    private static long lastBackPressTime = 0;
+    private static String[] mLevelCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +49,14 @@ public class MenuActivity extends AppCompatActivity {
             firstUnsolvedLevel = 0;
         }
 
+        // Saves the default level scroll position and the first unsolved level
+        SharedPreferences.Editor settingsEditor = sharedPreferences.edit();
+        settingsEditor.putInt(GRID_POSITION, firstUnsolvedLevel);
+        settingsEditor.putInt(CURRENT_LEVEL, firstUnsolvedLevel);
+        settingsEditor.apply();
+
         // Starts the intent at the first level not completed
         Intent intent = new Intent(this, BoardActivity.class);
-        intent.putExtra("level_number", firstUnsolvedLevel);
         startActivity(intent);
     }
 
@@ -61,7 +66,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void openSettings(View view) {
-
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void openHelp(View view) {

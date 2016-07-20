@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">Luces Fuera</string>
 
-    <string name="play_button">Jugar</string>
-    <string name="level_button">Elegir nivel</string>
-    <string name="settings_button">Opciones</string>
-    <string name="help_button">Ayuda</string>
-    <string name="about_button">Créditos</string>
+    <string name="button_play">Jugar</string>
+    <string name="button_level">Elegir nivel</string>
+    <string name="button_settings">Opciones</string>
+    <string name="button_help">Ayuda</string>
+    <string name="button_about">Créditos</string>
 
-    <string name="gold_message">¡Perfecto!</string>
-    <string name="silver_message">¡Bien hecho!</string>
-    <string name="bronze_message">¡No está mal!</string>
-    <string name="bad_message">Por lo menos acabaste</string>
+    <string name="message_gold">¡Perfecto!</string>
+    <string name="message_silver">¡Bien hecho!</string>
+    <string name="message_bronze">¡No está mal!</string>
+    <string name="message_bad">Por lo menos acabaste</string>
 
     <string name="toast_open_menu">Pulsa de nuevo para ir al menú principal</string>
     <string name="toast_select_level">Pulsa de nuevo para elegir otro nivel</string>
@@ -19,6 +19,15 @@
     <string name="toast_prev_level">Pulsa de nuevo para ir al nivel anterior</string>
     <string name="toast_close_app">Pulsa de nuevo para cerrar la aplicación</string>
     <string name="toast_leave_game">Pulsa de nuevo para abandonar el juego</string>
+
+    <string name="header_select_level">Escoge un nivel</string>
+    <string name="header_settings">Opciones</string>
+
+    <string name="setting_music">Música</string>
+    <string name="setting_sound">Sonido</string>
+    <string name="setting_reset">Borrar datos de niveles</string>
+    <string name="setting_language">Idioma</string>
+    <string name="setting_tile">Imagen de botón</string>
 
     <plurals name="number_of_moves">
         <item quantity="zero">Nivel superado con 0 movimientos</item>

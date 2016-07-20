@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,7 +34,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private final String LOGCAT = "AllLightsOff";
     private static final String PREFS_FILENAME = "appSettings";
     private static final String LEVELS_STATUS = "levelStatusKey";
-    private static SharedPreferences sharedPreferences;
+    private static final String GRID_POSITION = "gridPositionKey";
+    private static final String CURRENT_LEVEL = "currentLevelKey";
 
     private Toast toast;
     private long lastBackPressTime = 0;
@@ -47,8 +47,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
     private SoundPool soundEffects;
     private int clickSoundId;
-    private int numberOfColumns = 5;                                // The size of one side of the pattern
-    private int numberOfTiles = numberOfColumns * numberOfColumns;
+    private static int numberOfColumns = 5;                                // The size of one side of the pattern
+    private static int numberOfTiles = numberOfColumns * numberOfColumns;
     private int sizeOfTiles;
     private String[] mLevelCode;
     private String[] mLevelName;
@@ -67,19 +67,15 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
-        sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
-
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         mLevelName = new String[mLevelCode.length];
         mNumberOfMoves = 0;
         mSavegameData = loadLevelStatus(this);
 
-        Intent intent = getIntent();
-        if (intent.hasExtra("level_number")) {
-            mCurrentLevel = getIntent().getExtras().getInt("level_number");
-        } else {
-            mCurrentLevel = 0;
-        }
+        // Gets the first unsolved level from the preferences
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+        mCurrentLevel = sharedPreferences.getInt(CURRENT_LEVEL, 0);
+
         prepareSounds();
         calculateBoardLayout();
         createBackgroundBoard(numberOfColumns, sizeOfTiles);
@@ -217,19 +213,19 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             if (mNumberOfMoves <= mSolutionMoves) {
                 currentLevelStatus = "3";
                 cup.setImageResource(R.drawable.cup_gold);
-                greeting = getResources().getString(R.string.gold_message);
+                greeting = getResources().getString(R.string.message_gold);
             } else if (mNumberOfMoves <= mSolutionMoves * 2) {
                 currentLevelStatus = "2";
                 cup.setImageResource(R.drawable.cup_silver);
-                greeting = getResources().getString(R.string.silver_message);
+                greeting = getResources().getString(R.string.message_silver);
             } else if (mNumberOfMoves <= mSolutionMoves * 3) {
                 currentLevelStatus = "1";
                 cup.setImageResource(R.drawable.cup_bronze);
-                greeting = getResources().getString(R.string.bronze_message);
+                greeting = getResources().getString(R.string.message_bronze);
             } else {
                 currentLevelStatus = "0";
                 cup.setImageResource(R.drawable.cup_pewter);
-                greeting = getResources().getString(R.string.bad_message);
+                greeting = getResources().getString(R.string.message_bad);
             }
 
             // Updates the end message

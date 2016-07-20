@@ -1,13 +1,9 @@
 package com.artactivo.alllightsoff;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -16,15 +12,9 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
 /**
  * Some methods useful for several activities
+ *
  * Created by DDRitter on 08/07/2016.
  */
 public class Utilities extends AppCompatActivity {
@@ -33,10 +23,7 @@ public class Utilities extends AppCompatActivity {
     private static final String LEVELS_STATUS = "levelStatusKey";
     private static SharedPreferences sharedPreferences;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 
     /**
      * This method loads the level status data

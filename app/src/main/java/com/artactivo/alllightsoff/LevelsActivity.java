@@ -8,8 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.Locale;
 
 import static com.artactivo.alllightsoff.Utilities.*;
@@ -30,12 +25,13 @@ public class LevelsActivity extends AppCompatActivity {
     private static final String LOGCAT = "AllLightsOff";
     private static final String PREFS_FILENAME = "appSettings";
     private static final String LEVELS_STATUS = "levelStatusKey";
+    private static final String GRID_POSITION = "gridPositionKey";
+    private static final String CURRENT_LEVEL = "currentLevelKey";
     private static SharedPreferences sharedPreferences;
 
-    // Todo: store this arrays in the splash and pass it to the new activities instead of creating a new one each time
     private String[] mLevelCode;
     private String mSavegameData;
-    private int gridviewVerticalPositionWhenThumbnailTapped = 0;
+    private static int numberOfColumns = 5;                 // The size of one side of the pattern
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +40,29 @@ public class LevelsActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
 
-        // Todo: store this array in the splash and pass it to the new activities instead of creating a new one each time
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         mSavegameData = loadLevelStatus(this);
 
         final GridView levelsGrid = (GridView) findViewById(R.id.level_list);
         levelsGrid.setAdapter(new CustomAdapter(this));
 
-        // Todo: load this from preferences or something like that
-        // Scroll grid view to last known scroll position
-        levelsGrid.setSelection(gridviewVerticalPositionWhenThumbnailTapped);
-
+        // Scroll grid view to last known scroll position by reading this from preferences
+        levelsGrid.setSelection(sharedPreferences.getInt(GRID_POSITION, 0));
 
         levelsGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Todo: save this in  preferences or something like that
-                // Save vertical position of gridview screen when tapped
-                gridviewVerticalPositionWhenThumbnailTapped = levelsGrid.getFirstVisiblePosition();
-                // We start the board activity with the selected level taken from the position on the grid
-                // Todo: check if the level is locked and ignore the click if that's the case
+                if (getLevelData(mSavegameData, position).equals("L")) {
+                    return;
+                }
+                // Save current scroll position of gridview screen when tapped
+                SharedPreferences.Editor settingsEditor = sharedPreferences.edit();
+                settingsEditor.putInt(GRID_POSITION, levelsGrid.getFirstVisiblePosition());
+                settingsEditor.apply();
+
+                // Save the current level from the position of the item clicked
+                settingsEditor.putInt(CURRENT_LEVEL, position);
+                settingsEditor.apply();
                 Intent intent = new Intent(getBaseContext(), BoardActivity.class);
-                intent.putExtra("level_number", position);
                 startActivity(intent);
                 finish();
             }
@@ -134,10 +132,10 @@ public class LevelsActivity extends AppCompatActivity {
 
             Canvas patternCanvas = new Canvas(thumbPattern);
 
-            for (int id = 0; id < 25; id++) {                               //Todo fix this HC 25
+            for (int id = 0; id < numberOfColumns * numberOfColumns; id++) {
                 currentCode = mLevelCode[position].substring(id, id + 1);
-                int posX = id % 5;                                          //Todo fix this HC 5
-                int posY = id / 5;                                          //Todo fix this HC 5
+                int posX = id % numberOfColumns;
+                int posY = id / numberOfColumns;
                 if (currentCode.equals(tileCodeOn)) {
                     // add lit tile to gridview
                     patternCanvas.drawBitmap(thumbTileOn, posX * thumbTileWidth, posY * thumbTileWidth, null);
