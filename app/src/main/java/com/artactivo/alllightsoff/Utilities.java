@@ -23,8 +23,6 @@ public class Utilities extends AppCompatActivity {
     private static final String LEVELS_STATUS = "levelStatusKey";
     private static SharedPreferences sharedPreferences;
 
-
-
     /**
      * This method loads the level status data
      *

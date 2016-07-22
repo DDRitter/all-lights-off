@@ -11,6 +11,7 @@
     <string name="message_silver">Well done!</string>
     <string name="message_bronze">Not bad!</string>
     <string name="message_bad">At least you finished it</string>
+    <string name="message_hints">Nice! Now clear the level without hints to save it</string>
 
     <string name="toast_open_menu">Press the button again to open the home menu</string>
     <string name="toast_select_level">Press the button again to select another level</string>
