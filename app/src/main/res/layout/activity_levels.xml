@@ -14,6 +14,7 @@
         android:text="@string/header_select_level"/>
 
     <GridView
+        android:scrollbarStyle="outsideOverlay"
         android:id="@+id/level_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,12 +23,12 @@
         android:fadingEdgeLength="16dp"
         android:requiresFadingEdge="vertical"
         android:gravity="center"
-        android:horizontalSpacing="16dp"
+        android:horizontalSpacing="8dp"
         android:listSelector="@android:color/transparent"
         android:numColumns="auto_fit"
         android:padding="@dimen/medium_margin"
         android:stretchMode="spacingWidth"
-        android:verticalSpacing="32dp">
+        android:verticalSpacing="16dp">
 
     </GridView>
 

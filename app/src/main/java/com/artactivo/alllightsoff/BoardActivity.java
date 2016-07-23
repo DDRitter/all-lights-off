@@ -100,10 +100,10 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         } else {
             boardDimensionPx = displayMetrics.widthPixels - (int) (convertDpToPx(16, this) * 2);
         }
-        sizeOfTiles = (int) boardDimensionPx / numberOfColumns;
+        sizeOfTiles = boardDimensionPx / numberOfColumns;
 
         // Rescales the pop-up window to cover a 4 x 4 tile windows
-        View popup = (View) findViewById(R.id.pop_up);
+        View popup = findViewById(R.id.pop_up);
         RelativeLayout.LayoutParams rlp;
         rlp = new RelativeLayout.LayoutParams(sizeOfTiles * 4, sizeOfTiles * 4);
         rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -215,7 +215,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             // Calculates the actual level status and changes the corresponding pop-up message and cup image
             ImageView cup = (ImageView) findViewById(R.id.cup);
             Log.i(LOGCAT, "Number of Moves: " + mNumberOfMoves + "   Solution Moves: " + mSolutionMoves);
-            String message = "";
+            String message;
             String currentLevelStatus = "";
             if (solutionIsDisplayed) {
                 cup.setImageResource(R.drawable.ic_no_help);
@@ -251,7 +251,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 // Changes the data of the current level only if it's better
                 String savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel);
                 Log.i(LOGCAT, "Saved Level Status: " + savedLevelStatus);
-                String newGameData = "";
+                String newGameData;
                 if (savedLevelStatus.compareTo(currentLevelStatus) >= 0) {
                     Log.i(LOGCAT, "This level is better on disk, is the same or is locked.");
                 } else {
@@ -431,10 +431,10 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         // If the level is completed with hints, then reset instead of advancing to the next level
         // Verify that we are not on the last level to avoid error with pop-up window click
         if (solutionIsDisplayed) {
-            View reset = (View) findViewById(R.id.reset_button);
+            View reset = findViewById(R.id.reset_button);
             reset.performClick();
         } else if (mCurrentLevel != mLevelCode.length - 1) {
-            View next = (View) findViewById(R.id.next_button);
+            View next = findViewById(R.id.next_button);
             next.performClick();
         }
     }
@@ -482,7 +482,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         mNumberOfMoves = 0;
         gameHasEnded = false;
         solutionIsDisplayed = false;
-        String currentCode = "";
+        String currentCode;
         int currentPos = 0;
 
         // Clears the solution board
@@ -533,7 +533,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         setPanelContent();
 
         // Hides the pop-up window
-        View popup = (View) findViewById(R.id.pop_up);
+        View popup = findViewById(R.id.pop_up);
         popup.setVisibility(View.INVISIBLE);
     }
 
@@ -614,7 +614,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     @Override
     public void onBackPressed() {
-        if (mNumberOfMoves > 0) {
+        if (mNumberOfMoves > 0 && !gameHasEnded) {
             if (this.lastBackPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_leave_game, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -781,7 +781,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         int length = pattern.length;
         String tileCodeOn = getString(R.string.tile_code_on);
         String[] quietPatterns = getResources().getStringArray(R.array.quiet_patterns);
-        String currentCode = "";
+        String currentCode;
 
         System.arraycopy(pattern, 0, optimizedPattern, 0, length); // As a default the original is the best
 

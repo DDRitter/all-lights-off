@@ -34,7 +34,6 @@
     <string name="setting_tile">Imagen de botón</string>
 
     <plurals name="number_of_moves">
-        <item quantity="zero">Nivel superado con 0 movimientos</item>
         <item quantity="one">Nivel superado con 1 movimiento</item>
         <item quantity="other">Nivel superado con %d movimientos</item>
     </plurals>
@@ -58,7 +57,8 @@
     <string name="help_paragraph17">Debajo de las estrellas el juego muestra el número de movimientos disponibles para cada logro:</string>
     <string name="help_paragraph18">A medida que consumes tus movimientos estas muescas irán desapareciendo y las estrellas se irán actualizando acorde a ello.</string>
     <string name="help_paragraph19">Cuando completes un tablero aparecerá un mensaje en pantalla que mostrará tu resultado:</string>
-    <string name="help_paragraph20">Pulsando en ese mensaje the avanzará al siguiente nivel o lo reiniciará si has utilizado la ayuda.</string>
+    <string name="help_paragraph20">Pulsando en ese mensaje avanzarás al siguiente nivel o lo reiniciarás si has utilizado la ayuda.</string>
+    <string name="help_level_name">Nombre del nivel</string>
 
     <string-array name="level_codes">
         <!-- Tutorials -->

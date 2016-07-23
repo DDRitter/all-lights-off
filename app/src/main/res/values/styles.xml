@@ -68,6 +68,7 @@
     <style name="TileMediumHelp">
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">36dp</item>
+        <item name="android:contentDescription">""</item>
         <item name="android:gravity">center</item>
     </style>
 

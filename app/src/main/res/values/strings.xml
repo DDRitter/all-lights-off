@@ -59,6 +59,9 @@
     <string name="help_paragraph18">As you consume your moves the tokens will disappear and the stars will update accordingly.</string>
     <string name="help_paragraph19">When you clear the board a message window will appear on screen showing your result:</string>
     <string name="help_paragraph20">Touching that window will advance you to the next level or just restart the current game if you have used the help.</string>
+    <string name="help_level_name">Level name</string>
+    <string name="help_level_number">150</string>
+
 
     <string-array name="level_codes">
         <!-- Tutorials -->

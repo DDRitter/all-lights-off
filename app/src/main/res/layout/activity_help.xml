@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bkg_paper"
-    tools:context="com.artactivo.alllightsoff.LevelsActivity">
+    tools:context="com.artactivo.alllightsoff.LevelsActivity"
+    tools:ignore="ContentDescription">
 
     <TextView
         android:id="@+id/header"
@@ -252,7 +253,7 @@
                     style="@style/TileMediumHelp"
                     android:layout_weight="1"
                     android:background="@drawable/bkg_text"
-                    android:text="150"
+                    android:text="@string/help_level_number"
                     android:textColor="@color/colorTextPanel"
                     android:textSize="@dimen/small_text"/>
 
@@ -260,7 +261,7 @@
                     style="@style/TileMediumHelp"
                     android:layout_weight="3"
                     android:background="@drawable/bkg_text"
-                    android:text="Level name"
+                    android:text="@string/help_level_name"
                     android:textColor="@color/colorTextPanel"
                     android:textSize="@dimen/small_text"/>
 
@@ -429,10 +430,6 @@
                 android:text="@string/help_paragraph20"/>
 
             <View style="@style/Separator"/>
-
-
-
-
 
         </LinearLayout>
 
