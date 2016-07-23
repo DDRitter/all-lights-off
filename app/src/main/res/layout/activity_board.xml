@@ -116,8 +116,7 @@
             android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:background="@drawable/bkg_popup"
-            android:onClick="popUpClick"
-            android:orientation="vertical">
+            android:onClick="popUpClick">
 
             <TextView
                 android:id="@+id/pop_up_message"

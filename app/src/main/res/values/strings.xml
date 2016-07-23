@@ -13,16 +13,19 @@
     <string name="message_bad">At least you finished it</string>
     <string name="message_hints">Nice! Now clear the level without hints to save it</string>
 
-    <string name="toast_open_menu">Press the button again to open the home menu</string>
-    <string name="toast_select_level">Press the button again to select another level</string>
-    <string name="toast_reset_board">Press the button again to reset the level</string>
-    <string name="toast_next_level">Press the button again to advance to the next level</string>
-    <string name="toast_prev_level">Press the button again to go to the previous level</string>
-    <string name="toast_close_app">Press back again to close this app</string>
-    <string name="toast_leave_game">Press back again to leave the current game</string>
+    <string name="toast_open_menu">Press again to open the home menu</string>
+    <string name="toast_select_level">Press again to select another level</string>
+    <string name="toast_reset_board">Press again to reset the level</string>
+    <string name="toast_next_level">Press again to advance to the next level</string>
+    <string name="toast_prev_level">Press again to go to the previous level</string>
+    <string name="toast_close_app">Press again to close the app</string>
+    <string name="toast_leave_game">Press again to end the current game</string>
+    <string name="toast_show_solution">Press again to show the solution</string>
+    <string name="toast_locked_level">Clear the previous levels to access this one</string>
 
-    <string name="header_select_level">Select Level</string>
+    <string name="header_select_level">Select level</string>
     <string name="header_settings">Settings</string>
+    <string name="header_help">How to play</string>
 
     <string name="setting_music">Music</string>
     <string name="setting_sound">Sound effects</string>
@@ -35,6 +38,27 @@
         <item quantity="one">Level cleared in 1 move</item>
         <item quantity="other">Level cleared in %d moves</item>
     </plurals>
+
+    <string name="help_paragraph1">The objective of the game is to switch off all the lights on the board.\nTouching a tile will flip it and the tiles that are up, down, left and right:</string>
+    <string name="help_paragraph2">Below the board is the following row of controls:</string>
+    <string name="help_paragraph3">Opens the Main menu.</string>
+    <string name="help_paragraph4">Opens the list of levels available.</string>
+    <string name="help_paragraph5">Goes to the previous level.</string>
+    <string name="help_paragraph6">Resets the current level.</string>
+    <string name="help_paragraph7">Advances to the next level.</string>
+    <string name="help_paragraph8">Undoes the last action.\nIt can only be used once in a row.</string>
+    <string name="help_paragraph9">Shows the solution for the current pattern.\nNote that by using this the current level will not be saved and the next level will not be unlocked.</string>
+    <string name="help_paragraph10">If there is a game being played some actions will require a confirmation.</string>
+    <string name="help_paragraph11">Above the board is displayed the level number, the name, and the stars achieved for that level.\nWhen you start a game the stars are updated to show your current achievement as you make the moves:</string>
+    <string name="help_paragraph12">Star achieved</string>
+    <string name="help_paragraph13">Star not achieved</string>
+    <string name="help_paragraph14">This star can be achieved on the current gameplay, as long as you are making the right moves.</string>
+    <string name="help_paragraph15">This star cannot be achieved on the current gameplay because you have made too many moves.</string>
+    <string name="help_paragraph16">You can clear the board with 3 stars (gold) if you use the minimum number of moves.\nIf you need more moves, you can receive 2 starts (silver), one star (bronze), or no star at all (pewter).\nClearing the board will always unlock the next level.\nThe game will only update your saved achievement if it is better.</string>
+    <string name="help_paragraph17">Below the stars the game displays the number of moves available for each achievement:</string>
+    <string name="help_paragraph18">As you consume your moves the tokens will disappear and the stars will update accordingly.</string>
+    <string name="help_paragraph19">When you clear the board a message window will appear on screen showing your result:</string>
+    <string name="help_paragraph20">Touching that window will advance you to the next level or just restart the current game if you have used the help.</string>
 
     <string-array name="level_codes">
         <!-- Tutorials -->

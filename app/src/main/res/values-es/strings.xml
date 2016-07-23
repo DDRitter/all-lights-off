@@ -20,13 +20,16 @@
     <string name="toast_prev_level">Pulsa de nuevo para ir al nivel anterior</string>
     <string name="toast_close_app">Pulsa de nuevo para cerrar la aplicación</string>
     <string name="toast_leave_game">Pulsa de nuevo para abandonar el juego</string>
+    <string name="toast_show_solution">Pulsa de nuevo para mostrar la solución óptima</string>
+    <string name="toast_locked_level">Completa los niveles anteriores para desbloquear este</string>
 
     <string name="header_select_level">Escoge un nivel</string>
     <string name="header_settings">Opciones</string>
+    <string name="header_help">Ayuda</string>
 
     <string name="setting_music">Música</string>
     <string name="setting_sound">Sonido</string>
-    <string name="setting_reset">Borrar datos de niveles</string>
+    <string name="setting_reset">Borrar niveles guardados</string>
     <string name="setting_language">Idioma</string>
     <string name="setting_tile">Imagen de botón</string>
 
@@ -35,6 +38,27 @@
         <item quantity="one">Nivel superado con 1 movimiento</item>
         <item quantity="other">Nivel superado con %d movimientos</item>
     </plurals>
+
+    <string name="help_paragraph1">El objetivo del juego es apagar todas las luces del tablero.\nTocando una pieza se cambia su estado y el de las piezas que están arriba, abajo y a los lados:</string>
+    <string name="help_paragraph2">Debajo del tablero está el lista de controles:</string>
+    <string name="help_paragraph3">Abre el menú principal.</string>
+    <string name="help_paragraph4">Accede a la lista de niveles disponibles.</string>
+    <string name="help_paragraph5">Retrocede al nivel anterior.</string>
+    <string name="help_paragraph6">Reinicia el nivel actual.</string>
+    <string name="help_paragraph7">Avanza al siguiente nivel.</string>
+    <string name="help_paragraph8">Deshace el último movimiento.\nNo se puede deshacer más de un movimiento a la vez.</string>
+    <string name="help_paragraph9">Muestra la solución optima para la combinación de luces actual.\nTen en cuenta que si se usa esta ayuda los logros no serán guardados y no se desbloqueará el siguiente nivel.</string>
+    <string name="help_paragraph10">Si hay un juego en marcha algunas de estas acciones requerirán una confirmación.</string>
+    <string name="help_paragraph11">Sobre el tablero se muestran el número del nivel, el nombre y las estrellas conseguidas.\nCuando empiezas un juego las estrellas se actualizan para mostrar los logros actuales según vas haciendo movimientos:</string>
+    <string name="help_paragraph12">Estrella conseguida</string>
+    <string name="help_paragraph13">Estrella no conseguida</string>
+    <string name="help_paragraph14">Esta estrella puede ser conseguida en el juego actual, siempre y cuando estés haciendo los movimientos correctos.</string>
+    <string name="help_paragraph15">Esta estrella ya no puede ser conseguida en el juego actual porque has usado demasiados movimientos.</string>
+    <string name="help_paragraph16">Puedes completar el tablero con 3 estrellas (oro) si usas el mínimo número de movimientos.\nSi necesitas más movimientos recibirás 2 estrellas (plata), una estrella (bronce), o ninguna (peltre).\nCompletar el tablero siempre desbloquea el siguiente nivel.\nEl juego sólo actualizará tu logro del nivel si has mejorado un resultado anterior.</string>
+    <string name="help_paragraph17">Debajo de las estrellas el juego muestra el número de movimientos disponibles para cada logro:</string>
+    <string name="help_paragraph18">A medida que consumes tus movimientos estas muescas irán desapareciendo y las estrellas se irán actualizando acorde a ello.</string>
+    <string name="help_paragraph19">Cuando completes un tablero aparecerá un mensaje en pantalla que mostrará tu resultado:</string>
+    <string name="help_paragraph20">Pulsando en ese mensaje the avanzará al siguiente nivel o lo reiniciará si has utilizado la ayuda.</string>
 
     <string-array name="level_codes">
         <!-- Tutorials -->
@@ -218,4 +242,5 @@
         <item>OOOOOOOOOOOOOOOOOOOOOOOOO # Trabajo duro</item>
 
     </string-array>
+
 </resources>

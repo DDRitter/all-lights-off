@@ -10,11 +10,8 @@
 
     <TextView
         android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Select Level"
-        android:textSize="@dimen/huge_text"/>
+        style="@style/TextHeader"
+        android:text="@string/header_select_level"/>
 
     <GridView
         android:id="@+id/level_list"

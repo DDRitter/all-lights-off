@@ -8,4 +8,82 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MenuButton">
+
+
+    </style>
+
+    <style name="TextHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/huge_text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin</item>
+        <item name="android:layout_marginBottom">@dimen/medium_margin</item>
+    </style>
+
+    <style name="TextParagraph">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:gravity">left|start</item>
+    </style>
+
+    <style name="ListParagraph" parent="TextParagraph">
+        <item name="android:layout_marginLeft">@dimen/medium_margin</item>
+        <item name="android:layout_marginRight">@dimen/medium_margin</item>
+        <item name="android:layout_marginTop">@dimen/tiny_margin</item>
+        <item name="android:layout_marginBottom">@dimen/tiny_margin</item>
+        <item name="android:gravity">left|start|center_vertical</item>
+    </style>
+
+    <style name="Separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin</item>
+        <item name="android:layout_marginBottom">@dimen/medium_margin</item>
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <style name="TileOnHelp" parent="TileSmallHelp">
+        <item name="android:src">@drawable/tile_on</item>
+    </style>
+
+    <style name="TileOffHelp" parent="TileSmallHelp">
+        <item name="android:src">@drawable/tile_off</item>
+    </style>
+
+    <style name="TileSmallHelp">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TileMediumHelp">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ButtonRowHelp">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="HorizontalLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/medium_margin</item>
+        <item name="android:layout_marginRight">@dimen/medium_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
 </resources>

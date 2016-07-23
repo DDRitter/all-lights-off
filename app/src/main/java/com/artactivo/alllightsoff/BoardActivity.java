@@ -209,44 +209,46 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * and ends the game, saving the new data
      */
     private void checkBoard() {
+        // Todo: fix not show the cup when the game is completed with hints (with hints, solution moves are always 1 at the end)
+        // Todo: unify all in one if and else (for solutionisdisplayed)
         if (mSolvedTiles == numberOfTiles) {
             // Calculates the actual level status and changes the corresponding pop-up message and cup image
             ImageView cup = (ImageView) findViewById(R.id.cup);
-            TextView textView;
-            String greeting = "";
+            Log.i(LOGCAT, "Number of Moves: " + mNumberOfMoves + "   Solution Moves: " + mSolutionMoves);
+            String message = "";
             String currentLevelStatus = "";
-            if (mNumberOfMoves <= mSolutionMoves) {
+            if (solutionIsDisplayed) {
+                cup.setImageResource(R.drawable.ic_no_help);
+                message = getResources().getString(R.string.message_hints);
+            } else if (mNumberOfMoves <= mSolutionMoves) {
                 currentLevelStatus = "3";
                 cup.setImageResource(R.drawable.cup_gold);
-                greeting = getResources().getString(R.string.message_gold);
+                message = getResources().getString(R.string.message_gold);
             } else if (mNumberOfMoves <= mSolutionMoves * 2) {
                 currentLevelStatus = "2";
                 cup.setImageResource(R.drawable.cup_silver);
-                greeting = getResources().getString(R.string.message_silver);
+                message = getResources().getString(R.string.message_silver);
             } else if (mNumberOfMoves <= mSolutionMoves * 3) {
                 currentLevelStatus = "1";
                 cup.setImageResource(R.drawable.cup_bronze);
-                greeting = getResources().getString(R.string.message_bronze);
+                message = getResources().getString(R.string.message_bronze);
             } else {
                 currentLevelStatus = "0";
                 cup.setImageResource(R.drawable.cup_pewter);
-                greeting = getResources().getString(R.string.message_bad);
+                message = getResources().getString(R.string.message_bad);
             }
 
-            // Updates the end message
-            textView = (TextView) findViewById(R.id.pop_up_message);
-            if (solutionIsDisplayed) {
-                textView.setText(getResources().getString(R.string.message_hints));
-            } else {
-                textView.setText(greeting);
-            }
+            // Sets the end message
+            TextView textView = (TextView) findViewById(R.id.pop_up_message);
+            textView.setText(message);
 
+            // Sets the number of moves message
             String moves = getResources().getQuantityString(R.plurals.number_of_moves, mNumberOfMoves, mNumberOfMoves);
             textView = (TextView) findViewById(R.id.pop_up_moves);
             textView.setText(moves);
 
-            // Changes the data of the current level only if it's better
             if (!solutionIsDisplayed) {
+                // Changes the data of the current level only if it's better
                 String savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel);
                 Log.i(LOGCAT, "Saved Level Status: " + savedLevelStatus);
                 String newGameData = "";
@@ -270,10 +272,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                         mSavegameData = newGameData;
                     }
                 }
+                // Updates the stars with the appropriate values
+                setStars(currentLevelStatus, findViewById(R.id.level_star_row), 1500);
             }
-
-            // Updates the stars with the appropriate values
-            setStars(currentLevelStatus, findViewById(R.id.level_star_row), 1500);
 
             // Sets a delay before clearing the board views to allow for the last fadeout animation
             Handler handler = new Handler();
@@ -427,8 +428,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method process click on the end message pop-up
      */
     public void popUpClick(View view) {
+        // If the level is completed with hints, then reset instead of advancing to the next level
         // Verify that we are not on the last level to avoid error with pop-up window click
-        if (mCurrentLevel != mLevelCode.length - 1) {
+        if (solutionIsDisplayed) {
+            View reset = (View) findViewById(R.id.reset_button);
+            reset.performClick();
+        } else if (mCurrentLevel != mLevelCode.length - 1) {
             View next = (View) findViewById(R.id.next_button);
             next.performClick();
         }
@@ -630,6 +635,19 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * Note: This only works with 5 tiles
      */
     public void showSolution(View view) {
+        if (mNumberOfMoves > 0 && !gameHasEnded && !solutionIsDisplayed) {
+            if (this.lastNextPressTime < System.currentTimeMillis() - 2500) {
+                toast = Toast.makeText(this, R.string.toast_show_solution, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+                this.lastNextPressTime = System.currentTimeMillis();
+                return;
+            } else {
+                if (toast != null) {
+                    toast.cancel();
+                }
+            }
+        }
         calculateSolution();
         displaySolution(numberOfColumns, sizeOfTiles, mSolutionPattern);
 

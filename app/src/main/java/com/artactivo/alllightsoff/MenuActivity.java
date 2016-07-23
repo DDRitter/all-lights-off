@@ -31,7 +31,11 @@ public class MenuActivity extends AppCompatActivity {
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         String savedData = loadLevelStatus(this);
         if (savedData == null || savedData.length() != mLevelCode.length) {
-            resetLevelsStatus();
+            String data = "0000000000";  // The first 10 levels are available
+            for (int id = 10; id < mLevelCode.length; id++) {
+                data += "L";           // The rest of the levels are locked
+            }
+            saveLevelStatus(data, this);
         }
     }
 
@@ -71,40 +75,12 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void openHelp(View view) {
-
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
     }
 
     public void openAbout(View view) {
 
-    }
-
-    // Todo: Those two are file test methods, remove this methods at the end
-    public void resetData(View view) {
-        String data = "0000000000";  // The first 10 levels are available
-        for (int id = 10; id < mLevelCode.length; id++) {
-            data += "L";           // The rest of the levels are locked
-        }
-        saveLevelStatus(data, this);
-        Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
-    }
-
-    // Todo: Those two are file test methods, remove this methods at the end
-    public void loadData(View view) {
-        String loadText = loadLevelStatus(this);
-        Toast.makeText(this, "String loaded: " + loadText, Toast.LENGTH_LONG).show();
-    }
-
-    /*
-     * This method resets the level status to the default
-     */
-    // Todo: Move reset to settings page
-    public void resetLevelsStatus() {
-        String data = "0000000000";  // The first 10 levels are available
-        for (int id = 10; id < mLevelCode.length; id++) {
-            data += "L";           // The rest of the levels are locked
-        }
-        saveLevelStatus(data, this);
-        Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
     }
 
     /*

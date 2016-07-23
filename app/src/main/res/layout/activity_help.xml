@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bkg_paper"
+    tools:context="com.artactivo.alllightsoff.LevelsActivity">
+
+    <TextView
+        android:id="@+id/header"
+        style="@style/TextHeader"
+        android:text="@string/header_help"/>
+
+    <ScrollView
+        android:scrollbarStyle="outsideOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:fadingEdgeLength="16dp"
+        android:gravity="center"
+        android:paddingLeft="@dimen/large_margin"
+        android:paddingRight="@dimen/large_margin"
+        android:requiresFadingEdge="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph1"/>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:columnCount="9">
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOnHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOnHelp"/>
+
+                <ImageView
+                    style="@style/TileOnHelp"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:src="@drawable/tile_solution"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/ic_next_default"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView style="@style/TileOnHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOnHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView style="@style/TileSmallHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+
+                <ImageView style="@style/TileOnHelp"/>
+
+                <ImageView style="@style/TileOffHelp"/>
+            </GridLayout>
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph2"/>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout"
+                android:layout_marginBottom="@dimen/medium_margin">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_menu_default"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_levels_default"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_prev_default"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_reset_default"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_next_default"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_undo_default"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_help_default"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_menu_default"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph3"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_levels_default"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph4"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_prev_default"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph5"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_reset_default"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph6"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_next_default"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph7"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_undo_default"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph8"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/ic_help_default"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph9"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph10"/>
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph11"/>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:weightSum="12">
+
+                <TextView
+                    style="@style/TileMediumHelp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bkg_text"
+                    android:text="150"
+                    android:textColor="@color/colorTextPanel"
+                    android:textSize="@dimen/small_text"/>
+
+                <TextView
+                    style="@style/TileMediumHelp"
+                    android:layout_weight="3"
+                    android:background="@drawable/bkg_text"
+                    android:text="Level name"
+                    android:textColor="@color/colorTextPanel"
+                    android:textSize="@dimen/small_text"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/star_lit"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/star_lit"/>
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/star_lit"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/star_lit"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph12"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/star_unlit"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph13"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/star_question"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph14"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout">
+
+                <ImageView
+                    style="@style/TileMediumHelp"
+                    android:src="@drawable/star_disabled"/>
+
+                <TextView
+                    style="@style/ListParagraph"
+                    android:text="@string/help_paragraph15"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph16"/>
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph17"/>
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout"
+                android:layout_marginBottom="@dimen/medium_margin">
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_bronze"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_bronze"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_bronze"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_silver"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_silver"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_silver"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_gold"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_gold"/>
+
+                <ImageView
+                    style="@style/TileSmallHelp"
+                    android:src="@drawable/move_gold"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph18"/>
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph19"/>
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bkg_popup">
+
+                <TextView
+                    android:id="@+id/pop_up_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:gravity="center"
+                    android:text="@string/message_gold"
+                    android:textSize="@dimen/medium_text"/>
+
+                <ImageView
+                    android:layout_below="@id/pop_up_message"
+                    android:layout_above="@id/pop_up_moves"
+                    android:id="@+id/cup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/cup_gold"/>
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/TextParagraph"
+                android:text="@string/help_paragraph20"/>
+
+            <View style="@style/Separator"/>
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

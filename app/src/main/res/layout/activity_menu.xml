@@ -47,26 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/medium_margin"
-        android:layout_weight="1"
-        android:onClick="loadData"
-        android:text="Load Data"
-        android:background="@drawable/bkg_button"
-        android:textSize="@dimen/medium_text"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:layout_weight="1"
-        android:onClick="resetData"
-        android:text="Reset Game Data"
-        android:background="@drawable/bkg_button"
-        android:textSize="@dimen/medium_text"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/medium_margin"
         android:layout_weight="2"
         android:onClick="openSettings"
         android:text="@string/button_settings"
