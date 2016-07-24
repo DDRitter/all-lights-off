@@ -242,7 +242,7 @@
             android:layout_weight="1"
             android:focusable="true"
             android:focusableInTouchMode="false"
-            android:onClick="showSolution"
+            android:onClick="updateSolutionDisplay"
             android:src="@drawable/ic_help_selector"/>
 
     </LinearLayout>

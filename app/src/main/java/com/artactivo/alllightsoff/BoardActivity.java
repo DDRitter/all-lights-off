@@ -37,12 +37,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private final String CURRENT_LEVEL = "currentLevelKey";
 
     private Toast toast;
-    private long lastBackPressTime = 0;
-    private long lastResetPressTime = 0;
-    private long lastNextPressTime = 0;
-    private long lastPrevPressTime = 0;
-    private long lastLevelPressTime = 0;
-    private long lastMenuPressTime = 0;
+    private long lastButtonPressTime = 0;
 
     private SoundPool soundEffects;
     private int clickSoundId;
@@ -58,7 +53,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private int[] mSolutionPattern = new int[numberOfTiles];
     private int mSolvedTiles;
     private int mNumberOfMoves;
-    private boolean gameHasEnded;
+    private boolean gameHasStarted;
     private boolean solutionIsDisplayed;
     private int mSolutionMoves;
 
@@ -115,7 +110,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method manages the touch of a tile on the board
      */
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (gameHasEnded) {
+        if (!gameHasStarted) {
             return false;
         }
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -126,11 +121,10 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             playClickSound();
             mNumberOfMoves++;
             lastTileId = view.getId();
-            hideSolutionTile(lastTileId);
             changeTiles(lastTileId);
             checkBoard();
             if (solutionIsDisplayed) {
-                showSolution(findViewById(R.id.help_button));
+                updateSolutionDisplay(findViewById(R.id.help_button));
             } else {
                 displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
             }
@@ -167,21 +161,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         }
         if (posY != numberOfColumns - 1) {
             changeSingleTile(id + numberOfColumns);
-        }
-    }
-
-    /**
-     * This method verifies if the current tile has a solution mark and removes it
-     *
-     * @param id The tile view id inside the board
-     */
-    private void hideSolutionTile(int id) {
-        if (mSolutionPattern[id] == 1) {
-            GridLayout layout = (GridLayout) findViewById(R.id.board_solution);
-            ImageView image = (ImageView) layout.findViewById(id);
-            if (image != null) {  // It can be null if the solution is not displayed
-                image.setImageResource(android.R.color.transparent);
-            }
         }
     }
 
@@ -289,7 +268,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             animateScale(popup, 0.0f, 1.0f, 500);
             popup.setVisibility(View.VISIBLE);
 
-            gameHasEnded = true;
+            gameHasStarted = false;
             setPanelContent();
         }
     }
@@ -320,12 +299,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method opens the menu activity
      */
     public void mainMenu(View view) {
-        if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (lastMenuPressTime < System.currentTimeMillis() - 2500) {
+        if (mNumberOfMoves > 0 && gameHasStarted) {
+            if (lastButtonPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_open_menu, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                lastMenuPressTime = System.currentTimeMillis();
+                lastButtonPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -342,12 +321,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method opens the level select activity
      */
     public void selectLevel(View view) {
-        if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (lastLevelPressTime < System.currentTimeMillis() - 2500) {
+        if (mNumberOfMoves > 0 && gameHasStarted) {
+            if (lastButtonPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_select_level, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                lastLevelPressTime = System.currentTimeMillis();
+                lastButtonPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -364,12 +343,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method resets the current level
      */
     public void resetLevel(View view) {
-        if (!gameHasEnded) {
-            if (lastResetPressTime < System.currentTimeMillis() - 2500) {
+        if (gameHasStarted) {
+            if (lastButtonPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_reset_board, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                lastResetPressTime = System.currentTimeMillis();
+                lastButtonPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -384,12 +363,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method goes back one level
      */
     public void prevLevel(View view) {
-        if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (lastPrevPressTime < System.currentTimeMillis() - 2500) {
+        if (mNumberOfMoves > 0 && gameHasStarted) {
+            if (lastButtonPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_prev_level, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                lastPrevPressTime = System.currentTimeMillis();
+                lastButtonPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -405,12 +384,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method goes forward one level
      */
     public void nextLevel(View view) {
-        if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (lastNextPressTime < System.currentTimeMillis() - 2500) {
+        if (mNumberOfMoves > 0 && gameHasStarted) {
+            if (lastButtonPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_next_level, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                lastNextPressTime = System.currentTimeMillis();
+                lastButtonPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -446,8 +425,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             changeTiles(lastTileId);
             setButtonState(view, 0);
             //Todo: Add solution tile if it's appropriate
-            //hideSolutionTile(lastTileId);
-            displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
+            if (solutionIsDisplayed) {
+                updateSolutionDisplay(findViewById(R.id.help_button));
+            } else {
+                displayMovementsLeft(mNumberOfMoves, mSolutionMoves);
+            }
         }
     }
 
@@ -477,14 +459,18 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         GridLayout board;
         mSolvedTiles = 0;
         mNumberOfMoves = 0;
-        gameHasEnded = false;
-        solutionIsDisplayed = false;
+        gameHasStarted = true;
         String currentCode;
         int currentPos = 0;
 
-        // Clears the solution board
-        for (int id = 0; id < numberOfTiles; id++) {
-            hideSolutionTile(id);
+        // Clears the solution pattern
+        if (solutionIsDisplayed) {
+            GridLayout layout = (GridLayout) findViewById(R.id.board_solution);
+            for (int id = 0; id < numberOfTiles; id++) {
+                image = (ImageView) layout.findViewById(id);
+                image.setImageResource(android.R.color.transparent);
+            }
+            solutionIsDisplayed = false;
         }
 
         // Stores the array of tiles on or off
@@ -536,7 +522,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * level number, level name and number of moves
      */
     public void setPanelContent() {
-        if (gameHasEnded) {
+        if (!gameHasStarted) {
             // Enable the reset button
             setButtonState(findViewById(R.id.reset_button), 1);
 
@@ -608,12 +594,12 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     @Override
     public void onBackPressed() {
-        if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (lastBackPressTime < System.currentTimeMillis() - 2500) {
+        if (mNumberOfMoves > 0 && gameHasStarted) {
+            if (lastButtonPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_leave_game, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                lastBackPressTime = System.currentTimeMillis();
+                lastButtonPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -628,13 +614,14 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * This method shows the solution on the board with green tiles
      * Note: This only works with 5 tiles
      */
-    public void showSolution(View view) {
-        if (mNumberOfMoves > 0 && !gameHasEnded && !solutionIsDisplayed) {
-            if (lastNextPressTime < System.currentTimeMillis() - 2500) {
+    public void updateSolutionDisplay(View view) {
+        // Todo: add hint tokens and remove them as they are used
+        if (!solutionIsDisplayed && mNumberOfMoves > 0 && gameHasStarted) {
+            if (lastButtonPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_show_solution, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                lastNextPressTime = System.currentTimeMillis();
+                lastButtonPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -645,15 +632,16 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         calculateSolution();
         displaySolution(numberOfColumns, sizeOfTiles, mSolutionPattern);
 
-        // Hide the number of moves left and show no stars
         if (!solutionIsDisplayed) {
+            solutionIsDisplayed = true;
+            // Hide the number of moves left and show no stars
             findViewById(R.id.moves_left).setVisibility(View.INVISIBLE);
             setStars("---", findViewById(R.id.level_star_row), 1500);
-            solutionIsDisplayed = true;
+            // Game has started because we spend a hint token
+            gameHasStarted = true;
+            // Disable the help button
+            setButtonState(view, 0);
         }
-
-        // Disable the help button
-        setButtonState(view, 0);
 
         Log.i(LOGCAT, "Solution Moves:" + mSolutionMoves);
     }
@@ -846,7 +834,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * Displays the movements left on the panel in a graphical way
      */
     private void displayMovementsLeft(int numberOfMoves, int solutionMoves) {
-        if (!gameHasEnded) {
+        if (gameHasStarted) {
             numberOfMoves = solutionMoves * 3 - numberOfMoves;
             Bitmap singleTick = BitmapFactory.decodeResource(getResources(), R.drawable.move_bronze);
             int moveTokenSize = singleTick.getWidth();
