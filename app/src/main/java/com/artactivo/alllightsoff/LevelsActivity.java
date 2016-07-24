@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -32,18 +33,19 @@ public class LevelsActivity extends AppCompatActivity {
     private static SharedPreferences sharedPreferences;
 
     private String[] mLevelCode;
-    private String mSavegameData;
+    private String mSaveGameData;
     private static int numberOfColumns = 5;                 // The size of one side of the pattern
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_levels);
 
         sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
 
         mLevelCode = getResources().getStringArray(R.array.level_codes);
-        mSavegameData = loadLevelStatus(this);
+        mSaveGameData = loadLevelStatus(this);
 
         final GridView levelsGrid = (GridView) findViewById(R.id.level_list);
         levelsGrid.setAdapter(new CustomAdapter(this));
@@ -53,13 +55,13 @@ public class LevelsActivity extends AppCompatActivity {
 
         levelsGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (getLevelData(mSavegameData, position).equals("L")) {
+                if (getLevelData(mSaveGameData, position).equals("L")) {
                     Toast toast = Toast.makeText(getBaseContext(), R.string.toast_locked_level, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     toast.show();
                     return;
                 }
-                // Save current scroll position of gridview screen when tapped
+                // Save current scroll position of grid view screen when tapped
                 SharedPreferences.Editor settingsEditor = sharedPreferences.edit();
                 settingsEditor.putInt(GRID_POSITION, levelsGrid.getFirstVisiblePosition());
                 settingsEditor.apply();
@@ -104,7 +106,7 @@ public class LevelsActivity extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 gridItem = inflater.inflate(R.layout.level_layout, parent, false);
             } else {
-                gridItem = (View) convertView;
+                gridItem = convertView;
             }
 
             // Sets the level number
@@ -113,7 +115,7 @@ public class LevelsActivity extends AppCompatActivity {
             textView.setText(levelNumber);
 
             // Sets the star rating based on the level status
-            String status = getLevelData(mSavegameData, position);
+            String status = getLevelData(mSaveGameData, position);
             setStars(status, gridItem, 0);
 
             // If the level is not completed, hide the remaining levels with a lock icon
@@ -128,7 +130,7 @@ public class LevelsActivity extends AppCompatActivity {
 
             Bitmap thumbTileOn = BitmapFactory.decodeResource(getResources(), R.drawable.tile_on_thumb);
             Bitmap thumbTileOff = BitmapFactory.decodeResource(getResources(), R.drawable.tile_off_thumb);
-            Bitmap thumbPattern = null;
+            Bitmap thumbPattern;
             String currentCode;
             String tileCodeOn = getString(R.string.tile_code_on);
             int thumbTileWidth = thumbTileOn.getWidth();
@@ -142,10 +144,10 @@ public class LevelsActivity extends AppCompatActivity {
                 int posX = id % numberOfColumns;
                 int posY = id / numberOfColumns;
                 if (currentCode.equals(tileCodeOn)) {
-                    // add lit tile to gridview
+                    // Add lit tile to the grid
                     patternCanvas.drawBitmap(thumbTileOn, posX * thumbTileWidth, posY * thumbTileWidth, null);
                 } else {
-                    // add off tile to gridview
+                    // Add off tile to the grid
                     patternCanvas.drawBitmap(thumbTileOff, posX * thumbTileWidth, posY * thumbTileWidth, null);
                 }
             }

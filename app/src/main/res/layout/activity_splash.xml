@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_gradient"
     tools:context="com.artactivo.alllightsoff.SplashActivity">
 
     <ImageView
+        android:contentDescription="@string/description_splash_icon"
         android:id="@+id/icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -52,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".6"
+            android:contentDescription="@null"
             android:src="@drawable/star_unlit"/>
 
         <ImageView
@@ -60,6 +61,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
             android:layout_weight=".8"
+            android:contentDescription="@null"
             android:src="@drawable/star_unlit"/>
 
         <ImageView
@@ -67,6 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:contentDescription="@null"
             android:src="@drawable/star_unlit"/>
 
     </LinearLayout>
@@ -79,6 +82,7 @@
         android:layout_marginRight="@dimen/medium_margin"
         android:layout_weight="0.25"
         android:background="@android:color/transparent"
+        android:contentDescription="@null"
         android:scaleType="fitCenter"/>
 
     <RelativeLayout
@@ -139,12 +143,13 @@
                 android:textSize="@dimen/medium_text"/>
 
             <ImageView
-                android:layout_below="@id/pop_up_message"
-                android:layout_above="@id/pop_up_moves"
                 android:id="@+id/cup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_above="@id/pop_up_moves"
+                android:layout_below="@id/pop_up_message"
                 android:layout_centerInParent="true"
+                android:contentDescription="@null"
                 android:src="@drawable/cup_gold"/>
 
         </RelativeLayout>
@@ -164,6 +169,7 @@
         android:weightSum="7">
 
         <ImageView
+            android:contentDescription="@string/description_menu"
             android:id="@+id/menu_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -174,6 +180,7 @@
             android:src="@drawable/ic_menu_selector"/>
 
         <ImageView
+            android:contentDescription="@string/description_levels"
             android:id="@+id/level_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -184,6 +191,7 @@
             android:src="@drawable/ic_levels_selector"/>
 
         <ImageView
+            android:contentDescription="@string/description_previous"
             android:id="@+id/prev_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -194,6 +202,7 @@
             android:src="@drawable/ic_prev_selector"/>
 
         <ImageView
+            android:contentDescription="@string/description_reset"
             android:id="@+id/reset_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -204,6 +213,7 @@
             android:src="@drawable/ic_reset_selector"/>
 
         <ImageView
+            android:contentDescription="@string/description_next"
             android:id="@+id/next_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -214,6 +224,7 @@
             android:src="@drawable/ic_next_selector"/>
 
         <ImageView
+            android:contentDescription="@string/description_undo"
             android:id="@+id/undo_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -224,6 +235,7 @@
             android:src="@drawable/ic_undo_selector"/>
 
         <ImageView
+            android:contentDescription="@string/description_help"
             android:id="@+id/help_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"

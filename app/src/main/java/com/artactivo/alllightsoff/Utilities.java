@@ -2,7 +2,6 @@ package com.artactivo.alllightsoff;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -18,10 +17,8 @@ import android.widget.ImageView;
  * Created by DDRitter on 08/07/2016.
  */
 public class Utilities extends AppCompatActivity {
-    private static final String LOGCAT = "AllLightsOff";
     private static final String PREFS_FILENAME = "appSettings";
     private static final String LEVELS_STATUS = "levelStatusKey";
-    private static SharedPreferences sharedPreferences;
 
     /**
      * This method loads the level status data
@@ -69,9 +66,10 @@ public class Utilities extends AppCompatActivity {
      *               H -> All stars as question mark (Game has started, still able to win all)
      */
     protected static void setStars(String status, View view, int duration) {
-        final ImageView starImageView1 = (ImageView) view.findViewById(R.id.star1);
-        final ImageView starImageView2 = (ImageView) view.findViewById(R.id.star2);
-        final ImageView starImageView3 = (ImageView) view.findViewById(R.id.star3);
+        // Todo: simplify this by analysing the string one character at a time
+        ImageView starImageView1 = (ImageView) view.findViewById(R.id.star1);
+        ImageView starImageView2 = (ImageView) view.findViewById(R.id.star2);
+        ImageView starImageView3 = (ImageView) view.findViewById(R.id.star3);
         switch (status) {
             case "0":
                 starImageView1.setImageResource(R.drawable.star_unlit);
@@ -139,7 +137,7 @@ public class Utilities extends AppCompatActivity {
      * @param duration the duration of the animation in milliseconds
      */
     protected static void animateFade(View view, int toggle, int duration) {
-        Animation fade = null;
+        Animation fade;
         if (toggle == 1) {
             fade = new AlphaAnimation(0, 1);
         } else {

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -50,7 +51,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private int sizeOfTiles;
     private String[] mLevelCode;
     private String[] mLevelName;
-    private String mSavegameData;
+    private String mSaveGameData;
     private int mCurrentLevel;
     private int lastTileId = -1;
     private int[] mTilePattern = new int[numberOfTiles];
@@ -64,12 +65,13 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_board);
 
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         mLevelName = getResources().getStringArray(R.array.level_names);
         mNumberOfMoves = 0;
-        mSavegameData = loadLevelStatus(this);
+        mSaveGameData = loadLevelStatus(this);
 
         // Gets the first unsolved level from the preferences
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
@@ -207,8 +209,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      * and ends the game, saving the new data
      */
     private void checkBoard() {
-        // Todo: fix not show the cup when the game is completed with hints (with hints, solution moves are always 1 at the end)
-        // Todo: unify all in one if and else (for solutionisdisplayed)
         if (mSolvedTiles == numberOfTiles) {
             // Calculates the actual level status and changes the corresponding pop-up message and cup image
             ImageView cup = (ImageView) findViewById(R.id.cup);
@@ -247,27 +247,27 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
             if (!solutionIsDisplayed) {
                 // Changes the data of the current level only if it's better
-                String savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel);
+                String savedLevelStatus = getLevelData(mSaveGameData, mCurrentLevel);
                 Log.i(LOGCAT, "Saved Level Status: " + savedLevelStatus);
                 String newGameData;
                 if (savedLevelStatus.compareTo(currentLevelStatus) >= 0) {
                     Log.i(LOGCAT, "This level is better on disk, is the same or is locked.");
                 } else {
                     Log.i(LOGCAT, "Level has improved. Save the new data.");
-                    newGameData = mSavegameData.substring(0, mCurrentLevel) + currentLevelStatus + mSavegameData.substring(mCurrentLevel + 1);
+                    newGameData = mSaveGameData.substring(0, mCurrentLevel) + currentLevelStatus + mSaveGameData.substring(mCurrentLevel + 1);
                     saveLevelStatus(newGameData, this);
-                    mSavegameData = newGameData;
+                    mSaveGameData = newGameData;
                 }
 
                 // Unlocks the next level if it's not unlocked already
                 if (mCurrentLevel != mLevelCode.length - 1) { // We are not at the last level
-                    savedLevelStatus = getLevelData(mSavegameData, mCurrentLevel + 1);
+                    savedLevelStatus = getLevelData(mSaveGameData, mCurrentLevel + 1);
                     Log.i(LOGCAT, "Next Level Status is: " + savedLevelStatus);
                     if (savedLevelStatus.equals("L")) {
-                        newGameData = mSavegameData.substring(0, mCurrentLevel + 1) + "0" + mSavegameData.substring(mCurrentLevel + 2);
+                        newGameData = mSaveGameData.substring(0, mCurrentLevel + 1) + "0" + mSaveGameData.substring(mCurrentLevel + 2);
                         saveLevelStatus(newGameData, this);
                         Log.i(LOGCAT, "Level " + (mCurrentLevel + 2) + " Opened");
-                        mSavegameData = newGameData;
+                        mSaveGameData = newGameData;
                     }
                 }
                 // Updates the stars with the appropriate values
@@ -321,11 +321,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     public void mainMenu(View view) {
         if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (this.lastMenuPressTime < System.currentTimeMillis() - 2500) {
+            if (lastMenuPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_open_menu, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                this.lastMenuPressTime = System.currentTimeMillis();
+                lastMenuPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -343,11 +343,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     public void selectLevel(View view) {
         if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (this.lastLevelPressTime < System.currentTimeMillis() - 2500) {
+            if (lastLevelPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_select_level, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                this.lastLevelPressTime = System.currentTimeMillis();
+                lastLevelPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -365,11 +365,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     public void resetLevel(View view) {
         if (!gameHasEnded) {
-            if (this.lastResetPressTime < System.currentTimeMillis() - 2500) {
+            if (lastResetPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_reset_board, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                this.lastResetPressTime = System.currentTimeMillis();
+                lastResetPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -385,11 +385,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     public void prevLevel(View view) {
         if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (this.lastPrevPressTime < System.currentTimeMillis() - 2500) {
+            if (lastPrevPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_prev_level, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                this.lastPrevPressTime = System.currentTimeMillis();
+                lastPrevPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -406,11 +406,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     public void nextLevel(View view) {
         if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (this.lastNextPressTime < System.currentTimeMillis() - 2500) {
+            if (lastNextPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_next_level, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                this.lastNextPressTime = System.currentTimeMillis();
+                lastNextPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -520,7 +520,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             board.addView(image);
         }
 
-        // Precalculates the solution of the board to get the number of moves
+        // Calculates the solution of the board to get the number of moves
         calculateSolution();
 
         // Sets the content of the panel
@@ -560,7 +560,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
             // Disables the reset button and sets the stars as the saved status
             setButtonState(findViewById(R.id.reset_button), 0);
-            setStars(getLevelData(mSavegameData, mCurrentLevel), findViewById(R.id.level_star_row), 500);
+            setStars(getLevelData(mSaveGameData, mCurrentLevel), findViewById(R.id.level_star_row), 500);
         }
 
         // Disables the undo button
@@ -568,7 +568,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         // Set the next level button state
         if (mCurrentLevel == mLevelCode.length - 1 ||                       // We are at the last level or
-            getLevelData(mSavegameData, mCurrentLevel + 1).equals("L")) {   // the next level is locked
+            getLevelData(mSaveGameData, mCurrentLevel + 1).equals("L")) {   // the next level is locked
             setButtonState(findViewById(R.id.next_button), 0);
         } else {
             setButtonState(findViewById(R.id.next_button), 1);
@@ -576,7 +576,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         // Set the previous level button state
         if (mCurrentLevel == 0 ||                                           // We are at the first level or
-            getLevelData(mSavegameData, mCurrentLevel - 1).equals("L")) {   // the previous level is locked
+            getLevelData(mSaveGameData, mCurrentLevel - 1).equals("L")) {   // the previous level is locked
             setButtonState(findViewById(R.id.prev_button), 0);
         } else {
             setButtonState(findViewById(R.id.prev_button), 1);
@@ -609,11 +609,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     @Override
     public void onBackPressed() {
         if (mNumberOfMoves > 0 && !gameHasEnded) {
-            if (this.lastBackPressTime < System.currentTimeMillis() - 2500) {
+            if (lastBackPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_leave_game, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                this.lastBackPressTime = System.currentTimeMillis();
+                lastBackPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -630,11 +630,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     public void showSolution(View view) {
         if (mNumberOfMoves > 0 && !gameHasEnded && !solutionIsDisplayed) {
-            if (this.lastNextPressTime < System.currentTimeMillis() - 2500) {
+            if (lastNextPressTime < System.currentTimeMillis() - 2500) {
                 toast = Toast.makeText(this, R.string.toast_show_solution, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                this.lastNextPressTime = System.currentTimeMillis();
+                lastNextPressTime = System.currentTimeMillis();
                 return;
             } else {
                 if (toast != null) {
@@ -849,9 +849,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         if (!gameHasEnded) {
             numberOfMoves = solutionMoves * 3 - numberOfMoves;
             Bitmap singleTick = BitmapFactory.decodeResource(getResources(), R.drawable.move_bronze);
-            int singleTickWidth = singleTick.getWidth();
+            int moveTokenSize = singleTick.getWidth();
             int numberOfColumns = 45; // The maximum number of moves for a 5x5 board is 15
-            Bitmap movesPattern = Bitmap.createBitmap(singleTickWidth * numberOfColumns, singleTickWidth, Bitmap.Config.ARGB_8888);
+            Bitmap movesPattern = Bitmap.createBitmap(moveTokenSize * numberOfColumns, moveTokenSize, Bitmap.Config.ARGB_8888);
             Canvas patternCanvas = new Canvas(movesPattern);
 
             if (numberOfMoves <= 0) {
@@ -870,7 +870,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
                 } else if (id == solutionMoves * 2) {
                     singleTick = BitmapFactory.decodeResource(getResources(), R.drawable.move_gold);
                 }
-                patternCanvas.drawBitmap(singleTick, (numberOfColumns - numberOfMoves + id) * singleTickWidth, 0, null);
+                patternCanvas.drawBitmap(singleTick, (numberOfColumns - numberOfMoves + id) * moveTokenSize, 0, null);
             }
             ImageView imageView = (ImageView) findViewById(R.id.moves_left);
             imageView.setVisibility(View.VISIBLE);

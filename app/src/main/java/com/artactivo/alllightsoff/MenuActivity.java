@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import static com.artactivo.alllightsoff.Utilities.*;
@@ -17,12 +18,13 @@ public class MenuActivity extends AppCompatActivity {
     private static final String CURRENT_LEVEL = "currentLevelKey";
     private static SharedPreferences sharedPreferences;
     private static Toast toast;
-    private static long lastBackPressTime = 0;
+    private long lastBackPressTime = 0;
     private static String[] mLevelCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
 
         sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
@@ -88,11 +90,11 @@ public class MenuActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        if (this.lastBackPressTime < System.currentTimeMillis() - 2500) {
+        if (lastBackPressTime < System.currentTimeMillis() - 2500) {
             toast = Toast.makeText(this, R.string.toast_close_app, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
-            this.lastBackPressTime = System.currentTimeMillis();
+            lastBackPressTime = System.currentTimeMillis();
             return;
         } else {
             if (toast != null) {

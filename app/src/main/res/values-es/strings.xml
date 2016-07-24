@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Luces Fuera</string>
 
+    <string name="description_splash_icon">A head in a box presenta</string>
+    <string name="description_menu">Menú principal</string>
+    <string name="description_levels">Elige nivel</string>
+    <string name="description_previous">Nivel anterior</string>
+    <string name="description_reset">Reinicia nivel</string>
+    <string name="description_next">Siguiente nivel</string>
+    <string name="description_undo">Deshacer</string>
+    <string name="description_help">Ayuda</string>
+
     <string name="button_play">Jugar</string>
     <string name="button_level">Elegir nivel</string>
     <string name="button_settings">Opciones</string>

@@ -10,6 +10,7 @@
         android:layout_height="136dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/bkg_pattern_thumb"
+        android:contentDescription="@null"
         android:padding="10dp"
         android:scaleType="fitStart"/>
 
@@ -38,6 +39,7 @@
             android:layout_width="@dimen/star_thumb"
             android:layout_height="@dimen/star_thumb"
             android:layout_gravity="bottom"
+            android:contentDescription="@null"
             android:src="@drawable/star_unlit"/>
 
         <ImageView
@@ -46,6 +48,7 @@
             android:layout_height="@dimen/star_thumb"
             android:layout_gravity="bottom"
             android:layout_marginBottom="@dimen/small_margin"
+            android:contentDescription="@null"
             android:src="@drawable/star_unlit"/>
 
         <ImageView
@@ -53,6 +56,7 @@
             android:layout_width="@dimen/star_thumb"
             android:layout_height="@dimen/star_thumb"
             android:layout_gravity="bottom"
+            android:contentDescription="@null"
             android:src="@drawable/star_unlit"/>
 
     </LinearLayout>
