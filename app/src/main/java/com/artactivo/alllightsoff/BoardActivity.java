@@ -32,10 +32,8 @@ import static com.artactivo.alllightsoff.Utilities.*;
 
 public class BoardActivity extends AppCompatActivity implements View.OnTouchListener {
     private final String LOGCAT = "AllLightsOff";
-    private static final String PREFS_FILENAME = "appSettings";
-    private static final String LEVELS_STATUS = "levelStatusKey";
-    private static final String GRID_POSITION = "gridPositionKey";
-    private static final String CURRENT_LEVEL = "currentLevelKey";
+    private final String PREFS_FILENAME = "appSettings";
+    private final String CURRENT_LEVEL = "currentLevelKey";
 
     private Toast toast;
     private long lastBackPressTime = 0;
@@ -47,8 +45,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
     private SoundPool soundEffects;
     private int clickSoundId;
-    private static int numberOfColumns = 5;                                // The size of one side of the pattern
-    private static int numberOfTiles = numberOfColumns * numberOfColumns;
+    private int numberOfColumns = 5;                                // The size of one side of the pattern
+    private int numberOfTiles = numberOfColumns * numberOfColumns;
     private int sizeOfTiles;
     private String[] mLevelCode;
     private String[] mLevelName;
@@ -69,7 +67,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         setContentView(R.layout.activity_board);
 
         mLevelCode = getResources().getStringArray(R.array.level_codes);
-        mLevelName = new String[mLevelCode.length];
+        mLevelName = getResources().getStringArray(R.array.level_names);
         mNumberOfMoves = 0;
         mSavegameData = loadLevelStatus(this);
 
@@ -96,9 +94,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         }
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         if (displayMetrics.widthPixels > displayMetrics.heightPixels) {
-            boardDimensionPx = displayMetrics.heightPixels - statusBarHeight - (int) (convertDpToPx(16, this) * 2);
+            boardDimensionPx = displayMetrics.heightPixels - statusBarHeight - (int) getResources().getDimension(R.dimen.medium_margin) * 2;
         } else {
-            boardDimensionPx = displayMetrics.widthPixels - (int) (convertDpToPx(16, this) * 2);
+            boardDimensionPx = displayMetrics.widthPixels - (int) getResources().getDimension(R.dimen.medium_margin) * 2;
         }
         sizeOfTiles = boardDimensionPx / numberOfColumns;
 
@@ -475,7 +473,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
      */
     public void createForegroundBoard(int numColumns, int tileSize, String levelCode) {
         String tileCodeOn = getString(R.string.tile_code_on);
-        String tileCodeOff = getString(R.string.tile_code_off);
         ImageView image;
         GridLayout board;
         mSolvedTiles = 0;
@@ -496,12 +493,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             if (currentCode.equals(tileCodeOn)) {
                 mTilePattern[currentPos] = 1;
                 currentPos++;
-            } else if (currentCode.equals(tileCodeOff)) {
+            } else {
                 mTilePattern[currentPos] = 0;
                 currentPos++;
-            } else if (currentCode.equals("#")) {
-                mLevelName[mCurrentLevel] = levelCode.substring(id + 2);
-                break;
             }
         }
 
@@ -826,7 +820,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
-     * This method draws the pattern with the solution
+     * Draws the pattern with the solution
      */
     public void displaySolution(int numColumns, int tileSize, int[] pattern) {
         ImageView image;
@@ -849,7 +843,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     /**
-     * This displays the movements left on the panel in a graphical way
+     * Displays the movements left on the panel in a graphical way
      */
     private void displayMovementsLeft(int numberOfMoves, int solutionMoves) {
         if (!gameHasEnded) {
