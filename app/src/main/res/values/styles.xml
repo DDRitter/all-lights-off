@@ -8,7 +8,18 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash_gradient</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <style name="MenuButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginBottom">@dimen/medium_margin</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:background">@drawable/bkg_menu_button_selector</item>
+        <item name="android:paddingLeft">@dimen/medium_margin</item>
+        <item name="android:paddingRight">@dimen/medium_margin</item>
+        <item name="android:textSize">@dimen/medium_text</item>
     </style>
 
     <style name="TextHeader">

@@ -1,4 +1,4 @@
-package com.artactivo.alllightsoff;
+package com.aheadinabox.alllightsoff;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

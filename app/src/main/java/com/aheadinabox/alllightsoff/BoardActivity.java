@@ -1,4 +1,4 @@
-package com.artactivo.alllightsoff;
+package com.aheadinabox.alllightsoff;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,10 +29,10 @@ import java.util.Locale;
 
 import static android.media.AudioManager.*;
 import static android.support.v7.app.ActionBar.*;
-import static com.artactivo.alllightsoff.Utilities.*;
+import static com.aheadinabox.alllightsoff.Utilities.*;
 
 public class BoardActivity extends AppCompatActivity implements View.OnTouchListener {
-    private final String LOGCAT = "AllLightsOff";
+    private static final String LOGCAT = "AllLightsOff";
     private final String PREFS_FILENAME = "appSettings";
     private final String CURRENT_LEVEL = "currentLevelKey";
 

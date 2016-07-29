@@ -1,12 +1,14 @@
-package com.artactivo.alllightsoff;
+package com.aheadinabox.alllightsoff;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import static com.artactivo.alllightsoff.Utilities.saveLevelStatus;
+import static com.aheadinabox.alllightsoff.Utilities.saveLevelStatus;
+import static com.aheadinabox.alllightsoff.Utilities.setViewBackgroundWithoutResettingPadding;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -19,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     /*
-     * This method resets the level status to the default
+     * Resets the level status to the default
      */
     public void resetLevels(View view) {
         String[] mLevelCode = getResources().getStringArray(R.array.level_codes);
@@ -30,5 +32,17 @@ public class SettingsActivity extends AppCompatActivity {
         }
         saveLevelStatus(data, this);
         Toast.makeText(this, "" + data, Toast.LENGTH_LONG).show();
+    }
+
+    /*
+     * Goes to the Main menu activity
+     */
+    public void backToMenu(View view) {
+        // Sets the background of the button as focused
+        setViewBackgroundWithoutResettingPadding(view, R.drawable.bkg_button_on);
+
+        // Starts the new activity
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
     }
 }

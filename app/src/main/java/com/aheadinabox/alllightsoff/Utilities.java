@@ -1,4 +1,4 @@
-package com.artactivo.alllightsoff;
+package com.aheadinabox.alllightsoff;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -53,17 +53,17 @@ public class Utilities extends AppCompatActivity {
      * This method assigns the appropriate stars to the
      *
      * @param status is:
-     *               A -> No Stars (Not solved at all)
-     *               B -> One Star (Solved with more than 3 times the movements needed)
-     *               C -> Two Stars (Solved with more than 2 times the movements needed)
-     *               D -> Three Stars (Solved with the minimum movements needed)
+     *               0 -> No Stars (Not solved at all)
+     *               1 -> One Star (Solved with more than 3 times the movements needed)
+     *               2 -> Two Stars (Solved with more than 2 times the movements needed)
+     *               3 -> Three Stars (Solved with the minimum movements needed)
      *               <p/>
      *               L -> Locked
      *               <p/>
-     *               E -> No question mark at all (Game in progress, more than 3 times the moves needed)
-     *               F -> One star as question mark (Game in progress, more than 2 times the moves needed)
-     *               G -> Two stars with question mark (Game in progress, more than the moves needed)
-     *               H -> All stars as question mark (Game has started, still able to win all)
+     *               --- -> No question mark at all (Game in progress, more than 3 times the moves needed)
+     *               ?-- -> One star as question mark (Game in progress, more than 2 times the moves needed)
+     *               ??- -> Two stars with question mark (Game in progress, more than the moves needed)
+     *               ??? -> All stars as question mark (Game has started, still able to win all)
      */
     protected static void setStars(String status, View view, int duration) {
         // Todo: simplify this by analysing the string one character at a time
@@ -130,7 +130,7 @@ public class Utilities extends AppCompatActivity {
     }
 
     /**
-     * This method animates the fade in-out of an ImageView
+     * This method animates the fade in or out of an ImageView
      *
      * @param view     the ImageView object
      * @param toggle   indicates if the animation is a fade-in (1) or a fade-out (0)
@@ -151,7 +151,7 @@ public class Utilities extends AppCompatActivity {
     }
 
     /**
-     * This method animates the scale in-out of an ImageView
+     * This method animates the scale in or out of an ImageView
      *
      * @param view     the ImageView object
      * @param from     the initial scale factor
@@ -178,5 +178,18 @@ public class Utilities extends AppCompatActivity {
         rotation.setInterpolator(new DecelerateInterpolator());
         rotation.setDuration(duration);
         view.startAnimation(rotation);
+    }
+
+    /**
+     * This method changes the background of a Button maintaining the original padding
+     *
+     * @param view              the View object
+     * @param backgroundResId   the id of the background resource
+     */
+    protected static void setViewBackgroundWithoutResettingPadding(final View view, final int backgroundResId) {
+        final int paddingBottom = view.getPaddingBottom(), paddingLeft = view.getPaddingLeft();
+        final int paddingRight = view.getPaddingRight(), paddingTop = view.getPaddingTop();
+        view.setBackgroundResource(backgroundResId);
+        view.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
     }
 }

@@ -1,17 +1,19 @@
-package com.artactivo.alllightsoff;
+package com.aheadinabox.alllightsoff;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import static com.artactivo.alllightsoff.Utilities.*;
+import static com.aheadinabox.alllightsoff.Utilities.*;
 
 public class MenuActivity extends AppCompatActivity {
+    private static final String LOGCAT = "AllLightsOff";
     private static final String PREFS_FILENAME = "appSettings";
     private static final String LEVELS_STATUS = "levelStatusKey";
     private static final String GRID_POSITION = "gridPositionKey";
@@ -41,7 +43,17 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Restore the menu buttons to the original colors
+        restoreButtonBackgrounds();
+    }
+
     public void openGame(View view) {
+        // Sets the background of the button as focused
+        setViewBackgroundWithoutResettingPadding(view, R.drawable.bkg_button_on);
+
         // Calculates the first level least completed on file
         String levelCodes = loadLevelStatus(this);
         int firstUnsolvedLevel = levelCodes.indexOf("0");
@@ -67,21 +79,35 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void openLevels(View view) {
+        // Sets the background of the button as focused
+        setViewBackgroundWithoutResettingPadding(view, R.drawable.bkg_button_on);
+
+        // Starts the new activity
         Intent intent = new Intent(this, LevelsActivity.class);
         startActivity(intent);
     }
 
     public void openSettings(View view) {
+        // Sets the background of the button as focused
+        setViewBackgroundWithoutResettingPadding(view, R.drawable.bkg_button_on);
+
+        // Starts the new activity
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
     public void openHelp(View view) {
+        // Sets the background of the button as focused
+        setViewBackgroundWithoutResettingPadding(view, R.drawable.bkg_button_on);
+
+        // Starts the new activity
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
     }
 
     public void openAbout(View view) {
+        // Sets the background of the button as focused
+        setViewBackgroundWithoutResettingPadding(view, R.drawable.bkg_button_on);
 
     }
 
@@ -102,5 +128,16 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
         super.onBackPressed();
+    }
+
+    public void restoreButtonBackgrounds() {
+        View view;
+        String resourceName;
+        for (int i = 1; i < 6; i++) {
+            resourceName = "menu" + String.valueOf(i);
+            int resId = getResources().getIdentifier(resourceName, "id", getPackageName());
+            view = findViewById(resId);
+            setViewBackgroundWithoutResettingPadding(view, R.drawable.bkg_menu_button_selector);
+        }
     }
 }

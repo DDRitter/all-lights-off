@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bkg_paper"
-    tools:context="com.artactivo.alllightsoff.LevelsActivity"
+    tools:context="com.aheadinabox.alllightsoff.LevelsActivity"
     tools:ignore="ContentDescription">
 
     <TextView
@@ -430,6 +430,14 @@
                 android:text="@string/help_paragraph20"/>
 
             <View style="@style/Separator"/>
+
+            <Button
+                android:id="@+id/back"
+                style="@style/MenuButton"
+                android:drawableEnd="@drawable/ic_menu_button_menu"
+                android:drawableRight="@drawable/ic_menu_button_menu"
+                android:onClick="backToMenu"
+                android:text="@string/button_back_to_main"/>
 
         </LinearLayout>
 

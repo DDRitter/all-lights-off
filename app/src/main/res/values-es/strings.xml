@@ -15,6 +15,7 @@
     <string name="button_settings">Opciones</string>
     <string name="button_help">Ayuda</string>
     <string name="button_about">Créditos</string>
+    <string name="button_back_to_main">Volver al menú</string>
 
     <string name="message_gold">¡Perfecto!</string>
     <string name="message_silver">¡Bien hecho!</string>

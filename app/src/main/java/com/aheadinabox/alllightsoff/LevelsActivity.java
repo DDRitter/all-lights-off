@@ -1,4 +1,4 @@
-package com.artactivo.alllightsoff;
+package com.aheadinabox.alllightsoff;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-import static com.artactivo.alllightsoff.Utilities.*;
+import static com.aheadinabox.alllightsoff.Utilities.*;
 
 public class LevelsActivity extends AppCompatActivity {
     private static final String LOGCAT = "AllLightsOff";

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.artactivo.alllightsoff"
+          package="com.aheadinabox.alllightsoff"
           android:installLocation="auto">
 
     <application
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.aheadinabox.alllightsoff.SplashActivity"
             android:theme="@style/SplashTheme"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
@@ -22,29 +22,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name="com.aheadinabox.alllightsoff.MenuActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".BoardActivity"
+            android:name="com.aheadinabox.alllightsoff.BoardActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".LevelsActivity"
+            android:name="com.aheadinabox.alllightsoff.LevelsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Utilities">
+        <activity android:name="com.aheadinabox.alllightsoff.Utilities">
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.aheadinabox.alllightsoff.SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".HelpActivity"
+            android:name="com.aheadinabox.alllightsoff.HelpActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>

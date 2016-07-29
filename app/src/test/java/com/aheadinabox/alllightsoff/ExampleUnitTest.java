@@ -1,4 +1,4 @@
-package com.artactivo.alllightsoff;
+package com.aheadinabox.alllightsoff;
 
 import org.junit.Test;
 
