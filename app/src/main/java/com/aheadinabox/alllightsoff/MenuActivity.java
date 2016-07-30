@@ -13,15 +13,8 @@ import android.widget.Toast;
 import static com.aheadinabox.alllightsoff.Utilities.*;
 
 public class MenuActivity extends AppCompatActivity {
-    private static final String LOGCAT = "AllLightsOff";
-    private static final String PREFS_FILENAME = "appSettings";
-    private static final String LEVELS_STATUS = "levelStatusKey";
-    private static final String GRID_POSITION = "gridPositionKey";
-    private static final String CURRENT_LEVEL = "currentLevelKey";
-    private static SharedPreferences sharedPreferences;
     private static Toast toast;
     private long lastBackPressTime = 0;
-    private static String[] mLevelCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +25,7 @@ public class MenuActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
 
         // Verifies that the data status exists and is not corrupted
-        mLevelCode = getResources().getStringArray(R.array.level_codes);
+        String[] mLevelCode = getResources().getStringArray(R.array.level_codes);
         String savedData = loadLevelStatus(this);
         if (savedData == null || savedData.length() != mLevelCode.length) {
             String data = "0000000000";  // The first 10 levels are available

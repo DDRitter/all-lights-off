@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg_paper"
     tools:context="com.aheadinabox.alllightsoff.LevelsActivity">
 
     <TextView
@@ -14,7 +13,6 @@
         android:text="@string/header_settings"/>
 
     <ScrollView
-        android:scrollbarStyle="outsideOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
@@ -26,6 +24,7 @@
         android:numColumns="auto_fit"
         android:padding="@dimen/medium_margin"
         android:requiresFadingEdge="vertical"
+        android:scrollbarStyle="outsideOverlay"
         android:stretchMode="spacingWidth"
         android:verticalSpacing="32dp">
 
@@ -34,112 +33,115 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:textSize="@dimen/medium_text"
-                android:text="@string/setting_music"
-                android:textColor="@color/colorTextSettings"/>
-
-            <View style="@style/Separator"/>
-
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:textSize="@dimen/medium_text"
-                android:text="@string/setting_sound"
-                android:textColor="@color/colorTextSettings"/>
-
-            <View style="@style/Separator"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/setting_language"
-                android:textSize="@dimen/medium_text"
-                android:layout_marginBottom="@dimen/small_margin"
+                android:layout_margin="@dimen/medium_margin"
+                android:gravity="center"
+                android:text="@string/setting_sound"
                 android:textColor="@color/colorTextSettings"/>
 
-            <RadioGroup
-                android:id="@+id/radio_group_language"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/medium_margin"
-                android:layout_marginRight="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/radio_button_english"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/medium_margin"
-                    android:textSize="@dimen/small_text"
-                    android:text="English"
-                    android:textColor="@color/colorTextSettings"/>
+                    android:layout_marginLeft="@dimen/large_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:src="@drawable/setting_music_on"/>
 
-                <RadioButton
-                    android:id="@+id/radio_button_spanish"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/small_text"
-                    android:text="Spanish"
-                    android:textColor="@color/colorTextSettings"/>
-            </RadioGroup>
+                    android:layout_marginLeft="@dimen/large_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:src="@drawable/setting_sound_on"/>
 
-            <View style="@style/Separator"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:gravity="center"
+                android:text="@string/setting_language"
+                android:textColor="@color/colorTextSettings"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:src="@drawable/setting_english_on"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:src="@drawable/setting_spanish_off"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:gravity="center"
                 android:text="@string/setting_tile"
                 android:textColor="@color/colorTextSettings"/>
 
-            <RadioGroup
-                android:id="@+id/radio_group_tile"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/medium_margin"
-                android:layout_marginLeft="@dimen/medium_margin"
-                android:layout_marginRight="@dimen/medium_margin"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/radio_button_tile1"
+                <ImageView
+                    android:id="@+id/tile1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/medium_margin"
                     android:layout_marginRight="@dimen/medium_margin"
-                    android:drawableLeft="@drawable/tile_on"/>
+                    android:src="@drawable/tile_on"/>
 
-
-                <RadioButton
-                    android:id="@+id/radio_button_tile2"
+                <ImageView
+                    android:id="@+id/tile2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/medium_margin"
                     android:layout_marginRight="@dimen/medium_margin"
-                    android:drawableLeft="@drawable/tile_off"/>
+                    android:src="@drawable/tile_off"/>
 
-                <RadioButton
-                    android:id="@+id/radio_button_tile3"
+                <ImageView
+                    android:id="@+id/tile3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/medium_margin"
                     android:layout_marginRight="@dimen/medium_margin"
-                    android:drawableLeft="@drawable/tile_solution"/>
+                    android:src="@drawable/tile_solution"/>
 
-            </RadioGroup>
-
-            <View style="@style/Separator"/>
+            </LinearLayout>
 
             <Button
                 style="@style/MenuButton"
                 android:layout_margin="@dimen/medium_margin"
                 android:onClick="resetLevels"
                 android:text="@string/setting_reset"/>
-
-            <View style="@style/Separator"/>
 
             <Button
                 android:id="@+id/back"

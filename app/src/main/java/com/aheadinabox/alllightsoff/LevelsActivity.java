@@ -25,13 +25,6 @@ import java.util.Locale;
 import static com.aheadinabox.alllightsoff.Utilities.*;
 
 public class LevelsActivity extends AppCompatActivity {
-    private static final String LOGCAT = "AllLightsOff";
-    private static final String PREFS_FILENAME = "appSettings";
-    private static final String LEVELS_STATUS = "levelStatusKey";
-    private static final String GRID_POSITION = "gridPositionKey";
-    private static final String CURRENT_LEVEL = "currentLevelKey";
-    private static SharedPreferences sharedPreferences;
-
     private String[] mLevelCode;
     private String mSaveGameData;
     private static int numberOfColumns = 5;                 // The size of one side of the pattern

@@ -241,6 +241,9 @@
     </string-array>
 
     <string name="tile_code_on" translatable="false">O</string>
+    <string name="tile_code_off" translatable="false">·</string>
+
+    <string name="example_code" translatable="false">···___·O··O·_>_O·O···___·O·</string>
 
     <string-array name="level_codes" translatable="false" tools:ignore="Typos">
         <!-- Tutorials -->

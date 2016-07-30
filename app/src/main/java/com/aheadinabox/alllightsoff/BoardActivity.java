@@ -32,10 +32,6 @@ import static android.support.v7.app.ActionBar.*;
 import static com.aheadinabox.alllightsoff.Utilities.*;
 
 public class BoardActivity extends AppCompatActivity implements View.OnTouchListener {
-    private static final String LOGCAT = "AllLightsOff";
-    private final String PREFS_FILENAME = "appSettings";
-    private final String CURRENT_LEVEL = "currentLevelKey";
-
     private Toast toast;
     private long lastButtonPressTime = 0;
 

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg_paper"
     tools:context="com.aheadinabox.alllightsoff.LevelsActivity"
     tools:ignore="ContentDescription">
 
@@ -34,75 +33,11 @@
                 style="@style/TextParagraph"
                 android:text="@string/help_paragraph1"/>
 
-            <GridLayout
-                android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/medium_margin"
-                android:columnCount="9">
+                android:id="@+id/example_pattern"/>
 
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOnHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOnHelp"/>
-
-                <ImageView
-                    style="@style/TileOnHelp"
-                    android:layout_column="1"
-                    android:layout_row="1"
-                    android:src="@drawable/tile_solution"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView
-                    style="@style/TileSmallHelp"
-                    android:src="@drawable/ic_next_default"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView style="@style/TileOnHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOnHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView style="@style/TileSmallHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-
-                <ImageView style="@style/TileOnHelp"/>
-
-                <ImageView style="@style/TileOffHelp"/>
-            </GridLayout>
 
             <View style="@style/Separator"/>
 

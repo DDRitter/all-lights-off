@@ -48,8 +48,8 @@
         <item quantity="other">Nivel superado con %d movimientos</item>
     </plurals>
 
-    <string name="help_paragraph1">El objetivo del juego es apagar todas las luces del tablero.\nTocando una pieza se cambia su estado y el de las piezas que están arriba, abajo y a los lados:</string>
-    <string name="help_paragraph2">Debajo del tablero está el lista de controles:</string>
+    <string name="help_paragraph1">El objetivo del juego es apagar todas las luces del tablero.\nTocando una pieza se cambia su estado y el de las piezas que están encima, debajo y a ambos lados:</string>
+    <string name="help_paragraph2">Debajo del tablero hay una fila de botones:</string>
     <string name="help_paragraph3">Abre el menú principal.</string>
     <string name="help_paragraph4">Accede a la lista de niveles disponibles.</string>
     <string name="help_paragraph5">Retrocede al nivel anterior.</string>

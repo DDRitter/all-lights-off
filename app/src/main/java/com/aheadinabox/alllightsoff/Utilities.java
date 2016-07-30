@@ -17,8 +17,12 @@ import android.widget.ImageView;
  * Created by DDRitter on 08/07/2016.
  */
 public class Utilities extends AppCompatActivity {
-    private static final String PREFS_FILENAME = "appSettings";
-    private static final String LEVELS_STATUS = "levelStatusKey";
+    protected static final String LOGCAT = "AllLightsOff";
+    protected static final String PREFS_FILENAME = "appSettings";
+    protected static final String LEVELS_STATUS = "levelStatusKey";
+    protected static final String GRID_POSITION = "gridPositionKey";
+    protected static final String CURRENT_LEVEL = "currentLevelKey";
+    protected static SharedPreferences sharedPreferences;
 
     /**
      * This method loads the level status data
