@@ -8,13 +8,12 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.aheadinabox.alllightsoff.SplashActivity"
             android:theme="@style/SplashTheme"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -24,29 +23,25 @@
         <activity
             android:name="com.aheadinabox.alllightsoff.MenuActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
         </activity>
         <activity
             android:name="com.aheadinabox.alllightsoff.BoardActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
         </activity>
         <activity
             android:name="com.aheadinabox.alllightsoff.LevelsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
         </activity>
         <activity android:name="com.aheadinabox.alllightsoff.Utilities">
         </activity>
         <activity
             android:name="com.aheadinabox.alllightsoff.SettingsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
         </activity>
         <activity
             android:name="com.aheadinabox.alllightsoff.HelpActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
         </activity>
     </application>
 

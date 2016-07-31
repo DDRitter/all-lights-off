@@ -58,13 +58,13 @@
     <string name="help_paragraph7">Advances to the next level.</string>
     <string name="help_paragraph8">Undoes the last action.\nIt can only be used once in a row.</string>
     <string name="help_paragraph9">Shows the solution for the current pattern.\nNote that by using this the current level will not be saved and the next level will not be unlocked.</string>
-    <string name="help_paragraph10">If there is a game being played some actions will require a confirmation.</string>
+    <string name="help_paragraph10">If there is a game being played some of these actions will require a confirmation.</string>
     <string name="help_paragraph11">Above the board is displayed the level number, the name, and the stars achieved for that level.\nWhen you start a game the stars are updated to show your current achievement as you make the moves:</string>
     <string name="help_paragraph12">Star achieved</string>
     <string name="help_paragraph13">Star not achieved</string>
     <string name="help_paragraph14">This star can be achieved on the current gameplay, as long as you are making the right moves.</string>
     <string name="help_paragraph15">This star cannot be achieved on the current gameplay because you have made too many moves.</string>
-    <string name="help_paragraph16">You can clear the board with 3 stars (gold) if you use the minimum number of moves.\nIf you need more moves, you can receive 2 starts (silver), one star (bronze), or no star at all (pewter).\nClearing the board will always unlock the next level.\nThe game will only update your saved achievement if it is better.</string>
+    <string name="help_paragraph16">You can clear the board with 3 stars (gold) if you use the minimum number of moves.\nIf you need more moves, you may receive 2 starts (silver), one star (bronze), or no star at all (pewter).\nClearing the board will always unlock the next level.\nThe game will only update your saved achievement if it is better.</string>
     <string name="help_paragraph17">Below the stars the game displays the number of moves available for each achievement:</string>
     <string name="help_paragraph18">As you consume your moves the tokens will disappear and the stars will update accordingly.</string>
     <string name="help_paragraph19">When you clear the board a message window will appear on screen showing your result:</string>

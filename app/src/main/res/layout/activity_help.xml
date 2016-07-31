@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/example_pattern"/>
 
-
             <View style="@style/Separator"/>
 
             <TextView
@@ -46,7 +45,7 @@
                 android:text="@string/help_paragraph2"/>
 
             <LinearLayout
-                style="@style/HorizontalLinearLayout"
+                style="@style/HelpGridLayout"
                 android:layout_marginBottom="@dimen/medium_margin">
 
                 <ImageView
@@ -79,8 +78,9 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
+            <GridLayout
+                style="@style/HelpGridLayout"
+                android:columnCount="2">
 
                 <ImageView
                     style="@style/TileMediumHelp"
@@ -90,11 +90,6 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph3"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
-
                 <ImageView
                     style="@style/TileMediumHelp"
                     android:src="@drawable/ic_levels_default"/>
@@ -103,11 +98,6 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph4"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
-
                 <ImageView
                     style="@style/TileMediumHelp"
                     android:src="@drawable/ic_prev_default"/>
@@ -115,10 +105,6 @@
                 <TextView
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph5"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
 
                 <ImageView
                     style="@style/TileMediumHelp"
@@ -128,11 +114,6 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph6"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
-
                 <ImageView
                     style="@style/TileMediumHelp"
                     android:src="@drawable/ic_next_default"/>
@@ -140,11 +121,6 @@
                 <TextView
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph7"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
 
                 <ImageView
                     style="@style/TileMediumHelp"
@@ -154,11 +130,6 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph8"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
-
                 <ImageView
                     style="@style/TileMediumHelp"
                     android:src="@drawable/ic_help_default"/>
@@ -167,7 +138,7 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph9"/>
 
-            </LinearLayout>
+            </GridLayout>
 
             <TextView
                 style="@style/TextParagraph"
@@ -180,7 +151,7 @@
                 android:text="@string/help_paragraph11"/>
 
             <LinearLayout
-                style="@style/HorizontalLinearLayout"
+                style="@style/HelpGridLayout"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:weightSum="12">
 
@@ -219,8 +190,9 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
+            <GridLayout
+                style="@style/HelpGridLayout"
+                android:columnCount="2">
 
                 <ImageView
                     style="@style/TileMediumHelp"
@@ -230,11 +202,6 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph12"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
-
                 <ImageView
                     style="@style/TileMediumHelp"
                     android:src="@drawable/star_unlit"/>
@@ -242,11 +209,6 @@
                 <TextView
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph13"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
 
                 <ImageView
                     style="@style/TileMediumHelp"
@@ -256,11 +218,6 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph14"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/HorizontalLinearLayout">
-
                 <ImageView
                     style="@style/TileMediumHelp"
                     android:src="@drawable/star_disabled"/>
@@ -269,7 +226,8 @@
                     style="@style/ListParagraph"
                     android:text="@string/help_paragraph15"/>
 
-            </LinearLayout>
+            </GridLayout>
+
 
             <TextView
                 style="@style/TextParagraph"
@@ -282,7 +240,7 @@
                 android:text="@string/help_paragraph17"/>
 
             <LinearLayout
-                style="@style/HorizontalLinearLayout"
+                style="@style/HelpGridLayout"
                 android:layout_marginBottom="@dimen/medium_margin">
 
                 <ImageView
