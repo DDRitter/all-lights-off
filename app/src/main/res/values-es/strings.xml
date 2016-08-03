@@ -37,8 +37,7 @@
     <string name="header_settings">Opciones</string>
     <string name="header_help">Ayuda</string>
 
-    <string name="setting_music">Música</string>
-    <string name="setting_sound">Sonido</string>
+    <string name="setting_sound">Audio</string>
     <string name="setting_reset">Borrar niveles guardados</string>
     <string name="setting_language">Idioma</string>
     <string name="setting_tile">Estilo de las luces</string>

@@ -22,7 +22,10 @@ public class Utilities extends AppCompatActivity {
     protected static final String LEVELS_STATUS = "levelStatusKey";
     protected static final String GRID_POSITION = "gridPositionKey";
     protected static final String CURRENT_LEVEL = "currentLevelKey";
-    protected static final String TILE_IMAGE = "tileImageKey";
+    protected static final String TILE_STYLE = "tileStyleKey";
+    protected static final String BACKGROUND_MUSIC = "backgroundMusicKey";
+    protected static final String SOUND_EFFECTS = "soundEffectsKey";
+    protected static final String LANGUAGE = "languageKey";
     protected static SharedPreferences sharedPreferences;
 
     /**

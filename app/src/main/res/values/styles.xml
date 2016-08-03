@@ -89,4 +89,23 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="SettingsTile">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/small_margin</item>
+        <item name="android:layout_marginRight">@dimen/small_margin</item>
+        <item name="android:onClick">setTileImage</item>
+    </style>
+
+    <style name="SettingsTextCategory">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/medium_text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/medium_margin</item>
+    </style>
+
 </resources>

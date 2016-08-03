@@ -27,67 +27,69 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/TextParagraph"
-                android:layout_margin="@dimen/medium_margin"
-                android:gravity="center"
+                style="@style/SettingsTextCategory"
                 android:text="@string/setting_sound"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/sound_effects"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/large_margin"
                     android:layout_marginRight="@dimen/large_margin"
+                    android:onClick="switchSoundEffects"
                     android:src="@drawable/setting_music_on"/>
 
                 <ImageView
+                    android:id="@+id/background_music"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/large_margin"
                     android:layout_marginRight="@dimen/large_margin"
+                    android:onClick="switchBackgroundMusic"
                     android:src="@drawable/setting_sound_on"/>
 
             </LinearLayout>
 
             <TextView
-                style="@style/TextParagraph"
-                android:layout_margin="@dimen/medium_margin"
-                android:gravity="center"
+                style="@style/SettingsTextCategory"
                 android:text="@string/setting_language"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/language_en"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/large_margin"
                     android:layout_marginRight="@dimen/large_margin"
+                    android:onClick="switchLanguage"
                     android:src="@drawable/setting_english_on"/>
 
                 <ImageView
+                    android:id="@+id/language_es"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/large_margin"
                     android:layout_marginRight="@dimen/large_margin"
-                    android:src="@drawable/setting_spanish_off"/>
+                    android:onClick="switchLanguage"
+                    android:src="@drawable/setting_spanish_on"/>
 
             </LinearLayout>
 
             <TextView
-                style="@style/TextParagraph"
-                android:layout_margin="@dimen/medium_margin"
-                android:gravity="center"
+                style="@style/SettingsTextCategory"
                 android:text="@string/setting_tile"/>
 
             <HorizontalScrollView
@@ -96,85 +98,73 @@
                 android:layout_height="match_parent"
                 android:fadingEdgeLength="16dp"
                 android:gravity="center"
-                android:padding="@dimen/medium_margin"
                 android:requiresFadingEdge="horizontal"
                 android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/tile0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:onClick="setTileImage"
+                        style="@style/SettingsTile"
                         android:src="@drawable/tile0_on"
                         android:tag="0"/>
 
                     <ImageView
                         android:id="@+id/tile1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:onClick="setTileImage"
+                        style="@style/SettingsTile"
                         android:src="@drawable/tile1_on"
                         android:tag="1"/>
 
                     <ImageView
                         android:id="@+id/tile2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:onClick="setTileImage"
+                        style="@style/SettingsTile"
                         android:src="@drawable/tile2_on"
                         android:tag="2"/>
 
                     <ImageView
                         android:id="@+id/tile3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:onClick="setTileImage"
+                        style="@style/SettingsTile"
                         android:src="@drawable/tile3_on"
                         android:tag="3"/>
 
                     <ImageView
                         android:id="@+id/tile4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:onClick="setTileImage"
+                        style="@style/SettingsTile"
                         android:src="@drawable/tile4_on"
                         android:tag="4"/>
 
                     <ImageView
                         android:id="@+id/tile5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:onClick="setTileImage"
-                        android:src="@drawable/tile4_on"
+                        style="@style/SettingsTile"
+                        android:src="@drawable/tile5_on"
                         android:tag="5"/>
 
                     <ImageView
                         android:id="@+id/tile6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:onClick="setTileImage"
+                        style="@style/SettingsTile"
                         android:src="@drawable/tile4_on"
                         android:tag="6"/>
+
+                    <ImageView
+                        android:id="@+id/tile7"
+                        style="@style/SettingsTile"
+                        android:src="@drawable/tile4_on"
+                        android:tag="7"/>
+
+                    <ImageView
+                        android:id="@+id/tile8"
+                        style="@style/SettingsTile"
+                        android:src="@drawable/tile4_on"
+                        android:tag="8"/>
+
+                    <ImageView
+                        android:id="@+id/tile9"
+                        style="@style/SettingsTile"
+                        android:src="@drawable/tile4_on"
+                        android:tag="9"/>
 
                 </LinearLayout>
 

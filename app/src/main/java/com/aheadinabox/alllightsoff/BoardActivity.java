@@ -72,7 +72,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         mCurrentLevel = sharedPreferences.getInt(CURRENT_LEVEL, 0);
 
         // Sets the tile image drawables
-        int selectedTile = sharedPreferences.getInt(TILE_IMAGE, 0);
+        int selectedTile = sharedPreferences.getInt(TILE_STYLE, 0);
         String tileOnName = "tile" + selectedTile + "_on";
         if (selectedTile == 1 || selectedTile == 2) {  // Set tile0 background for tile1 and tile2
             selectedTile = 0;
