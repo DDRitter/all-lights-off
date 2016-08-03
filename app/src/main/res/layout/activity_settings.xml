@@ -16,17 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
-        android:columnWidth="96dp"
         android:fadingEdgeLength="16dp"
         android:gravity="center"
-        android:horizontalSpacing="16dp"
-        android:listSelector="@android:color/transparent"
-        android:numColumns="auto_fit"
-        android:padding="@dimen/medium_margin"
         android:requiresFadingEdge="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        android:stretchMode="spacingWidth"
-        android:verticalSpacing="32dp">
+        android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,12 +27,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/TextParagraph"
                 android:layout_margin="@dimen/medium_margin"
                 android:gravity="center"
-                android:text="@string/setting_sound"
-                android:textColor="@color/colorTextSettings"/>
+                android:text="@string/setting_sound"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,19 +56,16 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/TextParagraph"
                 android:layout_margin="@dimen/medium_margin"
-                android:layout_marginTop="@dimen/large_margin"
                 android:gravity="center"
-                android:text="@string/setting_language"
-                android:textColor="@color/colorTextSettings"/>
+                android:text="@string/setting_language"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginBottom="@dimen/large_margin"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -97,49 +85,104 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/TextParagraph"
                 android:layout_margin="@dimen/medium_margin"
-                android:layout_marginTop="@dimen/large_margin"
                 android:gravity="center"
-                android:text="@string/setting_tile"
-                android:textColor="@color/colorTextSettings"/>
+                android:text="@string/setting_tile"/>
 
-            <LinearLayout
+            <HorizontalScrollView
+                android:id="@+id/scroll_of_tiles"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:fadingEdgeLength="16dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:padding="@dimen/medium_margin"
+                android:requiresFadingEdge="horizontal"
+                android:scrollbars="none">
 
-                <ImageView
-                    android:id="@+id/tile1"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/medium_margin"
-                    android:layout_marginRight="@dimen/medium_margin"
-                    android:src="@drawable/tile_on"/>
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/tile2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/medium_margin"
-                    android:layout_marginRight="@dimen/medium_margin"
-                    android:src="@drawable/tile_off"/>
+                    <ImageView
+                        android:id="@+id/tile0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:onClick="setTileImage"
+                        android:src="@drawable/tile0_on"
+                        android:tag="0"/>
 
-                <ImageView
-                    android:id="@+id/tile3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/medium_margin"
-                    android:layout_marginRight="@dimen/medium_margin"
-                    android:src="@drawable/tile_solution"/>
+                    <ImageView
+                        android:id="@+id/tile1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:onClick="setTileImage"
+                        android:src="@drawable/tile1_on"
+                        android:tag="1"/>
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/tile2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:onClick="setTileImage"
+                        android:src="@drawable/tile2_on"
+                        android:tag="2"/>
+
+                    <ImageView
+                        android:id="@+id/tile3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:onClick="setTileImage"
+                        android:src="@drawable/tile3_on"
+                        android:tag="3"/>
+
+                    <ImageView
+                        android:id="@+id/tile4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:onClick="setTileImage"
+                        android:src="@drawable/tile4_on"
+                        android:tag="4"/>
+
+                    <ImageView
+                        android:id="@+id/tile5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:onClick="setTileImage"
+                        android:src="@drawable/tile4_on"
+                        android:tag="5"/>
+
+                    <ImageView
+                        android:id="@+id/tile6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:onClick="setTileImage"
+                        android:src="@drawable/tile4_on"
+                        android:tag="6"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <Button
                 style="@style/MenuButton"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_margin="@dimen/large_margin"
                 android:onClick="resetLevels"
                 android:text="@string/setting_reset"/>
 

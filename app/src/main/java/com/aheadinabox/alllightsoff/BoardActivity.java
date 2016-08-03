@@ -51,6 +51,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     private int mNumberOfMoves;
     private boolean gameHasStarted;
     private boolean solutionIsDisplayed;
+    private int drawableTileOnId;
+    private int drawableTileOffId;
+
     private int mSolutionMoves;
 
     @Override
@@ -64,9 +67,23 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         mNumberOfMoves = 0;
         mSaveGameData = loadLevelStatus(this);
 
-        // Gets the first unsolved level from the preferences
+        // Sets the current level as the first unsolved level from the preferences
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
         mCurrentLevel = sharedPreferences.getInt(CURRENT_LEVEL, 0);
+
+        // Sets the tile image drawables
+        int selectedTile = sharedPreferences.getInt(TILE_IMAGE, 0);
+        String tileOnName = "tile" + selectedTile + "_on";
+        if (selectedTile == 1 || selectedTile == 2) {  // Set tile0 background for tile1 and tile2
+            selectedTile = 0;
+        }
+        String tileOffName = "tile" + selectedTile + "_off";
+        drawableTileOnId = getResources().getIdentifier(tileOnName, "drawable", getPackageName());
+        drawableTileOffId = getResources().getIdentifier(tileOffName, "drawable", getPackageName());
+
+        Log.i(LOGCAT, "" + tileOnName + " " + tileOffName);
+
+
 
         prepareSounds();
         calculateBoardLayout();
@@ -440,7 +457,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         for (int i = 0; i < numColumns * numColumns; i++) {
             image = new ImageView(this);
             image.setLayoutParams(lp);
-            image.setImageResource(R.drawable.tile_off);
+            image.setImageResource(drawableTileOffId);
             backBoard.addView(image);
         }
     }
@@ -470,7 +487,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         }
 
         // Stores the array of tiles on or off
-        for (int id = 0; id < levelCode.length(); id++) {
+        for (int id = 0; id < numberOfTiles; id++) {
             currentCode = levelCode.substring(id, id + 1);
             if (currentCode.equals(tileCodeOn)) {
                 mTilePattern[currentPos] = 1;
@@ -491,7 +508,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             image.setLayoutParams(lp);
             image.setId(id);
             image.setOnTouchListener(this);
-            image.setImageResource(R.drawable.tile_on);
+            image.setImageResource(drawableTileOnId);
             if (mTilePattern[id] == 1) {
                 image.setAlpha(1.0f);
                 animateFade(image, 1, 300);
@@ -579,7 +596,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         for (int i = 0; i < numColumns * numColumns; i++) {
             image = new ImageView(this);
             image.setLayoutParams(lp);
-            image.setImageResource(R.drawable.tile_on);
+            image.setImageResource(drawableTileOnId);
             board.addView(image);
             animateFade(image, 1, 300);
         }

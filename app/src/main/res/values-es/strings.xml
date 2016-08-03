@@ -41,7 +41,7 @@
     <string name="setting_sound">Sonido</string>
     <string name="setting_reset">Borrar niveles guardados</string>
     <string name="setting_language">Idioma</string>
-    <string name="setting_tile">Imagen de botón</string>
+    <string name="setting_tile">Estilo de las luces</string>
 
     <plurals name="number_of_moves">
         <item quantity="one">Nivel superado con 1 movimiento</item>

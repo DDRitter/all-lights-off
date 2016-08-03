@@ -22,6 +22,7 @@ public class Utilities extends AppCompatActivity {
     protected static final String LEVELS_STATUS = "levelStatusKey";
     protected static final String GRID_POSITION = "gridPositionKey";
     protected static final String CURRENT_LEVEL = "currentLevelKey";
+    protected static final String TILE_IMAGE = "tileImageKey";
     protected static SharedPreferences sharedPreferences;
 
     /**
@@ -30,7 +31,7 @@ public class Utilities extends AppCompatActivity {
      * @return the status
      */
     protected static String loadLevelStatus(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
         return sharedPreferences.getString(LEVELS_STATUS, null);
     }
 
@@ -40,7 +41,7 @@ public class Utilities extends AppCompatActivity {
      * @param data the status
      */
     protected static void saveLevelStatus(String data, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
         SharedPreferences.Editor settingsEditor = sharedPreferences.edit();
         settingsEditor.putString(LEVELS_STATUS, data);
         settingsEditor.apply();

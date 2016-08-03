@@ -41,7 +41,7 @@
     <string name="setting_sound">Sound effects</string>
     <string name="setting_reset">Wipe level data</string>
     <string name="setting_language">Language</string>
-    <string name="setting_tile">Tile image</string>
+    <string name="setting_tile">Tile style</string>
 
     <plurals name="number_of_moves">
         <item quantity="zero">Level cleared in 0 moves</item>
