@@ -71,25 +71,14 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
         mCurrentLevel = sharedPreferences.getInt(CURRENT_LEVEL, 0);
 
-        // Sets the tile image drawables
-        int selectedTile = sharedPreferences.getInt(TILE_STYLE, 0);
-        String tileOnName = "tile" + selectedTile + "_on";
-        if (selectedTile == 1 || selectedTile == 2) {  // Set tile0 background for tile1 and tile2
-            selectedTile = 0;
-        }
-        String tileOffName = "tile" + selectedTile + "_off";
-        drawableTileOnId = getResources().getIdentifier(tileOnName, "drawable", getPackageName());
-        drawableTileOffId = getResources().getIdentifier(tileOffName, "drawable", getPackageName());
-
-        Log.i(LOGCAT, "" + tileOnName + " " + tileOffName);
-
-
+        setTileImageDrawables();
 
         prepareSounds();
         calculateBoardLayout();
         createBackgroundBoard(numberOfColumns, sizeOfTiles);
         createForegroundBoard(numberOfColumns, sizeOfTiles, mLevelCode[mCurrentLevel]);
     }
+
 
     /**
      * This method calculates the sizes for the board and the pop-up panel
@@ -894,5 +883,21 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             view.setEnabled(false);
             view.setAlpha(0.25f);
         }
+    }
+
+    /**
+     * Sets the tile images drawables from the value on current settings
+     */
+    private void setTileImageDrawables() {
+        int selectedTile = sharedPreferences.getInt(TILE_STYLE, 0);
+        String tileOnName = "tile" + selectedTile + "_on";
+        if (selectedTile == 1 || selectedTile == 2) {  // Set tile0 background for tile1 and tile2
+            selectedTile = 0;
+        } else if (selectedTile == 9 || selectedTile == 10) {  // Set tile8 background for tile9 and tile10
+            selectedTile = 8;
+        }
+        String tileOffName = "tile" + selectedTile + "_off";
+        drawableTileOnId = getResources().getIdentifier(tileOnName, "drawable", getPackageName());
+        drawableTileOffId = getResources().getIdentifier(tileOffName, "drawable", getPackageName());
     }
 }

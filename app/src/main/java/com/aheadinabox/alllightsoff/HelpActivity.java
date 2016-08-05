@@ -14,11 +14,16 @@ import static com.aheadinabox.alllightsoff.Utilities.*;
 
 public class HelpActivity extends AppCompatActivity {
 
+    private int drawableTileOnThumbId;
+    private int drawableTileOffThumbId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_help);
+
+        setTileThumbImageDrawables();
 
         createExampleGrid();
     }
@@ -41,8 +46,8 @@ public class HelpActivity extends AppCompatActivity {
     private void createExampleGrid() {
         // Sets the grid pattern content on a Bitmap with a Canvas
         int numberOfColumns = 9;
-        Bitmap thumbTileOn = BitmapFactory.decodeResource(getResources(), R.drawable.tile_on_thumb);
-        Bitmap thumbTileOff = BitmapFactory.decodeResource(getResources(), R.drawable.tile_off_thumb);
+        Bitmap thumbTileOn = BitmapFactory.decodeResource(getResources(), drawableTileOnThumbId);
+        Bitmap thumbTileOff = BitmapFactory.decodeResource(getResources(), drawableTileOffThumbId);
         Bitmap thumbSolution =  BitmapFactory.decodeResource(getResources(), R.drawable.tile_solution_thumb);
         Bitmap arrowRight =  BitmapFactory.decodeResource(getResources(), R.drawable.arrow_right);
         Bitmap thumbExample;
@@ -72,5 +77,21 @@ public class HelpActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.example_pattern);
         imageView.setImageBitmap(thumbExample);
+    }
+
+    /**
+     * Sets the tile thumb images drawables from the value on current settings
+     */
+    private void setTileThumbImageDrawables() {
+        int selectedTile = sharedPreferences.getInt(TILE_STYLE, 0);
+        String tileOnName = "tile" + selectedTile + "_on_thumb";
+        if (selectedTile == 1 || selectedTile == 2) {  // Set tile0 background for tile1 and tile2
+            selectedTile = 0;
+        } else if (selectedTile == 9 || selectedTile == 10) {  // Set tile8 background for tile9 and tile10
+            selectedTile = 8;
+        }
+        String tileOffName = "tile" + selectedTile + "_off_thumb";
+        drawableTileOnThumbId = getResources().getIdentifier(tileOnName, "drawable", getPackageName());
+        drawableTileOffThumbId = getResources().getIdentifier(tileOffName, "drawable", getPackageName());
     }
 }

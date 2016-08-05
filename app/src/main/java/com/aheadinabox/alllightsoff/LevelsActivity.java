@@ -29,6 +29,9 @@ public class LevelsActivity extends AppCompatActivity {
     private String mSaveGameData;
     private static int numberOfColumns = 5;                 // The size of one side of the pattern
 
+    private int drawableTileOnThumbId;
+    private int drawableTileOffThumbId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,8 @@ public class LevelsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_levels);
 
         sharedPreferences = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE);
+
+        setTileThumbImageDrawables();
 
         mLevelCode = getResources().getStringArray(R.array.level_codes);
         mSaveGameData = loadLevelStatus(this);
@@ -121,8 +126,8 @@ public class LevelsActivity extends AppCompatActivity {
 
             // Sets the grid pattern content on a Bitmap with a Canvas
 
-            Bitmap thumbTileOn = BitmapFactory.decodeResource(getResources(), R.drawable.tile_on_thumb);
-            Bitmap thumbTileOff = BitmapFactory.decodeResource(getResources(), R.drawable.tile_off_thumb);
+            Bitmap thumbTileOn = BitmapFactory.decodeResource(getResources(), drawableTileOnThumbId);
+            Bitmap thumbTileOff = BitmapFactory.decodeResource(getResources(), drawableTileOffThumbId);
             Bitmap thumbPattern;
             String currentCode;
             String tileCodeOn = getString(R.string.tile_code_on);
@@ -149,5 +154,21 @@ public class LevelsActivity extends AppCompatActivity {
 
             return gridItem;
         }
+    }
+
+    /**
+     * Sets the tile thumb images drawables from the value on current settings
+     */
+    private void setTileThumbImageDrawables() {
+        int selectedTile = sharedPreferences.getInt(TILE_STYLE, 0);
+        String tileOnName = "tile" + selectedTile + "_on_thumb";
+        if (selectedTile == 1 || selectedTile == 2) {  // Set tile0 background for tile1 and tile2
+            selectedTile = 0;
+        } else if (selectedTile == 9 || selectedTile == 10) {  // Set tile8 background for tile9 and tile10
+            selectedTile = 8;
+        }
+        String tileOffName = "tile" + selectedTile + "_off_thumb";
+        drawableTileOnThumbId = getResources().getIdentifier(tileOnName, "drawable", getPackageName());
+        drawableTileOffThumbId = getResources().getIdentifier(tileOffName, "drawable", getPackageName());
     }
 }

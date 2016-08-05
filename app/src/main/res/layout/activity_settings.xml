@@ -145,26 +145,32 @@
                     <ImageView
                         android:id="@+id/tile6"
                         style="@style/SettingsTile"
-                        android:src="@drawable/tile4_on"
+                        android:src="@drawable/tile6_on"
                         android:tag="6"/>
 
                     <ImageView
                         android:id="@+id/tile7"
                         style="@style/SettingsTile"
-                        android:src="@drawable/tile4_on"
+                        android:src="@drawable/tile7_on"
                         android:tag="7"/>
 
                     <ImageView
                         android:id="@+id/tile8"
                         style="@style/SettingsTile"
-                        android:src="@drawable/tile4_on"
+                        android:src="@drawable/tile8_on"
                         android:tag="8"/>
 
                     <ImageView
                         android:id="@+id/tile9"
                         style="@style/SettingsTile"
-                        android:src="@drawable/tile4_on"
+                        android:src="@drawable/tile9_on"
                         android:tag="9"/>
+
+                    <ImageView
+                        android:id="@+id/tile10"
+                        style="@style/SettingsTile"
+                        android:src="@drawable/tile10_on"
+                        android:tag="10"/>
 
                 </LinearLayout>
 
