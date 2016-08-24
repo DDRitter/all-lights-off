@@ -256,14 +256,14 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             }
 
             // Sets a delay before clearing the board views to allow for the last fadeout animation
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    // Removes the board views
-                    GridLayout board = (GridLayout) findViewById(R.id.board_tiles);
-                    board.removeAllViews();
-                }
-            }, 300);
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                public void run() {
+//                    // Removes the board views
+//                    GridLayout board = (GridLayout) findViewById(R.id.board_tiles);
+//                    board.removeAllViews();
+//                }
+//            }, 300);
 
             // Shows the pop-up window
             View popup = findViewById(R.id.pop_up);
@@ -272,6 +272,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
             gameHasStarted = false;
             setPanelContent();
+
+            // Todo: set animation after end game
+            animateBoard(numberOfTiles, sizeOfTiles);
         }
     }
 
@@ -426,7 +429,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             mNumberOfMoves--;
             changeTiles(lastTileId);
             setButtonState(view, 0);
-            //Todo: Add solution tile if it's appropriate
             if (solutionIsDisplayed) {
                 updateSolutionDisplay(findViewById(R.id.help_button));
             } else {
@@ -573,22 +575,27 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
     /**
      * This method animates the lights on the board
-     * Todo: Not working as intended, add delay between lights
+     * Todo: Not working as intended, set the lights on after animation and avoid clearing the board at the end
+     * Todo: and wait for the animation end before showing the pop-up window)
+     * Todo: Change animation to perform an spiral
      */
-    public void animateBoard(int numColumns, int tileSize) {
+    public void animateBoard(int numTiles, int tileSize) {
         ImageView image;
-        LayoutParams lp = new LayoutParams(tileSize, tileSize);
+        int[] path = {0, 1, 2, 3, 4, 9, 14, 19, 24, 23, 22, 21, 20, 15, 10, 5, 6, 7, 8, 13, 18, 17, 16, 11, 12};
         GridLayout board = (GridLayout) findViewById(R.id.board_tiles);
-        board.removeAllViews();
-        board.setColumnCount(numColumns);
-
-        for (int i = 0; i < numColumns * numColumns; i++) {
-            image = new ImageView(this);
-            image.setLayoutParams(lp);
+        int time = 0;
+        for (int i : path) {
+            image = (ImageView) board.findViewById(i);
             image.setImageResource(drawableTileOnId);
-            board.addView(image);
-            animateFade(image, 1, 300);
+            animateFade(image, 1, 300, 100 * time);
+            time++;
         }
+
+//        for (int i = 0; i < numTiles; i++) {
+//            image = (ImageView) board.findViewById(i);
+//            image.setImageResource(drawableTileOnId);
+//            animateFade(image, 1, 300, 100 * i);
+//        }
     }
 
     /*

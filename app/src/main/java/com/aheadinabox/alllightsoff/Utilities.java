@@ -159,6 +159,29 @@ public class Utilities extends AppCompatActivity {
     }
 
     /**
+     * This method animates the fade in or out of an ImageView
+     *
+     * @param view     the ImageView object
+     * @param toggle   indicates if the animation is a fade-in (1) or a fade-out (0)
+     * @param duration the duration of the animation in milliseconds
+     * @param delay    the delay before starting the animation in milliseconds
+     */
+    protected static void animateFade(View view, int toggle, int duration, int delay) {
+        Animation fade;
+        if (toggle == 1) {
+            fade = new AlphaAnimation(0, 1);
+        } else {
+            fade = new AlphaAnimation(1, 0);
+        }
+        fade.setInterpolator(new DecelerateInterpolator());
+        fade.setDuration(duration);
+        fade.setStartOffset(delay);
+        fade.setFillAfter(true);
+        view.setAlpha(1.0f);
+        view.startAnimation(fade);
+    }
+
+    /**
      * This method animates the scale in or out of an ImageView
      *
      * @param view     the ImageView object
